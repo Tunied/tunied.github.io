@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.xiuzhen.me/categories/index.html</loc>
+    
+    <lastmod>2017-12-03T03:58:28.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://www.xiuzhen.me/tags/index.html</loc>
+    
+    <lastmod>2017-12-03T03:58:21.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.xiuzhen.me/2017/e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea/</loc>
     
     <lastmod>2017-12-03T03:43:32.000Z</lastmod>
@@ -26,20 +40,6 @@
     <loc>http://www.xiuzhen.me/2017/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/</loc>
     
     <lastmod>2017-12-03T01:42:09.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.xiuzhen.me/categories/index.html</loc>
-    
-    <lastmod>2017-12-02T23:29:15.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.xiuzhen.me/tags/index.html</loc>
-    
-    <lastmod>2017-12-02T23:29:15.000Z</lastmod>
     
   </url>
   
