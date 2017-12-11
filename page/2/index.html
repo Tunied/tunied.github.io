@@ -82,7 +82,7 @@
 <meta name="description" content="独立游戏开发者">
 <meta property="og:type" content="website">
 <meta property="og:title" content="隔壁老王">
-<meta property="og:url" content="http://www.xiuzhen.me/tags/CESDK/index.html">
+<meta property="og:url" content="http://www.xiuzhen.me/page/2/index.html">
 <meta property="og:site_name" content="隔壁老王">
 <meta property="og:description" content="独立游戏开发者">
 <meta property="og:locale" content="zh-Hans">
@@ -118,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xiuzhen.me/tags/CESDK/"/>
+  <link rel="canonical" href="http://www.xiuzhen.me/page/2/"/>
 
 
 
 
 
-  <title>标签: CESDK | 隔壁老王</title>
+  <title>隔壁老王</title>
   
 
 
@@ -143,7 +143,8 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -246,111 +247,203 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
 
   
   
   
-  <div class="post-block tag">
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>CESDK<small>标签</small>
-        </h1>
-      </div>
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/" itemprop="url">C# List<T>.Sort  探究</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T00:00:00+08:00">
+                2017-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C#</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/" class="leancloud_visitors" data-flag-title="C# List<T>.Sort  探究">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
 
       
         
+          
+            <h2 id="C-中Sort的排序实现"><a href="#C-中Sort的排序实现" class="headerlink" title="C#中Sort的排序实现"></a>C#中Sort的排序实现</h2><p><a href="https://msdn.microsoft.com/en-us/library/b0zbh7b6(v=vs.110" target="_blank" rel="noopener">MSDN</a>.aspx)</p>
+<div class="note success"><p>此方法使用 Array.Sort 方法，后者适用<code>反省排序</code>，如下所示︰</p>
+<ul>
+<li>如果分区大小少于 16 个元素，它使用插入排序算法。</li>
+<li>如果分区数超过 2 * LogN，其中 N 是范围的输入数组，它使用 Heapsort 算法。<br>否则，它使用快速排序算法。</li>
+</ul>
+<p>此实现将执行不稳定排序 也就是说,如果两个元素相等,可能不会保留它们的顺序.<br>与此相反,稳定排序保留相等的元素的顺序。 </p>
+<ul>
+<li>一般情况下,此方法为 O (n log n) 操作，其中 n 是 Count; 最坏的情况是 O (n ^2) 操作。</li>
+</ul></div>
+<h3 id="插入排序-Insertion-Sort"><a href="#插入排序-Insertion-Sort" class="headerlink" title="插入排序 (Insertion Sort)"></a>插入排序 (Insertion Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/insertion-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/00c37c01-098a-43c4-bd6c-660a00e35404.gif" alt="00c37c01-098a-43c4-bd6c-660a00e35404"></p>
+<h3 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序 (Quick Sort)"></a>快速排序 (Quick Sort)</h3><p><a href="http://bubkoo.com/2014/01/12/sort-algorithm/quick-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/45cf8e7b-6be1-4eb6-9be3-500494650c47.gif" alt="45cf8e7b-6be1-4eb6-9be3-500494650c47"></p>
+<h3 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序 (Heap Sort)"></a>堆排序 (Heap Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/heap-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/d99c5742-7e13-426b-a1cf-0be34c0228b9.gif" alt="d99c5742-7e13-426b-a1cf-0be34c0228b9"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/33085f44-157c-4b99-b50b-cc4874278e38.png" alt="33085f44-157c-4b99-b50b-cc4874278e38"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p><code>插入排序 (Insertion Sort)</code></p>
+<blockquote>
+<p>最简单,适合小数量元素排序<br>快速排序 (Quick Sort)</p>
+</blockquote>
+<p><code>快速排序 (Quick Sort)</code></p>
+<blockquote>
+<p>主旨就是将所有元素切块分成 [小于A],[A],[大于A] 然后再递归小于A和大于A的两部分 直到最终排序完成<br>堆排序 (Heap Sort)</p>
+</blockquote>
+<p><code>堆排序 (Heap Sort)</code></p>
+<blockquote>
+<p>从树的最后一个节点(数组的最后一位)开始,进行Build-Max-Heap然后递归的index-1,再继续次操作.</p>
+</blockquote>
+<h3 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h3><p>如果按CSDN中所说,内部排序是根据待排序元素的多少进行选择最终排序算法.<br>按上面三种排序的话,在<code>list.Sort((x,y)=&gt;{...})</code>函数中,理论不应该存在x,y是同一个元素的情况.<br>所以之前代码中比较函数写的都是<code>x&gt;y?1:-1</code>这样排序会不准.</p>
+<p><strong>应该改为</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(x==y)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">return</span> x&gt;y?<span class="number">1</span>:<span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p><strong>Unity中测试结果</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TSortData</span></span></span><br><span class="line"><span class="class">   &#123;</span></span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">int</span> UID;</span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">int</span> sortIndex;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   var <span class="built_in">list</span> = <span class="keyword">new</span> List&lt;TSortData&gt;();</span><br><span class="line">   <span class="keyword">for</span> (var i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++)</span><br><span class="line">   &#123;</span><br><span class="line">       var data = <span class="keyword">new</span> TSortData</span><br><span class="line">       &#123;</span><br><span class="line">           UID = i,</span><br><span class="line">           sortIndex = Random.Range(<span class="number">10</span>, <span class="number">99</span>)</span><br><span class="line">       &#125;;</span><br><span class="line">       <span class="built_in">list</span>.Add(data);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">list</span>.Sort((x, y) =&gt;</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">if</span> (x.UID == y.UID)</span><br><span class="line">       &#123;</span><br><span class="line">           Debug.LogFormat(<span class="string">"Sort x,y is the same element &lt;color=red&gt;UID = &#123;0&#125;&lt;/color&gt;, sortIndex = &#123;1&#125;"</span>, x.UID, x.sortIndex);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> x.sortIndex &gt; y.sortIndex ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>结果</strong></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/61268421.png" alt="61268421"></p>
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
+          
         
-            <a class="post-title-link" href="/d0327b10-dcb5-11e7-902b-4f747c6830ed/" itemprop="url">
-              
-                <span itemprop="name">CESDK IOS环境搭建</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-12-09T15:51:49+08:00"
-              content="2017-12-09" >
-          12-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/7025e640-db2e-11e7-a265-dda975655901/" itemprop="url">
-              
-                <span itemprop="name">CESDK Android阶段性总结</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-12-07T17:10:15+08:00"
-              content="2017-12-07" >
-          12-07
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-      
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/0b131150-d98b-11e7-b3ad-5130597fcc90/" itemprop="url">
-              
-                <span itemprop="name">CESDK Android环境搭建及相互通讯</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-12-05T15:08:06+08:00"
-              content="2017-12-05" >
-          12-05
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
   
   
   
+  </article>
+
+
+    
+  </section>
 
   
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
