@@ -262,6 +262,317 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/dce56270-e88e-11e7-9d4a-778b0cc8b129/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/dce56270-e88e-11e7-9d4a-778b0cc8b129/" itemprop="url">BehaviorDesigner LowerPriority Bug及解决方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T17:43:14+08:00">
+                2017-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这个问题到底是不是一个Bug还不好说,因为是非正规渠道获取的插件,所以没法去论坛提问.我给Support去了一封邮件,不过目前还没有得到答案.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171224-173639.jpg" alt="QQ20171224-173639"></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunAfterTwoSecond</span> : <span class="type">Conditional</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> TaskStatus OnUpdate()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!(Time.time &gt; <span class="number">2</span>f)) <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">        Debug.Log(<span class="string">"RunAfterTwoSecond check is TRUE, should run next task"</span>);</span><br><span class="line">        <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如图所示. 逻辑首先会执行<code>TreeB</code>,然后2秒以后.<code>TreeA</code>的判断逻辑会触发成功(因为设置了LowerPriority)</p>
+<p>此时会执行一遍<code>TreeA</code>,因为最终结果有<code>Return Failure</code>的装饰.所以又会执行<code>TreeB</code></p>
+<p>此时<code>TreeA</code>的条件会一直触发返回<code>TRUE</code>,但是<code>TreeA</code>不会再次运行.</p>
+<p>这个Bug触发的条件有两个,一个是<code>RunAfterTwoSecond</code>在2秒以后恒定返回<code>TRUE</code>,且后续逻辑执行导致整个<code>Tree</code>返回了<code>Failure</code>.</p>
+<p>第二个条件是,后续的条件逻辑返回的是<code>TaskRunning</code>. 所以导致整个<code>Selector</code>逻辑卡死在同一个loop中.</p>
+<p>暂时绕开的解决方案如图:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171224-173552.jpg" alt="QQ20171224-173552"></p>
+<p>每个有<code>LowerPriority</code>判断的子树,除了需要不停做判断的<code>Conditional</code>以外全部都设置到一个永远返回<code>Success</code>的Deco下面</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/19753c20-e23f-11e7-869e-21b0f4c1ad88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/19753c20-e23f-11e7-869e-21b0f4c1ad88/" itemprop="url">Unity外置ExternalBehavior</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T16:57:09+08:00">
+                2017-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="为何要外置"><a href="#为何要外置" class="headerlink" title="为何要外置"></a>为何要外置</h2><p><code>Behavior Designer</code>是Unity的一个插件,我用与处理AI逻辑.当AI逻辑很复杂的情况下会使用到<code>ExternalBehavior</code>.</p>
+<p><code>ExternalBehavior</code>相当于是<code>BehaviorTree</code>的嵌套. 但是对于多重嵌套情况 他自带的Task支持的并不好.</p>
+<p>比如:</p>
+<p>一个角色AI,最外层的逻辑可能为<code>发呆</code>,<code>觅食</code>,<code>巡逻</code>等等.</p>
+<p><code>觅食</code>和<code>巡逻</code>是两个<code>ExternalBehavior</code>,里面的实现又会用到另外的两个<code>ExternalBehavior</code>,比如<code>移动</code>,<code>攻击</code></p>
+<p>这时候我们有两个角色,<code>角色A</code>,<code>角色B</code>. AB两个角色其<code>移动</code>,<code>攻击</code>使用不同的<code>ExternalBehavior</code></p>
+<p><code>A-Move</code>,<code>A-Attack</code>,<code>B-Move</code>,<code>B-Attack</code></p>
+<p>由于嵌套最里层的<code>ExternalBehavior</code>不同,所以导致上层的<code>觅食</code>,<code>巡逻</code> 也需要有两个. </p>
+<p><code>角色A-觅食</code>,<code>角色A-巡逻</code><br><code>角色B-觅食</code>,<code>角色B-巡逻</code></p>
+<p>这样如果当AI非常复杂,嵌套层级又多.维护起来非常麻烦.</p>
+<h2 id="改进方法"><a href="#改进方法" class="headerlink" title="改进方法"></a>改进方法</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-171241.jpg" alt="QQ20171216-171241"></p>
+<p>将对应的<code>ExternalBehavior</code>提到外层的<code>Variables</code>变量中来,利用<code>ExternalBehavior</code>和主的<code>Behavior</code>如果变量名相同则自动Override的特性.将所有的<code>ExternalBehavior</code>放出来.只要保证编写每个<code>ExternalBehavior</code>时候,使用相同的变量名,则自动替换所有的.</p>
+<p>还是上面的例子. 建立<code>Variables</code></p>
+<ul>
+<li>LowLevelAI_Move</li>
+<li>LowLevelAI_Attack</li>
+<li>HightLevelAI_Eat</li>
+<li>HightLevelAI_Patrol</li>
+</ul>
+<p>这样对于角色A和角色B,Eat和Patrol可以使用同一个<code>ExternalBehavior</code>,只是<code>Move</code>和<code>Attack</code>分别使用不同的.</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>CEExternalBehaviorTree.cs</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 自定义ExternalBehavior</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 使用SharedExternalTree做参数,该参数可以在BD Root处进行设置.这样就可以在外部配置相应的需要Override的BD</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">[<span class="meta">TaskIcon(<span class="meta-string">"BehaviorTreeReferenceIcon.png"</span>)</span>]</span><br><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEExternalBehaviorTree</span> : <span class="title">BehaviorReference</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> CESharedExternalTree externalTree;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> BehaviorDesigner.Runtime.<span class="function">ExternalBehavior[] <span class="title">GetExternalBehaviors</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (externalTree.Value != <span class="literal">null</span>) <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;externalTree.Value&#125;;</span><br><span class="line">        <span class="keyword">var</span> dummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;dummy&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CESharedExternalTree.cs</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> CESharedExternalTree : SharedVariable&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> static <span class="keyword">implicit</span> operator CESharedExternalTree(BehaviorDesigner.Runtime.ExternalBehavior <span class="keyword">value</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> new CESharedExternalTree &#123;<span class="keyword">Value</span> = <span class="keyword">value</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CEIsExternalTreeNotNull.cs</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEIsExternalTreeNotNull</span> : <span class="title">Conditional</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> CESharedExternalTree tree;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> BehaviorDesigner.Runtime.ExternalBehavior mDummy;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnAwake</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mDummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> TaskStatus <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (tree.Value == <span class="literal">null</span> || tree.Value == mDummy)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>同时需要在<code>Resources/BD</code>目录下放置一个<code>Dummy</code>的<code>ExternalBehavior</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-172214.jpg" alt="QQ20171216-172214"></p>
+<p>这么做的操作是为了做判空,因为如果<code>ExternalBehavior</code>默认为空则运行时候就会报错. 而做判空是为了更方便做扩展.</p>
+<p>还是刚才的例子,如果角色A和角色B的<code>Move</code>,<code>Attack</code>不同点 一个在于是走,一个是跑,一个是近战攻击,一个是远程攻击.</p>
+<p>那就是可以建立一个CommonAI,其变量为:</p>
+<ul>
+<li>LowLevelAI_Walk</li>
+<li>LowLevelAI_Run</li>
+<li>LowLevelAI_CloseAttack</li>
+<li>LowLevelAI_RangeAttack</li>
+<li>HightLevelAI_Eat</li>
+<li>HightLevelAI_Patrol</li>
+</ul>
+<p>这样角色A和角色B可以用同一个<code>BehaviorTree</code>,只是实现不同的行为,没有的默认留空. 内部逻辑通过<code>CEIsExternalTreeNotNull</code>进行判断,从而选择不同的实现方式.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/b09f8040-de81-11e7-ad11-a1cb35453017/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -332,17 +643,6 @@
           
 
           
-          
-             <span id="/b09f8040-de81-11e7-ad11-a1cb35453017/" class="leancloud_visitors" data-flag-title="Unity中使用Protobuf进行网络通讯">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
           
 
           
@@ -514,17 +814,6 @@
           
 
           
-          
-             <span id="/d0327b10-dcb5-11e7-902b-4f747c6830ed/" class="leancloud_visitors" data-flag-title="CESDK IOS环境搭建">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
           
 
           
@@ -717,17 +1006,6 @@
 
           
           
-             <span id="/7025e640-db2e-11e7-a265-dda975655901/" class="leancloud_visitors" data-flag-title="CESDK Android阶段性总结">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -778,7 +1056,7 @@
 <p>在APK所在的目录执行如下命令:</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">apktool</span> <span class="selector-tag">d</span> <span class="selector-tag">xxx</span><span class="selector-class">.apk</span></span><br></pre></td></tr></table></figure>
 <p>使用<code>keytool</code>查看<code>original/META-INF/CERT.RSA</code></p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="keyword">file</span> 解压后的目录<span class="regexp">/original/M</span>ETA-INF<span class="regexp">/CERT.RSA</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="keyword">file</span> 解压后的目录/original/META-<span class="literal">INF</span>/CERT.RSA</span><br></pre></td></tr></table></figure>
 <p>得到结果</p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/59787968.png" alt="59787968"></p>
 <p>可以看到<code>MD5</code>这行的信息和使用微信提供的工具查看到的信息相同.</p>
@@ -807,7 +1085,7 @@
 <p>注意<strong>不能</strong>在<code>/Plugins/Android/任意文件夹/libs</code>目录. 因为这样会导致jar包被重复打包,导入jar文件冲突(DEX xxx 什么的错误).</p>
 <h2 id="Unity合并AndroidManifest-xml"><a href="#Unity合并AndroidManifest-xml" class="headerlink" title="Unity合并AndroidManifest.xml"></a>Unity合并AndroidManifest.xml</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>因为<code>wxapi.WXEntryActivity</code>的问题,在<code>AndroidManifest.xml</code>中必须导出这个Activity,而使用Unity直接打包,就需要给最终的<code>AndroidManifest.xml</code>加入这部分信息.</p>
 <p>Unity规定</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Plugins/</span>Android<span class="regexp">/任意文件夹/</span>AndroidManifest.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Plugins/</span>Android<span class="regexp">/任意文件夹/</span>AndroidManifest.xml</span><br></pre></td></tr></table></figure>
 <p>在Android子文件夹下的<code>AndroidManifest.xml</code>文件会Merge到最终的<code>AndroidManifest.xml</code>中来. </p>
 <p>如果存在<code>/Plugins/Android/AndroidManifest.xml</code>则使用该<code>AndroidManifest.xml</code>作为初始的模板,如果不存在则使用默认的.</p>
 <h3 id="project-properties"><a href="#project-properties" class="headerlink" title="project.properties"></a>project.properties</h3><p>之前试了好几次都不行,困扰了我半天. 后来发现是因为子目录中没有包含<code>project.properties</code>文件.</p>
@@ -941,17 +1219,6 @@
           
 
           
-          
-             <span id="/0b131150-d98b-11e7-b3ad-5130597fcc90/" class="leancloud_visitors" data-flag-title="CESDK Android环境搭建及相互通讯">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
           
 
           
@@ -1125,17 +1392,6 @@
 
           
           
-             <span id="/bd1616d0-d8d3-11e7-9689-e5893dd48eee/" class="leancloud_visitors" data-flag-title="ScrollView自适应大小及屏幕DebugLogPanel">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -1287,17 +1543,6 @@
           
 
           
-          
-             <span id="/e0a73f70-d806-11e7-b61e-df7a8a0a8d31/" class="leancloud_visitors" data-flag-title="如何在Mac下安装Adobe Flash">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
           
 
           
@@ -1456,17 +1701,6 @@
           
 
           
-          
-             <span id="/85eaf220-d806-11e7-8ea6-639de8f06c5d/" class="leancloud_visitors" data-flag-title="手动创建Mesh及相关理论知识">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
           
 
           
@@ -1654,17 +1888,6 @@
 
           
           
-             <span id="/e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea/" class="leancloud_visitors" data-flag-title="Hexo配置流程">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
 
           
 
@@ -1789,515 +2012,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/" itemprop="url">Unity中的屏幕适配及PixelPerfect</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T16:00:31+08:00">
-                2017-12-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/" class="leancloud_visitors" data-flag-title="Unity中的屏幕适配及PixelPerfect">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="PixelPerfect"><a href="#PixelPerfect" class="headerlink" title="PixelPerfect"></a>PixelPerfect</h2><p><strong>什么叫PixelPerfect?</strong></p>
-<p>假设 1unit = 1 pixel </p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/a.png" alt="a"></p>
-<p>像素只可以等倍数的放大,比如1倍,2倍,3倍…</p>
-<p>假设相机的Size是5 则在Editor屏幕中,一列(Heigh方向)显示10个像素.  Game屏(目标设备)的分辨率的高必须为10的整数被<br>n x 10 (10,20,30,40 这样)</p>
-<p>此时只要把Editor中的像素 1:n的复制到 Game屏 即可, 此时就是 PixelPerfect  (n是整数倍)</p>
-<p>再假设,此时更改Game屏的分辨率到 30x13 ,  </p>
-<p>需要把Editor中的10个像素 基于某种算法 复制到 Game屏的13个像素中 此时就不是PixelPerfect.</p>
-<p>换句话说就是 </p>
-<div class="note success"><p><strong>目标设备分辨率(Game屏幕) 必须是 开发分辨率 (Editor屏) 的整数倍才行.</strong></p></div>
-<p>注意: 目标分辨率不能小于开发分辨率,比如 开发分辨率是100px高,但是设备分辨率只有50px高. 此时如果期望把100px显示在50px的设备上 必然会缩放,缩放必然会丢像素,所以无法为PixelPerfect</p>
-<p>就着上面说,<code>因为设备分辨率是固定的,所以能调整的仅有开发分辨率,也就是相机的Size.</code></p>
-<p>假设 设备分辨率为1440x900 , 高度为900px. (1unit=1pixel) 则由如下关系</p>
-<table>
-<thead>
-<tr>
-<th>设备分辨率</th>
-<th>开发分辨率</th>
-<th>相机Size</th>
-<th>相机Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>900px</td>
-<td>900px</td>
-<td>450</td>
-<td>1x</td>
-</tr>
-<tr>
-<td>900px</td>
-<td>450px</td>
-<td>225</td>
-<td>2x</td>
-</tr>
-<tr>
-<td>900px</td>
-<td>300px</td>
-<td>150</td>
-<td>3x</td>
-</tr>
-<tr>
-<td>900px</td>
-<td>225px</td>
-<td>112.5</td>
-<td>4x</td>
-</tr>
-</tbody>
-</table>
-<p>容易混淆: 开发分辨率并不是图片的大小,比如一张背景图可以是1000px x 1000px的 只不过显示的区域是900px 450px (仅仅显示一部分). 反过来说 一个角色 可以是 30px x 50px. 同理 显示的区域仍旧是 900px 450px.  图片画多大和开发分辨率无关.</p>
-<h3 id="PixelPerfect-适合的适配方案"><a href="#PixelPerfect-适合的适配方案" class="headerlink" title="PixelPerfect 适合的适配方案"></a>PixelPerfect 适合的适配方案</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/8985113e-7962-4d5c-840a-a032ab77a46f.jpg" alt="8985113e-7962-4d5c-840a-a032ab77a46f"></p>
-<p>比如横板卷轴,设计关卡高度为300px,上下留出50px冗余 也就是 美术做了一张  1000px x 400px的图片. 其中间300px是所有设备都会显示的,上下个50px是根据设备不同.<br>有的显示有的不显示 且不显示的话也不会影响整体的游戏体验.</p>
-<p>此时在保证PixelPerfect的情况下 设备分辨率必须满足</p>
-<table>
-<thead>
-<tr>
-<th>倍率</th>
-<th>设备分辨率高度范围</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1x</td>
-<td>300px~400px</td>
-</tr>
-<tr>
-<td>2x</td>
-<td>600px~800px</td>
-</tr>
-<tr>
-<td>3x</td>
-<td>900px~1200px</td>
-</tr>
-</tbody>
-</table>
-<p>假设设备分辨率(高度) 是 1000px</p>
-<div class="note success"><p><strong>开发中的相机Size <em> 2 </em> N = 设备分辨率. </strong></p></div>
-<p>N一定为整数,从上面表中可以知道N此时为3 (因为1000px 在900px~1200px之间)</p>
-<p>从而求出</p>
-<p>开发中的相机Size = 设备分辨率/(2*N) = 1000/6 = 166.666666</p>
-<p>反过来也可以说</p>
-<p>通过把相机Size设置为166.666666, 使得原图以扩大3被的情况下映射到了1000px分辨率的设备上了. 从而达到了PixelPerfect.</p>
-<p>注意:</p>
-<p>Size=166.66666, 也就是一个屏幕内可以显示的像素是333.3333px. 这也是为什么图片要制作为 300px有效像素,然后上下再留出50px冗余像素的原因</p>
-<h3 id="不适合做PixelPerfect的例子"><a href="#不适合做PixelPerfect的例子" class="headerlink" title="不适合做PixelPerfect的例子"></a>不适合做PixelPerfect的例子</h3><p>比如 设备分辨率是 850px</p>
-<p>按照上面的公式 <code>开发中的相机Size * 2 * N = 设备分辨率</code>.  </p>
-<table>
-<thead>
-<tr>
-<th>N的取值</th>
-<th>开发中相机Size*2</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1x</td>
-<td>850px</td>
-</tr>
-<tr>
-<td>2x</td>
-<td>425px</td>
-</tr>
-<tr>
-<td>3x</td>
-<td>283.333px</td>
-</tr>
-</tbody>
-</table>
-<p>可以看出</p>
-<p><code>N=2</code> 则 会显示出开发分辨率下425px的内容,但是美术画的图是1000px x 400px的,多出来25px空白,<br><code>N=1</code> 则 显示283.333px的内容 小于300px的有效内容. 会显示不全. 比如上图例子中那样 可能头上的陷阱就看不到了.</p>
-<p>此时  并没有办法使得在PixelPerfect的情况下使得开发分辨率锁定在300px~400px之间.  2x的情况会导致穿帮,3x会导致显示内容过小</p>
-<p>如若要做PixelPerfect 则需要做不锁高的游戏,也就是游戏世界中的高度大于1个视口高度,比如泰拉瑞亚这种,世界很大,能看到的只是其中一个区域. 此时相机高度发生一定变化 并不会导致穿帮.<br>或者上下直接留黑边,然后采取N=2的情况去做处理.</p>
-<h2 id="普通的屏幕适配方案"><a href="#普通的屏幕适配方案" class="headerlink" title="普通的屏幕适配方案"></a>普通的屏幕适配方案</h2><p>对于普通游戏(非像素游戏),其实没有必要非达到PixelPerfect的. 那此时一般采取的适配方案是锁高,或者锁宽.或者两种之间的变种.</p>
-<h3 id="锁高"><a href="#锁高" class="headerlink" title="锁高"></a>锁高</h3><p>锁高也是最简单的一种. 比如开发分辨率设定是 任意宽度 x 1000px . 然后在给定 任意设备分辨率的情况下. 希望可以把这1000px都显示出来.无论能显示多宽的内容.</p>
-<p>比如设备高度是 500px , 那就是把现有内容缩小一倍显示在屏幕上. 如果设备是800px 则是缩小0.8 (800/1000)显示在屏幕上.</p>
-<p>注意: 容易和PixelPerfect混淆的是. PixelPerfect是通过调整CameraSize从而保证缩放比例一定是整数,而普通锁高适配是恒定CameraSize</p>
-<p>啰嗦一句. 上面的公式   开发中的相机Size <em> 2 </em> N = 设备分辨率 同样也适用这里. 只不过开发相机Size恒定 . 而N就是真正缩放的倍数.比如上面例子中0.5(500/1000), 0.8(800/1000)</p>
-<p>只不过这个N 在Unity的面板里面是看不到的.</p>
-<p>比如开发分辨率定位720px x 1280px . 在Unity中讲CameraSize设置为6.4  (6.4x2=12.8 默认 1unit=100px)</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/97f07975-dba4-478c-ae39-f8e3d020e700.jpg" alt="97f07975-dba4-478c-ae39-f8e3d020e700"></p>
-<p>开发分辨率 720x1280 :</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/a58f291c-e110-404f-bada-28842cdc6c83.jpg" alt="a58f291c-e110-404f-bada-28842cdc6c83"></p>
-<p>设备分辨率 300x500:</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/c2cd50a9-8bc8-4023-90de-891ca8df826a.jpg" alt="c2cd50a9-8bc8-4023-90de-891ca8df826a"></p>
-<p>设备分辨率 30x300:</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/92b988e9-a161-41dd-8979-9d07efa78223.jpg" alt="92b988e9-a161-41dd-8979-9d07efa78223"></p>
-<p><strong>在锁高的情况下,上下两个五角星一直会显示,无论设备分辨率是多少.</strong></p>
-<p>此时并不用做任何的操作</p>
-<h3 id="锁宽"><a href="#锁宽" class="headerlink" title="锁宽"></a>锁宽</h3><p>锁宽稍微要复杂一些.  首先要明确的是.适配的方式就是在<code>保证宽高比</code>的情况下 放大缩小.使得锁定的一方完全显示在屏幕内.</p>
-<p>还是上面的例子. 开发分辨率是 720x1280 . 设备分辨率是 30x300  锁高的情况下就是把 1280px 缩放到 300px的设备上</p>
-<p>缩放倍数 = 300/1280 = 0.234375<br>因为宽高比不便. 所以宽度被缩放到了0.234375 * 720px = 168.75px. 设备只有30px的宽. 所以只能看到上下两颗星星. 左右的看不到.</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/b1f0bbc9-5a2c-4d4f-9165-63e189e41659.jpg" alt="b1f0bbc9-5a2c-4d4f-9165-63e189e41659"></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/f75f68ad-bd44-4776-b542-ac43712b090e.png" alt="f75f68ad-bd44-4776-b542-ac43712b090e"></p>
-<p><strong>锁宽的情况下需要更改CameraSize从而使得在不同设备的情况下,在设备上看到的宽度和开发中的一样.</strong></p>
-<p>根据缩放宽高比不变这条可以推导公式<br>设定:<br>开发分辨率宽 = 开W<br>开发分辨率高 = 开H<br>设备分辨率宽 = 设W<br>设备分辨率高 = 设H</p>
-<p>其中 开H 也就是最后需要求得的值.从而推导,再给定的设备上 需要把CameraSize调整到何值</p>
-<p>推导得到</p>
-<div class="note success"><p><strong>CameraSize =  开W <em> 设H / (设W </em> 2)</strong></p></div>
-<h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><p>实际项目中, UI层一般都采取的是Canvas的全屏适配.也就不存在锁宽锁高. 主要是Scene场景. 能想到的比较典型的例子是</p>
-<p><strong>涂鸦跳跃 (锁宽)</strong></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/5fd1a19e-d57e-4be1-9057-c879817a638b.jpeg" alt="5fd1a19e-d57e-4be1-9057-c879817a638b"></p>
-<p><strong>Flappy bird (锁高)</strong></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/673be8de-23af-49f4-951e-d1684c59d226.jpeg" alt="673be8de-23af-49f4-951e-d1684c59d226"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/" itemprop="url">在自己服务器(搬瓦工)上部署Hexo且用git同步</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T00:00:00+08:00">
-                2017-12-02
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/其他/" itemprop="url" rel="index">
-                    <span itemprop="name">其他</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-             <span id="/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/" class="leancloud_visitors" data-flag-title="在自己服务器(搬瓦工)上部署Hexo且用git同步">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>之前有尝试过<code>WordPress</code>,也在使用<code>为知笔记</code>.不过直接同步到<code>WordPress</code>上格式一直很烂.后来放弃了.还是Hexo配合Markdown适合我.</p>
-<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h3 id="本地搭建Hexo"><a href="#本地搭建Hexo" class="headerlink" title="本地搭建Hexo"></a>本地搭建Hexo</h3><p>Mac上还是比较轻松的.</p>
-<p>首先安装<a href="https://brew.sh/" target="_blank" rel="noopener">Brew</a></p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)"</span></span><br></pre></td></tr></table></figure>
-<p>再安装<code>NodeJS</code>和<code>Hexo</code></p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install <span class="keyword">node</span><span class="title"></span></span><br></pre></td></tr></table></figure>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-<span class="keyword">cli</span> -g</span><br></pre></td></tr></table></figure>
-<p>此时本地基础环境就已经搭建好.随便找个目录执行</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">hexo</span> init <span class="keyword">blog</span></span><br><span class="line"><span class="keyword">cd </span><span class="keyword">blog</span></span><br><span class="line"><span class="keyword">npm </span>install</span><br></pre></td></tr></table></figure>
-<p>本地浏览器打开<code>http://localhost:4000/</code>应该就可以看到一个初始网页了</p>
-<h3 id="服务器端配置"><a href="#服务器端配置" class="headerlink" title="服务器端配置"></a>服务器端配置</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>Hexo的原理应该是本地使用<code>NodeJS</code>将<code>Markdown</code>渲染成静态网页. 所以服务器端只需要</p>
-<ul>
-<li>构建一个<code>Http</code>服务器</li>
-<li>通过<code>Git</code>同步部署到服务器的仓库</li>
-<li>写Git的<code>Hook</code>,将Pulish文件夹下面的内容同步到<code>Http</code>文件夹下</li>
-</ul>
-<h4 id="搭建Http服务器"><a href="#搭建Http服务器" class="headerlink" title="搭建Http服务器"></a>搭建Http服务器</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> httpd</span><br></pre></td></tr></table></figure>
-<p><a href="https://www.server-world.info/en/note?os=CentOS_6&amp;p=httpd" target="_blank" rel="noopener">参考教程</a><br>如果不用httpd,也可以选择<code>nginx</code></p>
-<h4 id="安装和配置Git"><a href="#安装和配置Git" class="headerlink" title="安装和配置Git"></a>安装和配置Git</h4><p>参考 <a href="http://blog.csdn.net/lyhdream/article/details/49561645" target="_blank" rel="noopener">教程一</a> <a href="http://blog.csdn.net/lyhdream/article/details/49587657" target="_blank" rel="noopener">教程二</a>, 不过我自己的方法略有不同</p>
-<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git</span><br><span class="line">adduser git</span><br><span class="line"><span class="keyword">cd</span> <span class="string">/home/git/</span></span><br><span class="line">sudo git init <span class="params">--bare</span> hexo.git</span><br></pre></td></tr></table></figure>
-<p>执行完这几步以后,就在</p>
-<ul>
-<li>服务器上安装了Git</li>
-<li>创建了一个名字为git的用户</li>
-<li>在<code>/home/git/</code>目录下创建了名字为<code>hexo.git</code>的仓库</li>
-</ul>
-<p>后面的步骤相比网上其他的教程来说,相对要tricky一些.</p>
-<p>首先找一个SFTP软件,我用的是<code>FileZilla</code>. 然后使用root账户登录进去<br><img src="http://p09vx6soj.bkt.clouddn.com/1.jpg" alt="1"></p>
-<ul>
-<li>创建<code>.ssh</code>文件夹</li>
-<li>创建<code>authorized_keys</code>文件(空文件无后缀名)</li>
-</ul>
-<p>接着在Mac本地创建 <code>.shh</code>文件夹<code>/Users/**你的用户名**/.ssh/</code><br>命令行进入该文件夹后执行</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen</span></span><br></pre></td></tr></table></figure>
-<p>文件叫<code>id_rsa</code><br><img src="http://p09vx6soj.bkt.clouddn.com/2.jpg" alt="2"></p>
-<p>将本地<code>id_rsa.pub</code>文件传到服务器的<code>/home/git/.ssh</code>目录下,然后执行命令</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa<span class="selector-class">.pub</span> &gt; authorized_keys</span><br></pre></td></tr></table></figure>
-<p>在本地创建<code>post-receive</code>文件(没有后缀名)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">GIT_REPO=/home/git/hexo.git <span class="comment">#git 仓库</span></span><br><span class="line">TMP_GIT_CLONE=/tmp/hexo</span><br><span class="line">PUBLIC_WWW=/var/www/html <span class="comment">#网站目录</span></span><br><span class="line">rm -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span></span><br><span class="line">git <span class="built_in">clone</span> <span class="variable">$GIT_REPO</span> <span class="variable">$TMP_GIT_CLONE</span></span><br><span class="line">rm -rf <span class="variable">$&#123;PUBLIC_WWW&#125;</span>/*</span><br><span class="line">cp -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span>/* <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br></pre></td></tr></table></figure>
-<p>将文件上传到<code>/home/git/hexo.git/hooks</code>目录下</p>
-<p>此时已经完成了</p>
-<ul>
-<li>Git的自动授权(也就是部署时候直接key授权,不需要再使用用户名密码了)</li>
-<li>Git上挂<code>Hook</code>自动同步到网站目录</li>
-</ul>
-<p>但是由于是使用<code>FileZilla</code>创建的文件和文件夹. 文件的权限和所有者不对(所有者是root帐号,不是git帐号).</p>
-<p>权限可以使用<code>FileZilla</code>直接改,再需要改的文件夹下右键,选择文件属性</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/3.jpg" alt="3"></p>
-<p>文件的所有权可以使用<code>chown</code>和<code>chgrp</code>命令更改.</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/home/</span>git<span class="regexp">/hexo.git/</span> chgrp -R git *</span><br><span class="line">chown <span class="string">git:</span>git -R <span class="regexp">/var/</span>www<span class="regexp">/html/</span></span><br><span class="line">chown <span class="string">git:</span>git -R <span class="regexp">/home/</span>git<span class="regexp">/hexo.git/</span></span><br></pre></td></tr></table></figure>
-<p>因为具体操作的流程已经忘记了,不过如果git操作时候出现<br><code>insufficient permission</code><br><code>Permission denied</code><br>类似这种情况,应该就是文件的权限不够,或者文件的所有者不是git账户. 在服务器可以使用<code>ll</code>命令进行查看</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/4.jpg" alt="4"></p>
-<p>需要保证 <code>/home/git/</code>目录下的所有文件 及 <code>/var/www/html/</code>目录的样子像上图一样. 两列都是<code>git</code>,而不是<code>root</code></p>
-<h4 id="配置Hexo-使用Git同步"><a href="#配置Hexo-使用Git同步" class="headerlink" title="配置Hexo,使用Git同步"></a>配置Hexo,使用Git同步</h4><p>在本地的Blog文件夹根目录下执行,安装Git部署插件</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-developer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<p>修改<code>_config.yml</code>(注意是Hexo的Config,不是安装主题的Config)</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/5.jpg" alt="5"></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>: </span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: <span class="attribute">ssh</span>:<span class="comment">//git@服务器IP:SSH端口/home/git/hexo.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
-<p>然后执行</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure>
-<p>大功告成</p>
-<p>End</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2348,7 +2062,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2370,7 +2084,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2427,6 +2141,26 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>访问人数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
 
 
 
@@ -2552,113 +2286,6 @@
 
 
   
-
-  
-  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
-  <script>AV.initialize("VgjGdP2hIi00FTVlhhkQYpOx-gzGzoHsz", "f6jqD57DmTmu5lR3DdobF3py");</script>
-  <script>
-    function showTime(Counter) {
-      var query = new AV.Query(Counter);
-      var entries = [];
-      var $visitors = $(".leancloud_visitors");
-
-      $visitors.each(function () {
-        entries.push( $(this).attr("id").trim() );
-      });
-
-      query.containedIn('url', entries);
-      query.find()
-        .done(function (results) {
-          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
-
-          if (results.length === 0) {
-            $visitors.find(COUNT_CONTAINER_REF).text(0);
-            return;
-          }
-
-          for (var i = 0; i < results.length; i++) {
-            var item = results[i];
-            var url = item.get('url');
-            var time = item.get('time');
-            var element = document.getElementById(url);
-
-            $(element).find(COUNT_CONTAINER_REF).text(time);
-          }
-          for(var i = 0; i < entries.length; i++) {
-            var url = entries[i];
-            var element = document.getElementById(url);
-            var countSpan = $(element).find(COUNT_CONTAINER_REF);
-            if( countSpan.text() == '') {
-              countSpan.text(0);
-            }
-          }
-        })
-        .fail(function (object, error) {
-          console.log("Error: " + error.code + " " + error.message);
-        });
-    }
-
-    function addCount(Counter) {
-      var $visitors = $(".leancloud_visitors");
-      var url = $visitors.attr('id').trim();
-      var title = $visitors.attr('data-flag-title').trim();
-      var query = new AV.Query(Counter);
-
-      query.equalTo("url", url);
-      query.find({
-        success: function(results) {
-          if (results.length > 0) {
-            var counter = results[0];
-            counter.fetchWhenSave(true);
-            counter.increment("time");
-            counter.save(null, {
-              success: function(counter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(counter.get('time'));
-              },
-              error: function(counter, error) {
-                console.log('Failed to save Visitor num, with error message: ' + error.message);
-              }
-            });
-          } else {
-            var newcounter = new Counter();
-            /* Set ACL */
-            var acl = new AV.ACL();
-            acl.setPublicReadAccess(true);
-            acl.setPublicWriteAccess(true);
-            newcounter.setACL(acl);
-            /* End Set ACL */
-            newcounter.set("title", title);
-            newcounter.set("url", url);
-            newcounter.set("time", 1);
-            newcounter.save(null, {
-              success: function(newcounter) {
-                var $element = $(document.getElementById(url));
-                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
-              },
-              error: function(newcounter, error) {
-                console.log('Failed to create');
-              }
-            });
-          }
-        },
-        error: function(error) {
-          console.log('Error:' + error.code + " " + error.message);
-        }
-      });
-    }
-
-    $(function() {
-      var Counter = AV.Object.extend("Counter");
-      if ($('.leancloud_visitors').length == 1) {
-        addCount(Counter);
-      } else if ($('.post-title-link').length > 1) {
-        showTime(Counter);
-      }
-    });
-  </script>
-
-
 
   
 
