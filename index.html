@@ -437,6 +437,159 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/98516910-f9d2-11e7-9821-d3ed16e6835d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/98516910-f9d2-11e7-9821-d3ed16e6835d/" itemprop="url">Unity在编辑模式中使用代码更新Prefab并保持引用</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T17:00:55+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>一键将EditMap导出为ReleaseMap. 在编辑场景构建游戏地图,地图数据中绑定了许多只有编辑场景才会用到的数据.比如用于生成NavMesh的Cube,用于场景排序的代码等等.</p>
+<p>希望构建点击一个按钮,对应的导出一份Release版本的地图Prefab数据. 用于游戏场景中使用. 同时再次运行脚本时候,游戏场景中对于该Prefab的引用不会消失</p>
+<p>相当于点击了 Inspector中Prefab的 Apply按钮</p>
+<h2 id="核心代码示例"><a href="#核心代码示例" class="headerlink" title="核心代码示例"></a>核心代码示例</h2><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> void OnClickBtn()</span><br><span class="line"> &#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = <span class="keyword">new</span> <span class="type">GameObject</span>();</span><br><span class="line">     <span class="keyword">new</span><span class="type">Go</span>.name = <span class="string">"OutPrefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> sp = <span class="keyword">new</span><span class="type">Go</span>.AddComponent&lt;PrefabOutCode&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> cubeAPath = <span class="string">"Assets/TestGround/NeedLinkPrefab/CubeA.prefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> cubeA = (GameObject) AssetDatabase.LoadAssetAtPath(cubeAPath, typeof(GameObject));</span><br><span class="line"></span><br><span class="line">     sp.linkPrefab = cubeA;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> outPrefabPath = <span class="string">"Assets/TestGround/OutPrefab/OutPrefab.prefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> outPreafb = (GameObject) AssetDatabase.LoadAssetAtPath(outPrefabPath, typeof(GameObject));</span><br><span class="line"></span><br><span class="line">     PrefabUtility.ReplacePrefab(<span class="keyword">new</span><span class="type">Go</span>, outPreafb, ReplacePrefabOptions.ReplaceNameBased);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     DestroyImmediate(<span class="keyword">new</span><span class="type">Go</span>);</span><br><span class="line"></span><br><span class="line">     Debug.Log(<span class="string">"DONE"</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>目录结构:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180115-171117.jpg" alt="QQ20180115-171117"></p>
+<p><code>AssetDatabase.LoadAssetAtPath</code> 可以加载到目录中的Prefab</p>
+<p><code>sp.linkPrefab = cubeA</code> 将Preafb Link到GameObject中来. 比如新生成的GameObject有个public 变量<br>需要Link 一个AudioClip. (就是替代原来的 用鼠标将Prefab拖拽到Inspector中的操作)</p>
+<p><code>PrefabUtility.ReplacePrefab(newGo, outPreafb, ReplacePrefabOptions.ReplaceNameBased)</code></p>
+<p>使用<code>ReplacePrefabOptions.ReplaceNameBased</code>这种方式,可以在保证原有Preafb引用不丢失的情况下替换.</p>
+<p>默认的<code>Default</code>模式会全部替换,但是引用丢失.</p>
+<p>使用<code>ConnectToPrefab</code>会在原有的基础上增加东西,引用不会丢失</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/d8549fe0-f91a-11e7-8661-1f20a751e9e4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -637,6 +790,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -667,7 +842,7 @@
         
           
             <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171228-105907-HD.gif" alt="QQ20171228-105907-HD"></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> TestCode : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Transform <span class="keyword">target</span>;</span><br><span class="line">    <span class="keyword">public</span> Transform chaser;</span><br><span class="line">    <span class="keyword">public</span> GameObject destination;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> void Update()</span><br><span class="line">    &#123;</span><br><span class="line">        var dir = (<span class="keyword">target</span>.<span class="keyword">position</span> - chaser.<span class="keyword">position</span>).normalized;</span><br><span class="line">        var fleeDir = Quaternion.AngleAxis(0f, Vector3.up) * dir;</span><br><span class="line">        var desPosLocal = fleeDir * f;</span><br><span class="line">        destination.transform.<span class="keyword">position</span> = <span class="keyword">target</span>.transform.TransformPoint(desPosLocal);</span><br><span class="line"></span><br><span class="line">        //画Flee方向</span><br><span class="line">        Debug.DrawRay(<span class="keyword">target</span>.<span class="keyword">position</span>, dir * f, Color.green);</span><br><span class="line"></span><br><span class="line">        Debug.DrawRay(<span class="keyword">target</span>.<span class="keyword">position</span>, fleeDir * f, Color.red);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestCode</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Transform target;</span><br><span class="line">    <span class="keyword">public</span> Transform chaser;</span><br><span class="line">    <span class="keyword">public</span> GameObject destination;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> dir = (target.position - chaser.position).normalized;</span><br><span class="line">        <span class="keyword">var</span> fleeDir = Quaternion.AngleAxis(<span class="number">10</span>f, Vector3.up) * dir;</span><br><span class="line">        <span class="keyword">var</span> desPosLocal = fleeDir * <span class="number">3</span>f;</span><br><span class="line">        destination.transform.position = target.transform.TransformPoint(desPosLocal);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//画Flee方向</span></span><br><span class="line">        Debug.DrawRay(target.position, dir * <span class="number">3</span>f, Color.green);</span><br><span class="line"></span><br><span class="line">        Debug.DrawRay(target.position, fleeDir * <span class="number">3</span>f, Color.red);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>dir首先取得的是逃离的方向(目标的局部坐标系)</p>
 <figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">旋转后向量 </span>=<span class="string"> Quaternion.AngleAxis(旋转角度, 坐标轴) * 原向量</span></span><br></pre></td></tr></table></figure>
 <p>该公式可以把某一个向量基于某一个坐标轴旋转指定的角度(欧拉角)</p>
@@ -1767,158 +1942,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xiuzhen.me/bd1616d0-d8d3-11e7-9689-e5893dd48eee/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/bd1616d0-d8d3-11e7-9689-e5893dd48eee/" itemprop="url">ScrollView自适应大小及屏幕DebugLogPanel</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T17:15:57+08:00">
-                2017-12-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>游戏开始接入各种平台,所以需要一个可以在屏幕上能看到的Debug面板. 制作方法如下</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-170729.jpg" alt="QQ20171204-170729"></p>
-<p>创建<code>ScrollView</code>组件,其中<code>Content</code>上面需要绑定<code>Content Size Fitter</code>和<code>Vertical Layout Group</code></p>
-<p>然后再最外层挂载<code>CELog</code>代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CELog</span> :</span> MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> CELog mInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Warring</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Log(_msg, <span class="string">"yellow"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Error</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Log(_msg, <span class="string">"red"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Log</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance.SetLog(_msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Log</span><span class="params">(<span class="built_in">string</span> _msg, <span class="built_in">string</span> _color)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance.SetLog(<span class="string">"&lt;color="</span> + _color + <span class="string">"&gt;"</span> + _msg + <span class="string">"&lt;/color&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Text logPanel;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> maxLogNum = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">string</span> mLogMsg;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mCurrentLogNum;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance = <span class="keyword">this</span>;</span><br><span class="line">        mLogMsg = <span class="string">""</span>;</span><br><span class="line">        logPanel.text = <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetLog</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mCurrentLogNum++;</span><br><span class="line">        <span class="keyword">if</span> (mCurrentLogNum &gt;= maxLogNum)</span><br><span class="line">        &#123;</span><br><span class="line">            mLogMsg = <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        mLogMsg += _msg + <span class="string">"\n"</span>;</span><br><span class="line">        logPanel.text = mLogMsg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>外部调用方法:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickBtn1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    CELog.Log(<span class="string">"This is normal message"</span>);</span><br><span class="line">    CELog.Warring(<span class="string">"This is warring message"</span>);</span><br><span class="line">    CELog.Error(<span class="string">"This is error message"</span>);</span><br><span class="line">    CELog.Log(<span class="string">"This is cyan color message"</span>, <span class="string">"cyan"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行结果:</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-172816.jpg" alt="QQ20171204-172816"></p>
-<p><code>ScrollView</code>可以根据内部内容多少自适应大小 </p>
-<p><a href="https://docs.unity3d.com/Manual/HOWTO-UIFitContentSize.html" target="_blank" rel="noopener">官方文档</a>有相应的<code>HowTo</code>教程</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1969,7 +1992,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1991,7 +2014,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
