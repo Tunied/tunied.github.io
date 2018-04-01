@@ -433,7 +433,7 @@
 <p>但是现在的项目都采用<code>Gradle</code>构建了,在工程目录下是找不到jar包的. 微信的SDK还好,其官网提供<code>Eclipse</code>工程,目录下有对应的jar包.不过上面也写了.从<code>4.0.2</code>版本以后都改为<code>Gradle</code>构建了. </p>
 <p>那<code>Gradle</code>的jar包在哪里呢?</p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171207-225650.jpg" alt="QQ20171207-225650"></p>
-<p>可以参照<a href="http://www.xiuzhen.me/2017/0b131150-d98b-11e7-b3ad-5130597fcc90/">Android环境搭建</a>里面的步骤,构建相应的SDK.</p>
+<p>可以参照<a href="http://www.xiuzhen.me/2017/0b131150-d98b-11e7-b3ad-5130597fcc90/" target="_blank" rel="noopener">Android环境搭建</a>里面的步骤,构建相应的SDK.</p>
 <p>因为这种方法仍旧是使用的<code>Gradle</code>进行打包,所以最终生成的jar包不会包含依赖库. 也就是<code>wechat-sdk-android-without-mta-5.1.0.jar</code>. </p>
 <p>所以需要把生成好的jar包和微信的这个SDK一起拷贝的Unity<strong>任意目录</strong>即可. </p>
 <p>注意<strong>不能</strong>在<code>/Plugins/Android/任意文件夹/libs</code>目录. 因为这样会导致jar包被重复打包,导入jar文件冲突(DEX xxx 什么的错误).</p>
