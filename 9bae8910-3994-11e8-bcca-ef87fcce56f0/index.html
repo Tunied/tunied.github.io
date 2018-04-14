@@ -90,7 +90,7 @@
 <meta property="og:description" content="前言游戏上线后,遭到各种各样的破解. 前期还仅仅是尝试改改内存,这个还好 虽然后来也被破解了.但是应对方法比较简单. 后来GG大玩家居然直接Dll Hook挂Mod… 太看得起我了-.- 防御虽然可以做dll注入防护(原理应该是给自己用到的所有Dll做白名单,其他的一概不允许),不过考虑到接入那么多渠道.再做这部分的防护. 一键打包脚本 应该是个巨大的工作量.所以还是放弃了.. Obfuscato">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/WX20180406-203428.png">
-<meta property="og:updated_time" content="2018-04-06T12:36:44.000Z">
+<meta property="og:updated_time" content="2018-04-14T08:54:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用Obfuscator对代码进行混淆">
 <meta name="twitter:description" content="前言游戏上线后,遭到各种各样的破解. 前期还仅仅是尝试改改内存,这个还好 虽然后来也被破解了.但是应对方法比较简单. 后来GG大玩家居然直接Dll Hook挂Mod… 太看得起我了-.- 防御虽然可以做dll注入防护(原理应该是给自己用到的所有Dll做白名单,其他的一概不允许),不过考虑到接入那么多渠道.再做这部分的防护. 一键打包脚本 应该是个巨大的工作量.所以还是放弃了.. Obfuscato">
@@ -380,6 +380,18 @@
 <p><strong>Vo</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScoreVo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> num;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ScoreVo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        num = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3 id="效果截图"><a href="#效果截图" class="headerlink" title="效果截图"></a>效果截图</h3><p>直接使用<code>Obfuscator</code>默认参数. 编译后Dump出代码</p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/WX20180406-203428.png" alt="WX20180406-203428"></p>
+<h2 id="Update-v1"><a href="#Update-v1" class="headerlink" title="Update v1"></a>Update v1</h2><p>把<code>Obfuscator</code>用到正式的项目中去还是走了不少弯路的. 总结一下遇到的几个问题</p>
+<h3 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h3><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JsonUtility.FromJson&lt;ClassName&gt;<span class="comment">(**Json字符串**)</span>;</span><br></pre></td></tr></table></figure>
+<p>对于需要从Jaon中直接序列化与反序列化的对象,需要在对应的Class上面标记[Skip]</p>
+<h3 id="Plugins目录"><a href="#Plugins目录" class="headerlink" title="Plugins目录"></a>Plugins目录</h3><p><code>Obfuscator</code>不会对<code>Plugins</code>目录下的代码进行混淆,但是有些插件并不是默认放入该目录下,需要对相应插件进行目录迁移</p>
+<h3 id="Behavior-Designer"><a href="#Behavior-Designer" class="headerlink" title="Behavior Designer"></a>Behavior Designer</h3><p>所有<code>Behavior Designer</code>用到的Class均要设置为[Skip],他的说明文档里面也有提到.</p>
+<h3 id="Enum"><a href="#Enum" class="headerlink" title="Enum"></a>Enum</h3><p>这个折腾了好久. 所有枚举变量均要设置[SkipRename],即使对应的Class已经设置了[Skip].也要设置</p>
+<h3 id="IL2CPP"><a href="#IL2CPP" class="headerlink" title="IL2CPP"></a>IL2CPP</h3><p><code>IL2CPP</code>模式下,开混淆后不可开调试模式(Development Build).否则会编译报错.</p>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><ul>
+<li>项目尽早集成<code>Obfuscator</code>,且多上真机看效果.后期集成不可预知性太高,早起集成还可以让所有UI中函数加入[Skip]标签,这样可以对MonoObject进行混淆.加大扰码力度</li>
+<li>尽量少使用<code>Invoke</code>,如果需要也最好集中处理(<code>CopyEngine.CallLater(_callback,_delayTime)</code>),并且要使用nameof(函数名),否则混淆不一定可用</li>
+<li>不使用enum,直接使用const int变量.这样可以做混淆</li>
+</ul>
 
       
     </div>
@@ -441,8 +453,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/00e482d0-3558-11e8-bda2-bf71a18d2be3/" rel="next" title="Unity新版AssetBundles使用手札">
-                <i class="fa fa-chevron-left"></i> Unity新版AssetBundles使用手札
+              <a href="/7fe419b0-3657-11e8-b4e4-cb31989e149f/" rel="next" title="Unity中使用JsonObject插件动态序列与反序列化对象">
+                <i class="fa fa-chevron-left"></i> Unity中使用JsonObject插件动态序列与反序列化对象
               </a>
             
           </div>
@@ -528,7 +540,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">21</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -550,7 +562,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -585,7 +597,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御"><span class="nav-number">2.</span> <span class="nav-text">防御</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Obfuscator"><span class="nav-number">3.</span> <span class="nav-text">Obfuscator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试工程"><span class="nav-number">3.1.</span> <span class="nav-text">测试工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果截图"><span class="nav-number">3.2.</span> <span class="nav-text">效果截图</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#防御"><span class="nav-number">2.</span> <span class="nav-text">防御</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Obfuscator"><span class="nav-number">3.</span> <span class="nav-text">Obfuscator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试工程"><span class="nav-number">3.1.</span> <span class="nav-text">测试工程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效果截图"><span class="nav-number">3.2.</span> <span class="nav-text">效果截图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Update-v1"><span class="nav-number">4.</span> <span class="nav-text">Update v1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Json"><span class="nav-number">4.1.</span> <span class="nav-text">Json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Plugins目录"><span class="nav-number">4.2.</span> <span class="nav-text">Plugins目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Behavior-Designer"><span class="nav-number">4.3.</span> <span class="nav-text">Behavior Designer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Enum"><span class="nav-number">4.4.</span> <span class="nav-text">Enum</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IL2CPP"><span class="nav-number">4.5.</span> <span class="nav-text">IL2CPP</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建议"><span class="nav-number">5.</span> <span class="nav-text">建议</span></a></li></ol></div>
             
 
           </div>
