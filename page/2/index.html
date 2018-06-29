@@ -273,6 +273,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/6c4bc820-eb7b-11e7-8403-29e39698c0c1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/6c4bc820-eb7b-11e7-8403-29e39698c0c1/" itemprop="url">Math 向量基于某一坐标轴旋转固定角度</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T11:01:38+08:00">
+                2017-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171228-105907-HD.gif" alt="QQ20171228-105907-HD"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestCode</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Transform target;</span><br><span class="line">    <span class="keyword">public</span> Transform chaser;</span><br><span class="line">    <span class="keyword">public</span> GameObject destination;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> dir = (target.position - chaser.position).normalized;</span><br><span class="line">        <span class="keyword">var</span> fleeDir = Quaternion.AngleAxis(<span class="number">10</span>f, Vector3.up) * dir;</span><br><span class="line">        <span class="keyword">var</span> desPosLocal = fleeDir * <span class="number">3</span>f;</span><br><span class="line">        destination.transform.position = target.transform.TransformPoint(desPosLocal);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//画Flee方向</span></span><br><span class="line">        Debug.DrawRay(target.position, dir * <span class="number">3</span>f, Color.green);</span><br><span class="line"></span><br><span class="line">        Debug.DrawRay(target.position, fleeDir * <span class="number">3</span>f, Color.red);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>dir首先取得的是逃离的方向(目标的局部坐标系)</p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">旋转后向量 </span>=<span class="string"> Quaternion.AngleAxis(旋转角度, 坐标轴) * 原向量</span></span><br></pre></td></tr></table></figure>
+<p>该公式可以把某一个向量基于某一个坐标轴旋转指定的角度(欧拉角)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">target</span><span class="selector-class">.transform</span><span class="selector-class">.TransformPoint</span>(<span class="selector-tag">desPosLocal</span>);</span><br></pre></td></tr></table></figure>
+<p>将局部坐标转换为世界坐标</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://oldking.wang/dce56270-e88e-11e7-9d4a-778b0cc8b129/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1067,7 +1215,7 @@
 <p>在APK所在的目录执行如下命令:</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">apktool</span> <span class="selector-tag">d</span> <span class="selector-tag">xxx</span><span class="selector-class">.apk</span></span><br></pre></td></tr></table></figure>
 <p>使用<code>keytool</code>查看<code>original/META-INF/CERT.RSA</code></p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="keyword">file</span> 解压后的目录<span class="regexp">/original/M</span>ETA-INF<span class="regexp">/CERT.RSA</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="keyword">file</span> 解压后的目录/original/META-<span class="literal">INF</span>/CERT.RSA</span><br></pre></td></tr></table></figure>
 <p>得到结果</p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/59787968.png" alt="59787968"></p>
 <p>可以看到<code>MD5</code>这行的信息和使用微信提供的工具查看到的信息相同.</p>
@@ -1096,7 +1244,7 @@
 <p>注意<strong>不能</strong>在<code>/Plugins/Android/任意文件夹/libs</code>目录. 因为这样会导致jar包被重复打包,导入jar文件冲突(DEX xxx 什么的错误).</p>
 <h2 id="Unity合并AndroidManifest-xml"><a href="#Unity合并AndroidManifest-xml" class="headerlink" title="Unity合并AndroidManifest.xml"></a>Unity合并AndroidManifest.xml</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>因为<code>wxapi.WXEntryActivity</code>的问题,在<code>AndroidManifest.xml</code>中必须导出这个Activity,而使用Unity直接打包,就需要给最终的<code>AndroidManifest.xml</code>加入这部分信息.</p>
 <p>Unity规定</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Plugins/</span>Android<span class="regexp">/任意文件夹/</span>AndroidManifest.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Plugins/</span>Android<span class="regexp">/任意文件夹/</span>AndroidManifest.xml</span><br></pre></td></tr></table></figure>
 <p>在Android子文件夹下的<code>AndroidManifest.xml</code>文件会Merge到最终的<code>AndroidManifest.xml</code>中来. </p>
 <p>如果存在<code>/Plugins/Android/AndroidManifest.xml</code>则使用该<code>AndroidManifest.xml</code>作为初始的模板,如果不存在则使用默认的.</p>
 <h3 id="project-properties"><a href="#project-properties" class="headerlink" title="project.properties"></a>project.properties</h3><p>之前试了好几次都不行,困扰了我半天. 后来发现是因为子目录中没有包含<code>project.properties</code>文件.</p>
@@ -1815,214 +1963,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea/" itemprop="url">Hexo配置流程</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T09:40:16+08:00">
-                2017-12-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/其他/" itemprop="url" rel="index">
-                    <span itemprop="name">其他</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="UUID"><a href="#UUID" class="headerlink" title="UUID"></a>UUID</h2><p>给文章加入<code>UUID</code>且用其做<code>Link</code>方便<code>SEO</code></p>
-<p>根目录下安装UUID插件</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-<span class="keyword">uuid</span> <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<p>每次创建文章使用</p>
-<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="built_in">new</span> <span class="keyword">a</span></span><br></pre></td></tr></table></figure>
-<p>a 为文章名, 我都是叫a,会在<code>_post</code>下面创建一个<code>a.md</code>.然后手动改名即可</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">uuid:</span> <span class="string">e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea</span></span><br><span class="line"><span class="string">底下是其他信息</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
-<p><code>a.md</code>内部会创建如上格式的内容</p>
-<p>接着修改<code>_config.yml</code>(Hexo的,不是主题文件的)<code>permalink</code></p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#permalink</span>: <span class="selector-pseudo">:year</span>/<span class="selector-pseudo">:month</span>/<span class="selector-pseudo">:day</span>/<span class="selector-pseudo">:title</span>/</span><br><span class="line"><span class="selector-tag">permalink</span>: <span class="selector-pseudo">:year</span>/<span class="selector-pseudo">:uuid</span>/</span><br></pre></td></tr></table></figure>
-<h2 id="顶部加入新类别-NexT"><a href="#顶部加入新类别-NexT" class="headerlink" title="顶部加入新类别(NexT)"></a>顶部加入新类别(NexT)</h2><p><a href="http://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="noopener">官方文档</a>中有说明.只是之前一直没看懂.现在弄明白了.</p>
-<p>首先执行</p>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new<span class="built_in"> page </span>categories</span><br></pre></td></tr></table></figure>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-101159.jpg" alt="QQ20171203-101159"></p>
-<p>这样会在source目录下生成一个叫<code>categories</code>的目录,里面会有一个<code>index.md</code> . 编辑该文件,在其中加入<code>type: &quot;categories&quot;</code></p>
-<p>编辑NexT的<code>_config.yml</code> Menu部分</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  Unity: /categories/Unity || diamond</span><br><span class="line">  C#: /categories/C# || graduation-cap</span><br><span class="line">  其他: /categories/C# || beer</span><br><span class="line">  tags: /tags/ || tags</span><br></pre></td></tr></table></figure>
-<p>其中<code>||</code>后面的值可以在<a href="http://fontawesome.io/icons/" target="_blank" rel="noopener">Font Awesome</a>中找到</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-101808.jpg" alt="QQ20171203-101808"></p>
-<p>直接选择自己想要的Icon,填写对应的key在<code>||</code>后面即可</p>
-<p><code>其他: /categories/C# || beer</code></p>
-<ul>
-<li><code>其他</code>: 顶部显示的名字</li>
-<li><code>/categories/C#</code> : 对应的分类<code>C#</code></li>
-<li><code>beer</code> : 图标</li>
-</ul>
-<p>在每篇文章的Title部分</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">uuid: e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea</span><br><span class="line">title: Hexo配置流程</span><br><span class="line">date: 2017-12-03 09:40:16</span><br><span class="line">categories: 其他</span><br><span class="line">tags:</span><br><span class="line">    - Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
-<p>加入<code>categories</code>字段.指定当前文章的分类</p>
-<h2 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h2><p>设置同<code>categories</code></p>
-<h2 id="MWeb"><a href="#MWeb" class="headerlink" title="MWeb"></a>MWeb</h2><p>使用<a href="http://zh.mweb.im/" target="_blank" rel="noopener">MWeb</a>进行Markdown写作相当爽.图片直接拖入直接传到七牛存储.</p>
-<p>首先在偏好设置中选择七牛.然后进入七牛后台</p>
-<p>进入个人控制面板-&gt;密钥管理<br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-093652.jpg" alt="QQ20171203-093652"></p>
-<p>复制<code>AK</code>和<code>SK</code></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-093720.jpg" alt="QQ20171203-093720"></p>
-<p>复制<code>空间名称</code> <code>图片URL前缀</code></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-093854.jpg" alt="QQ20171203-093854"></p>
-<p>最终如图</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-094852.jpg" alt="QQ20171203-094852"></p>
-<p>在<code>MWeb</code>中按<code>Command+E</code> 选择文件夹到<code>Blog\source\_posts</code>目录下 图片选择直接传图床</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-094001.jpg" alt="QQ20171203-094001"></p>
-<p>后面直接把图片拽进来即可.很方便</p>
-<h2 id="Seo"><a href="#Seo" class="headerlink" title="Seo"></a>Seo</h2><h3 id="Google篇"><a href="#Google篇" class="headerlink" title="Google篇"></a>Google篇</h3><p>下载Sitemap生成插件</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<p>Hexo的<code>_config.yml</code>中加入</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># sitemap</span></span><br><span class="line"><span class="symbol">sitemap:</span></span><br><span class="line"><span class="symbol">  path:</span> sitemap.xml</span><br></pre></td></tr></table></figure>
-<p>本地<code>source</code>目录下加入<code>rebots.txt</code><br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-113212.jpg" alt="QQ20171203-113212"></p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">User-<span class="string">agent:</span> *</span><br><span class="line"><span class="string">Allow:</span> /</span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/archives/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/categories/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/tags/</span> </span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/js/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/css/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fonts/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fancybox/</span></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">http:</span><span class="comment">//www.xiuzhen.me/sitemap.xml</span></span><br></pre></td></tr></table></figure>
-<p>在Google的<a href="https://www.google.com/webmasters" target="_blank" rel="noopener">站长工具</a>中加入<code>SiteMap</code> (先要发布到服务器上一次)</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-113413.jpg" alt="QQ20171203-113413"></p>
-<p>加入Robots信息</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-113538.jpg" alt="QQ20171203-113538"></p>
-<h3 id="百度篇"><a href="#百度篇" class="headerlink" title="百度篇"></a>百度篇</h3><p>下载百度连接自动提交工具</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-baidu-<span class="keyword">url</span>-submit <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
-<p>进入百度的<a href="http://ziyuan.baidu.com/" target="_blank" rel="noopener">站长工具</a></p>
-<p>选择<code>数据引入-&gt;链接提交</code></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-112743.jpg" alt="QQ20171203-112743"></p>
-<p>复制密钥,编辑Hexo下面的<code>_config.yml</code>加入</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">baidu_url_submit:</span></span><br><span class="line"><span class="symbol">  count:</span> <span class="number">3</span> <span class="meta">## 比如3，代表提交最新的三个链接</span></span><br><span class="line"><span class="symbol">  host:</span> xiuzhen.me <span class="meta">## 在百度站长平台中注册的域名</span></span><br><span class="line"><span class="symbol">  token:</span> ???????? <span class="meta">## 请注意这是您的秘钥， 请不要发布在公众仓库里!</span></span><br><span class="line"><span class="symbol">  path:</span> baidu_urls.txt <span class="meta">## 文本文档的地址， 新链接会保存在此文本文档里</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>: </span><br><span class="line">  - <span class="attribute">type</span>: git</span><br><span class="line">    <span class="attribute">repo</span>: <span class="attribute">ssh</span>:<span class="comment">//git@???:???/home/git/hexo.git</span></span><br><span class="line">    <span class="attribute">branch</span>: master</span><br><span class="line">  - <span class="attribute">type</span>: baidu_url_submitter</span><br></pre></td></tr></table></figure>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-114031.jpg" alt="QQ20171203-114031"></p>
-<p>在百度的站长工具中提交SiteMap</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-114126.jpg" alt="QQ20171203-114126"></p>
-<p>运行</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-114224.jpg" alt="QQ20171203-114224"></p>
-<p>可以看到完成了自动提交</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2073,7 +2013,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2095,7 +2035,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
