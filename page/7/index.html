@@ -84,7 +84,7 @@
 <meta name="description" content="独立游戏开发者">
 <meta property="og:type" content="website">
 <meta property="og:title" content="隔壁老王">
-<meta property="og:url" content="http://oldking.wang/index.html">
+<meta property="og:url" content="http://oldking.wang/page/7/index.html">
 <meta property="og:site_name" content="隔壁老王">
 <meta property="og:description" content="独立游戏开发者">
 <meta property="og:locale" content="zh-Hans">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://oldking.wang/"/>
+  <link rel="canonical" href="http://oldking.wang/page/7/"/>
 
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/479077a0-7bb4-11e8-a311-29f834f4679d/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/c6660210-17ba-11e8-9e87-45e9f0e9cada/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -292,7 +292,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/479077a0-7bb4-11e8-a311-29f834f4679d/" itemprop="url">求两向量在0~360度之间的角度值及实际应用</a></h1>
+                <a class="post-title-link" href="/c6660210-17ba-11e8-9e87-45e9f0e9cada/" itemprop="url">ShareSDK配置手札</a></h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-29T23:51:25+08:00">
-                2018-06-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T18:25:59+08:00">
+                2018-02-22
               </time>
             
 
@@ -314,28 +314,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -366,58 +344,26 @@
       
         
           
-            <h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><p><img src="https://media.giphy.com/media/5PhYFv3LPBB9fkvaic/giphy.gif" alt="QQ20180629-235018-HD"></p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>先从实际问题出发,这样可以更好的理解问题.</p>
-<p>项目需要控制角色在地图中随意移动,角色素材是8方向的. 那问题就是</p>
-<blockquote>
-<p>如何根据点击的鼠标位置来决定使用哪个方向的图集?</p>
-</blockquote>
-<h3 id="分解问题"><a href="#分解问题" class="headerlink" title="分解问题"></a>分解问题</h3><ul>
-<li><p>首先8方向图集 <code>360/8 = 45</code> 也就是每45度一个图集. 然要注意起始角度并不是0度.</p>
-<blockquote>
-<p>不是0~45度 是图集A, 而应该是 -22.5~22.5 是图集A ,22.5 ~ 67.5(22.5+45) 是图集B  以此类推</p>
-</blockquote>
-</li>
-<li><p>根据当前Touch(PosB),和上次Touch(PosA) 做一个向量AB , 只要求的该向量AB和Up向量(Vector2.up)之间的夹角即可</p>
-</li>
-</ul>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>方法一:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.Angle(toVector2,Vector2.up);</span><br><span class="line"><span class="keyword">var</span> cross = Vector3.Cross(toVector2,Vector2.up);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (cross.z &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">   angle = <span class="number">360</span> - angle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>方法二:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.SignedAngle(toVector2, Vector2.up);</span><br><span class="line"><span class="keyword">if</span> (angle &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    angle = <span class="number">360</span> + angle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>方法一是之前一直使用的,方法二是后来发现API中有的.也许是新加入的?(2017.1). </p>
-<p>先从方法一说起.</p>
-<p>首先是</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.Angle(Vector2.up, toVector2);</span><br></pre></td></tr></table></figure>
-<p>取得角度这个方法,这个是无符号的.<a href="https://docs.unity3d.com/ScriptReference/Vector2.Angle.html" target="_blank" rel="noopener">官网的API文档</a>说的很清楚了</p>
-<blockquote>
-<p>The angle returned is the unsigned acute angle between the two vectors. This means the smaller of the two possible angles between the two vectors is used. The result is never greater than 180 degrees.</p>
-</blockquote>
-<p>也就是能取到的是最小夹角,比如返回一个30度. 你无法知道是30度还是330度(360-30).</p>
-<p>这个就需要使用到 <code>叉乘</code>来判断了.</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/向量叉乘公式.png" alt="向量叉乘公式"></p>
-<p>首先 <code>叉乘</code> 只能用于3D向量,但是确实又允许<code>Vector3.Cross(Vector2.up, toVector2)</code>这么写.</p>
-<p>这个就可以把 <code>Vector2.up</code>和<code>toVector2</code>看成<code>x-y</code>平面的向量,其z=0.</p>
-<p>那么他的<code>叉积</code>就是和<code>z</code>轴共线的向量</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/叉乘公式.png" alt="叉乘公式"></p>
-<p>因为,<code>Vector2.up</code>和<code>toVector2</code>的z均为零,所以</p>
-<p>两向量叉乘得到向量为(0,0,z)</p>
-<p>同时又根据上面的公式 c的模=a的模 x b的模 x sin@. </p>
-<p>c的模 也就是 z</p>
-<p>然后再根据正弦函数</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/Sin取值范围.png" alt="Sin取值范围"></p>
-<p>可以知道. 当sin@&lt;0 时候 也就是此时得到角度是大于180的.</p>
-<p>比如上面angle给出来的是30度, 那么就需要用 360-30 得到 330度.</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/WX20180630-011249.png" alt="WX20180630-011249"></p>
-<p>直接进到其API的实现就可以看到了</p>
-<ul>
-<li>红框部分就是 <code>var angle = Vector2.Angle(Vector2.up, toVector2);</code></li>
-<li>篮框部分就是 <code>z</code>值 </li>
-</ul>
-<p>叉积向量</p>
-<p>x = y1z2 - z1y2<br>y = z1x2 - x1z2<br>z = x1y2 - y1x2</p>
-<p>因为z1和z2都是0,所以叉积就是向量(0,0,x1y2 - y1x2)</p>
-<p>换句话说就是 方法二 其实就是封装后的 方法一</p>
+            <h2 id="修改步骤"><a href="#修改步骤" class="headerlink" title="修改步骤"></a>修改步骤</h2><h3 id="修改-ShareSDKUnity3DBridge"><a href="#修改-ShareSDKUnity3DBridge" class="headerlink" title="修改 ShareSDKUnity3DBridge"></a>修改 ShareSDKUnity3DBridge</h3><p>编辑ShareSDKUnity3DBridge.m文件. 在Finder中打开,ShareSDK的IOS目录下</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-182851.jpg" alt="QQ20180222-182851"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-182921.jpg" alt="QQ20180222-182921"></p>
+<p>注释掉所有不使用的平台</p>
+<h3 id="ShareSDK-cs"><a href="#ShareSDK-cs" class="headerlink" title="ShareSDK.cs"></a>ShareSDK.cs</h3><p>替换ShareSDK中的appKey和appSecret为自己的Key</p>
+<h3 id="DevInfoSet-cs"><a href="#DevInfoSet-cs" class="headerlink" title="DevInfoSet.cs"></a>DevInfoSet.cs</h3><p>修改其内部的所有<code>app_key</code>和<code>app_secret</code>等相应信息为自己的</p>
+<h3 id="ChosenPlatforms-cs"><a href="#ChosenPlatforms-cs" class="headerlink" title="ChosenPlatforms.cs"></a>ChosenPlatforms.cs</h3><p>修改其内部所有用不到的平台<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.XXXX[<span class="string">"chosen"</span>] = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="EditorUI-cs"><a href="#EditorUI-cs" class="headerlink" title="EditorUI.cs"></a>EditorUI.cs</h3><p>更改OnInspectorGUI函数为</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public override void OnInspectorGUI()</span><br><span class="line">       &#123;</span><br><span class="line">           EditorGUILayout<span class="meta">.Space</span>()<span class="comment">;</span></span><br><span class="line">           EditorGUILayout.LabelField(<span class="string">"点击保存"</span>)<span class="comment">;</span></span><br><span class="line">           EditorGUILayout<span class="meta">.Space</span>()<span class="comment">;</span></span><br><span class="line">           if (GUILayout.<span class="keyword">Button("保存"))</span></span><br><span class="line"><span class="keyword"> </span>          &#123;</span><br><span class="line">               Save()<span class="comment">;</span></span><br><span class="line">               <span class="built_in">Debug</span>.Log(<span class="string">"Done Save"</span>)<span class="comment">;</span></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ShareSDKPostProcessBuild-cs"><a href="#ShareSDKPostProcessBuild-cs" class="headerlink" title="ShareSDKPostProcessBuild.cs"></a>ShareSDKPostProcessBuild.cs</h3><p>更改<code>EditInfoPlist</code>函数内部的URL Scheme为自己对应的key</p>
+<h3 id="移动SDK"><a href="#移动SDK" class="headerlink" title="移动SDK"></a>移动SDK</h3><p>将目录移动到一个统一文件夹内部</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-183750.jpg" alt="QQ20180222-183750"></p>
+<p>修改<code>onPostProcessBuild</code>中的file路径为新SDK包的路径</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">var files</span> = Directory.GetFiles(unityEditorAssetPath + <span class="string">"/Plugins/FixShareSDK/ShareSDKiOSAutoPackage/Editor/SDKPorter"</span>, <span class="string">"*.projmods"</span>, SearchOption.AllDirectories);</span><br></pre></td></tr></table></figure>
+<h3 id="更新Platforms"><a href="#更新Platforms" class="headerlink" title="更新Platforms"></a>更新Platforms</h3><p>建立空的GameObject,挂载<code>ShareSDK</code>和<code>Manage Platforms</code><br>点击保存按钮.</p>
+<h2 id="检查Xcode项目"><a href="#检查Xcode项目" class="headerlink" title="检查Xcode项目"></a>检查Xcode项目</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-180840.jpg" alt="QQ20180222-180840"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-180942.jpg" alt="QQ20180222-180942"></p>
+<p>检查导出的Xcode是否配置正确,及是否导出了多余的Lib包</p>
+<h2 id="更改设置的原因"><a href="#更改设置的原因" class="headerlink" title="更改设置的原因"></a>更改设置的原因</h2><p>其默认的Unity包是依赖于Public变量改变来更新配置的. 但是Unity有时候会回滚操作(不明原因),之前设置的东西全部回滚为初始的配置了.</p>
+<p>所以直接采用代码硬更改.</p>
 
           
         
@@ -457,7 +403,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 

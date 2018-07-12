@@ -84,7 +84,7 @@
 <meta name="description" content="独立游戏开发者">
 <meta property="og:type" content="website">
 <meta property="og:title" content="隔壁老王">
-<meta property="og:url" content="http://oldking.wang/index.html">
+<meta property="og:url" content="http://oldking.wang/page/24/index.html">
 <meta property="og:site_name" content="隔壁老王">
 <meta property="og:description" content="独立游戏开发者">
 <meta property="og:locale" content="zh-Hans">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://oldking.wang/"/>
+  <link rel="canonical" href="http://oldking.wang/page/24/"/>
 
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/479077a0-7bb4-11e8-a311-29f834f4679d/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -292,7 +292,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/479077a0-7bb4-11e8-a311-29f834f4679d/" itemprop="url">求两向量在0~360度之间的角度值及实际应用</a></h1>
+                <a class="post-title-link" href="/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/" itemprop="url">C# List<T>.Sort  探究</a></h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-29T23:51:25+08:00">
-                2018-06-29
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T00:00:00+08:00">
+                2017-12-01
               </time>
             
 
@@ -327,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C#</span>
                   </a>
                 </span>
 
@@ -366,58 +366,42 @@
       
         
           
-            <h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><p><img src="https://media.giphy.com/media/5PhYFv3LPBB9fkvaic/giphy.gif" alt="QQ20180629-235018-HD"></p>
-<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>先从实际问题出发,这样可以更好的理解问题.</p>
-<p>项目需要控制角色在地图中随意移动,角色素材是8方向的. 那问题就是</p>
-<blockquote>
-<p>如何根据点击的鼠标位置来决定使用哪个方向的图集?</p>
-</blockquote>
-<h3 id="分解问题"><a href="#分解问题" class="headerlink" title="分解问题"></a>分解问题</h3><ul>
-<li><p>首先8方向图集 <code>360/8 = 45</code> 也就是每45度一个图集. 然要注意起始角度并不是0度.</p>
-<blockquote>
-<p>不是0~45度 是图集A, 而应该是 -22.5~22.5 是图集A ,22.5 ~ 67.5(22.5+45) 是图集B  以此类推</p>
-</blockquote>
-</li>
-<li><p>根据当前Touch(PosB),和上次Touch(PosA) 做一个向量AB , 只要求的该向量AB和Up向量(Vector2.up)之间的夹角即可</p>
-</li>
-</ul>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>方法一:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.Angle(toVector2,Vector2.up);</span><br><span class="line"><span class="keyword">var</span> cross = Vector3.Cross(toVector2,Vector2.up);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (cross.z &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">   angle = <span class="number">360</span> - angle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>方法二:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.SignedAngle(toVector2, Vector2.up);</span><br><span class="line"><span class="keyword">if</span> (angle &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    angle = <span class="number">360</span> + angle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>方法一是之前一直使用的,方法二是后来发现API中有的.也许是新加入的?(2017.1). </p>
-<p>先从方法一说起.</p>
-<p>首先是</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.Angle(Vector2.up, toVector2);</span><br></pre></td></tr></table></figure>
-<p>取得角度这个方法,这个是无符号的.<a href="https://docs.unity3d.com/ScriptReference/Vector2.Angle.html" target="_blank" rel="noopener">官网的API文档</a>说的很清楚了</p>
-<blockquote>
-<p>The angle returned is the unsigned acute angle between the two vectors. This means the smaller of the two possible angles between the two vectors is used. The result is never greater than 180 degrees.</p>
-</blockquote>
-<p>也就是能取到的是最小夹角,比如返回一个30度. 你无法知道是30度还是330度(360-30).</p>
-<p>这个就需要使用到 <code>叉乘</code>来判断了.</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/向量叉乘公式.png" alt="向量叉乘公式"></p>
-<p>首先 <code>叉乘</code> 只能用于3D向量,但是确实又允许<code>Vector3.Cross(Vector2.up, toVector2)</code>这么写.</p>
-<p>这个就可以把 <code>Vector2.up</code>和<code>toVector2</code>看成<code>x-y</code>平面的向量,其z=0.</p>
-<p>那么他的<code>叉积</code>就是和<code>z</code>轴共线的向量</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/叉乘公式.png" alt="叉乘公式"></p>
-<p>因为,<code>Vector2.up</code>和<code>toVector2</code>的z均为零,所以</p>
-<p>两向量叉乘得到向量为(0,0,z)</p>
-<p>同时又根据上面的公式 c的模=a的模 x b的模 x sin@. </p>
-<p>c的模 也就是 z</p>
-<p>然后再根据正弦函数</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/Sin取值范围.png" alt="Sin取值范围"></p>
-<p>可以知道. 当sin@&lt;0 时候 也就是此时得到角度是大于180的.</p>
-<p>比如上面angle给出来的是30度, 那么就需要用 360-30 得到 330度.</p>
-<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/WX20180630-011249.png" alt="WX20180630-011249"></p>
-<p>直接进到其API的实现就可以看到了</p>
+            <h2 id="C-中Sort的排序实现"><a href="#C-中Sort的排序实现" class="headerlink" title="C#中Sort的排序实现"></a>C#中Sort的排序实现</h2><p><a href="https://msdn.microsoft.com/en-us/library/b0zbh7b6(v=vs.110" target="_blank" rel="noopener">MSDN</a>.aspx)</p>
+<div class="note success"><p>此方法使用 Array.Sort 方法，后者适用<code>反省排序</code>，如下所示︰</p>
 <ul>
-<li>红框部分就是 <code>var angle = Vector2.Angle(Vector2.up, toVector2);</code></li>
-<li>篮框部分就是 <code>z</code>值 </li>
+<li>如果分区大小少于 16 个元素，它使用插入排序算法。</li>
+<li>如果分区数超过 2 * LogN，其中 N 是范围的输入数组，它使用 Heapsort 算法。<br>否则，它使用快速排序算法。</li>
 </ul>
-<p>叉积向量</p>
-<p>x = y1z2 - z1y2<br>y = z1x2 - x1z2<br>z = x1y2 - y1x2</p>
-<p>因为z1和z2都是0,所以叉积就是向量(0,0,x1y2 - y1x2)</p>
-<p>换句话说就是 方法二 其实就是封装后的 方法一</p>
+<p>此实现将执行不稳定排序 也就是说,如果两个元素相等,可能不会保留它们的顺序.<br>与此相反,稳定排序保留相等的元素的顺序。 </p>
+<ul>
+<li>一般情况下,此方法为 O (n log n) 操作，其中 n 是 Count; 最坏的情况是 O (n ^2) 操作。</li>
+</ul></div>
+<h3 id="插入排序-Insertion-Sort"><a href="#插入排序-Insertion-Sort" class="headerlink" title="插入排序 (Insertion Sort)"></a>插入排序 (Insertion Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/insertion-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/00c37c01-098a-43c4-bd6c-660a00e35404.gif" alt="00c37c01-098a-43c4-bd6c-660a00e35404"></p>
+<h3 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序 (Quick Sort)"></a>快速排序 (Quick Sort)</h3><p><a href="http://bubkoo.com/2014/01/12/sort-algorithm/quick-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/45cf8e7b-6be1-4eb6-9be3-500494650c47.gif" alt="45cf8e7b-6be1-4eb6-9be3-500494650c47"></p>
+<h3 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序 (Heap Sort)"></a>堆排序 (Heap Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/heap-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/d99c5742-7e13-426b-a1cf-0be34c0228b9.gif" alt="d99c5742-7e13-426b-a1cf-0be34c0228b9"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/33085f44-157c-4b99-b50b-cc4874278e38.png" alt="33085f44-157c-4b99-b50b-cc4874278e38"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p><code>插入排序 (Insertion Sort)</code></p>
+<blockquote>
+<p>最简单,适合小数量元素排序<br>快速排序 (Quick Sort)</p>
+</blockquote>
+<p><code>快速排序 (Quick Sort)</code></p>
+<blockquote>
+<p>主旨就是将所有元素切块分成 [小于A],[A],[大于A] 然后再递归小于A和大于A的两部分 直到最终排序完成<br>堆排序 (Heap Sort)</p>
+</blockquote>
+<p><code>堆排序 (Heap Sort)</code></p>
+<blockquote>
+<p>从树的最后一个节点(数组的最后一位)开始,进行Build-Max-Heap然后递归的index-1,再继续次操作.</p>
+</blockquote>
+<h3 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h3><p>如果按CSDN中所说,内部排序是根据待排序元素的多少进行选择最终排序算法.<br>按上面三种排序的话,在<code>list.Sort((x,y)=&gt;{...})</code>函数中,理论不应该存在x,y是同一个元素的情况.<br>所以之前代码中比较函数写的都是<code>x&gt;y?1:-1</code>这样排序会不准.</p>
+<p><strong>应该改为</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(x==y)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">return</span> x&gt;y?<span class="number">1</span>:<span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p><strong>Unity中测试结果</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TSortData</span></span></span><br><span class="line"><span class="class">   &#123;</span></span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">int</span> UID;</span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">int</span> sortIndex;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   var <span class="built_in">list</span> = <span class="keyword">new</span> List&lt;TSortData&gt;();</span><br><span class="line">   <span class="keyword">for</span> (var i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++)</span><br><span class="line">   &#123;</span><br><span class="line">       var data = <span class="keyword">new</span> TSortData</span><br><span class="line">       &#123;</span><br><span class="line">           UID = i,</span><br><span class="line">           sortIndex = Random.Range(<span class="number">10</span>, <span class="number">99</span>)</span><br><span class="line">       &#125;;</span><br><span class="line">       <span class="built_in">list</span>.Add(data);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">list</span>.Sort((x, y) =&gt;</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">if</span> (x.UID == y.UID)</span><br><span class="line">       &#123;</span><br><span class="line">           Debug.LogFormat(<span class="string">"Sort x,y is the same element &lt;color=red&gt;UID = &#123;0&#125;&lt;/color&gt;, sortIndex = &#123;1&#125;"</span>, x.UID, x.sortIndex);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> x.sortIndex &gt; y.sortIndex ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>结果</strong></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/61268421.png" alt="61268421"></p>
 
           
         
@@ -457,7 +441,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/23/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/23/">23</a><span class="page-number current">24</span>
   </nav>
 
 
