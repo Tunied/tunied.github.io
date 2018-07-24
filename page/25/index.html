@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -292,7 +292,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/" itemprop="url">C# List<T>.Sort  探究</a></h1>
+                <a class="post-title-link" href="/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/" itemprop="url">在自己服务器(搬瓦工)上部署Hexo且用git同步</a></h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T00:00:00+08:00">
-                2017-12-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T00:00:00+08:00">
+                2017-12-02
               </time>
             
 
@@ -327,8 +327,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/C/" itemprop="url" rel="index">
-                    <span itemprop="name">C#</span>
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
                   </a>
                 </span>
 
@@ -366,42 +366,68 @@
       
         
           
-            <h2 id="C-中Sort的排序实现"><a href="#C-中Sort的排序实现" class="headerlink" title="C#中Sort的排序实现"></a>C#中Sort的排序实现</h2><p><a href="https://msdn.microsoft.com/en-us/library/b0zbh7b6(v=vs.110" target="_blank" rel="noopener">MSDN</a>.aspx)</p>
-<div class="note success"><p>此方法使用 Array.Sort 方法，后者适用<code>反省排序</code>，如下所示︰</p>
+            <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>之前有尝试过<code>WordPress</code>,也在使用<code>为知笔记</code>.不过直接同步到<code>WordPress</code>上格式一直很烂.后来放弃了.还是Hexo配合Markdown适合我.</p>
+<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h3 id="本地搭建Hexo"><a href="#本地搭建Hexo" class="headerlink" title="本地搭建Hexo"></a>本地搭建Hexo</h3><p>Mac上还是比较轻松的.</p>
+<p>首先安装<a href="https://brew.sh/" target="_blank" rel="noopener">Brew</a></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)"</span></span><br></pre></td></tr></table></figure>
+<p>再安装<code>NodeJS</code>和<code>Hexo</code></p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install <span class="keyword">node</span><span class="title"></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-<span class="keyword">cli</span> -g</span><br></pre></td></tr></table></figure>
+<p>此时本地基础环境就已经搭建好.随便找个目录执行</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">hexo</span> init <span class="keyword">blog</span></span><br><span class="line"><span class="keyword">cd </span><span class="keyword">blog</span></span><br><span class="line"><span class="keyword">npm </span>install</span><br></pre></td></tr></table></figure>
+<p>本地浏览器打开<code>http://localhost:4000/</code>应该就可以看到一个初始网页了</p>
+<h3 id="服务器端配置"><a href="#服务器端配置" class="headerlink" title="服务器端配置"></a>服务器端配置</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>Hexo的原理应该是本地使用<code>NodeJS</code>将<code>Markdown</code>渲染成静态网页. 所以服务器端只需要</p>
 <ul>
-<li>如果分区大小少于 16 个元素，它使用插入排序算法。</li>
-<li>如果分区数超过 2 * LogN，其中 N 是范围的输入数组，它使用 Heapsort 算法。<br>否则，它使用快速排序算法。</li>
+<li>构建一个<code>Http</code>服务器</li>
+<li>通过<code>Git</code>同步部署到服务器的仓库</li>
+<li>写Git的<code>Hook</code>,将Pulish文件夹下面的内容同步到<code>Http</code>文件夹下</li>
 </ul>
-<p>此实现将执行不稳定排序 也就是说,如果两个元素相等,可能不会保留它们的顺序.<br>与此相反,稳定排序保留相等的元素的顺序。 </p>
+<h4 id="搭建Http服务器"><a href="#搭建Http服务器" class="headerlink" title="搭建Http服务器"></a>搭建Http服务器</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> httpd</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.server-world.info/en/note?os=CentOS_6&amp;p=httpd" target="_blank" rel="noopener">参考教程</a><br>如果不用httpd,也可以选择<code>nginx</code></p>
+<h4 id="安装和配置Git"><a href="#安装和配置Git" class="headerlink" title="安装和配置Git"></a>安装和配置Git</h4><p>参考 <a href="http://blog.csdn.net/lyhdream/article/details/49561645" target="_blank" rel="noopener">教程一</a> <a href="http://blog.csdn.net/lyhdream/article/details/49587657" target="_blank" rel="noopener">教程二</a>, 不过我自己的方法略有不同</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git</span><br><span class="line">adduser git</span><br><span class="line"><span class="keyword">cd</span> <span class="string">/home/git/</span></span><br><span class="line">sudo git init <span class="params">--bare</span> hexo.git</span><br></pre></td></tr></table></figure>
+<p>执行完这几步以后,就在</p>
 <ul>
-<li>一般情况下,此方法为 O (n log n) 操作，其中 n 是 Count; 最坏的情况是 O (n ^2) 操作。</li>
-</ul></div>
-<h3 id="插入排序-Insertion-Sort"><a href="#插入排序-Insertion-Sort" class="headerlink" title="插入排序 (Insertion Sort)"></a>插入排序 (Insertion Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/insertion-sort/" target="_blank" rel="noopener">原文连接</a></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/00c37c01-098a-43c4-bd6c-660a00e35404.gif" alt="00c37c01-098a-43c4-bd6c-660a00e35404"></p>
-<h3 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序 (Quick Sort)"></a>快速排序 (Quick Sort)</h3><p><a href="http://bubkoo.com/2014/01/12/sort-algorithm/quick-sort/" target="_blank" rel="noopener">原文连接</a></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/45cf8e7b-6be1-4eb6-9be3-500494650c47.gif" alt="45cf8e7b-6be1-4eb6-9be3-500494650c47"></p>
-<h3 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序 (Heap Sort)"></a>堆排序 (Heap Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/heap-sort/" target="_blank" rel="noopener">原文连接</a></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/d99c5742-7e13-426b-a1cf-0be34c0228b9.gif" alt="d99c5742-7e13-426b-a1cf-0be34c0228b9"></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/33085f44-157c-4b99-b50b-cc4874278e38.png" alt="33085f44-157c-4b99-b50b-cc4874278e38"></p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p><code>插入排序 (Insertion Sort)</code></p>
-<blockquote>
-<p>最简单,适合小数量元素排序<br>快速排序 (Quick Sort)</p>
-</blockquote>
-<p><code>快速排序 (Quick Sort)</code></p>
-<blockquote>
-<p>主旨就是将所有元素切块分成 [小于A],[A],[大于A] 然后再递归小于A和大于A的两部分 直到最终排序完成<br>堆排序 (Heap Sort)</p>
-</blockquote>
-<p><code>堆排序 (Heap Sort)</code></p>
-<blockquote>
-<p>从树的最后一个节点(数组的最后一位)开始,进行Build-Max-Heap然后递归的index-1,再继续次操作.</p>
-</blockquote>
-<h3 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h3><p>如果按CSDN中所说,内部排序是根据待排序元素的多少进行选择最终排序算法.<br>按上面三种排序的话,在<code>list.Sort((x,y)=&gt;{...})</code>函数中,理论不应该存在x,y是同一个元素的情况.<br>所以之前代码中比较函数写的都是<code>x&gt;y?1:-1</code>这样排序会不准.</p>
-<p><strong>应该改为</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(x==y)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">return</span> x&gt;y?<span class="number">1</span>:<span class="number">-1</span></span><br></pre></td></tr></table></figure>
-<p><strong>Unity中测试结果</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TSortData</span></span></span><br><span class="line"><span class="class">   &#123;</span></span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">int</span> UID;</span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">int</span> sortIndex;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   var <span class="built_in">list</span> = <span class="keyword">new</span> List&lt;TSortData&gt;();</span><br><span class="line">   <span class="keyword">for</span> (var i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++)</span><br><span class="line">   &#123;</span><br><span class="line">       var data = <span class="keyword">new</span> TSortData</span><br><span class="line">       &#123;</span><br><span class="line">           UID = i,</span><br><span class="line">           sortIndex = Random.Range(<span class="number">10</span>, <span class="number">99</span>)</span><br><span class="line">       &#125;;</span><br><span class="line">       <span class="built_in">list</span>.Add(data);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">list</span>.Sort((x, y) =&gt;</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">if</span> (x.UID == y.UID)</span><br><span class="line">       &#123;</span><br><span class="line">           Debug.LogFormat(<span class="string">"Sort x,y is the same element &lt;color=red&gt;UID = &#123;0&#125;&lt;/color&gt;, sortIndex = &#123;1&#125;"</span>, x.UID, x.sortIndex);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> x.sortIndex &gt; y.sortIndex ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
-<p><strong>结果</strong></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/61268421.png" alt="61268421"></p>
+<li>服务器上安装了Git</li>
+<li>创建了一个名字为git的用户</li>
+<li>在<code>/home/git/</code>目录下创建了名字为<code>hexo.git</code>的仓库</li>
+</ul>
+<p>后面的步骤相比网上其他的教程来说,相对要tricky一些.</p>
+<p>首先找一个SFTP软件,我用的是<code>FileZilla</code>. 然后使用root账户登录进去<br><img src="http://p09vx6soj.bkt.clouddn.com/1.jpg" alt="1"></p>
+<ul>
+<li>创建<code>.ssh</code>文件夹</li>
+<li>创建<code>authorized_keys</code>文件(空文件无后缀名)</li>
+</ul>
+<p>接着在Mac本地创建 <code>.shh</code>文件夹<code>/Users/**你的用户名**/.ssh/</code><br>命令行进入该文件夹后执行</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen</span></span><br></pre></td></tr></table></figure>
+<p>文件叫<code>id_rsa</code><br><img src="http://p09vx6soj.bkt.clouddn.com/2.jpg" alt="2"></p>
+<p>将本地<code>id_rsa.pub</code>文件传到服务器的<code>/home/git/.ssh</code>目录下,然后执行命令</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa<span class="selector-class">.pub</span> &gt; authorized_keys</span><br></pre></td></tr></table></figure>
+<p>在本地创建<code>post-receive</code>文件(没有后缀名)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">GIT_REPO=/home/git/hexo.git <span class="comment">#git 仓库</span></span><br><span class="line">TMP_GIT_CLONE=/tmp/hexo</span><br><span class="line">PUBLIC_WWW=/var/www/html <span class="comment">#网站目录</span></span><br><span class="line">rm -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span></span><br><span class="line">git <span class="built_in">clone</span> <span class="variable">$GIT_REPO</span> <span class="variable">$TMP_GIT_CLONE</span></span><br><span class="line">rm -rf <span class="variable">$&#123;PUBLIC_WWW&#125;</span>/*</span><br><span class="line">cp -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span>/* <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br></pre></td></tr></table></figure>
+<p>将文件上传到<code>/home/git/hexo.git/hooks</code>目录下</p>
+<p>此时已经完成了</p>
+<ul>
+<li>Git的自动授权(也就是部署时候直接key授权,不需要再使用用户名密码了)</li>
+<li>Git上挂<code>Hook</code>自动同步到网站目录</li>
+</ul>
+<p>但是由于是使用<code>FileZilla</code>创建的文件和文件夹. 文件的权限和所有者不对(所有者是root帐号,不是git帐号).</p>
+<p>权限可以使用<code>FileZilla</code>直接改,再需要改的文件夹下右键,选择文件属性</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/3.jpg" alt="3"></p>
+<p>文件的所有权可以使用<code>chown</code>和<code>chgrp</code>命令更改.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/home/</span>git<span class="regexp">/hexo.git/</span> chgrp -R git *</span><br><span class="line">chown <span class="string">git:</span>git -R <span class="regexp">/var/</span>www<span class="regexp">/html/</span></span><br><span class="line">chown <span class="string">git:</span>git -R <span class="regexp">/home/</span>git<span class="regexp">/hexo.git/</span></span><br></pre></td></tr></table></figure>
+<p>因为具体操作的流程已经忘记了,不过如果git操作时候出现<br><code>insufficient permission</code><br><code>Permission denied</code><br>类似这种情况,应该就是文件的权限不够,或者文件的所有者不是git账户. 在服务器可以使用<code>ll</code>命令进行查看</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/4.jpg" alt="4"></p>
+<p>需要保证 <code>/home/git/</code>目录下的所有文件 及 <code>/var/www/html/</code>目录的样子像上图一样. 两列都是<code>git</code>,而不是<code>root</code></p>
+<h4 id="配置Hexo-使用Git同步"><a href="#配置Hexo-使用Git同步" class="headerlink" title="配置Hexo,使用Git同步"></a>配置Hexo,使用Git同步</h4><p>在本地的Blog文件夹根目录下执行,安装Git部署插件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-developer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<p>修改<code>_config.yml</code>(注意是Hexo的Config,不是安装主题的Config)</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/5.jpg" alt="5"></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>: </span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: <span class="attribute">ssh</span>:<span class="comment">//git@服务器IP:SSH端口/home/git/hexo.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
+<p>然后执行</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure>
+<p>大功告成</p>
+<p>End</p>
 
           
         
@@ -441,7 +467,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/24/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span>
+    <a class="extend prev" rel="prev" href="/page/24/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/24/">24</a><span class="page-number current">25</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/26/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -487,7 +513,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -509,7 +535,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

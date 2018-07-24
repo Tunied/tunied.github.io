@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/b09f8040-de81-11e7-ad11-a1cb35453017/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/19753c20-e23f-11e7-869e-21b0f4c1ad88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -292,7 +292,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/b09f8040-de81-11e7-ad11-a1cb35453017/" itemprop="url">Unity中使用Protobuf进行网络通讯</a></h1>
+                <a class="post-title-link" href="/19753c20-e23f-11e7-869e-21b0f4c1ad88/" itemprop="url">Unity外置ExternalBehavior</a></h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T22:43:45+08:00">
-                2017-12-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T16:57:09+08:00">
+                2017-12-16
               </time>
             
 
@@ -366,36 +366,46 @@
       
         
           
-            <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p><a href="https://developers.google.com/protocol-buffers/" target="_blank" rel="noopener">Protocol Buffers</a>是Google定义的一种数据结构.</p>
-<h3 id="本地安装"><a href="#本地安装" class="headerlink" title="本地安装"></a>本地安装</h3><p>安装Protobuf</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure>
-<p>安装Unity插件<a href="https://github.com/5argon/protobuf-unity" target="_blank" rel="noopener">protobuf-unity</a></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/15130039913882.png" alt=""></p>
-<h3 id="测试Proto"><a href="#测试Proto" class="headerlink" title="测试Proto"></a>测试Proto</h3><p>注意,最好按照 插件中指定的命名方法命名.比如我的Proto名字叫<code>game_proto.proto</code>,最后导出的C#类的名字就是<code>GameProto</code></p>
-<p>game_proto.proto</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto3"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//commandID 9001</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">TestSyncRequest1</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> user = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//commandID 9001</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">TestSyncResponse1</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> id = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">string</span> user = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>插件很高级,当Proto文件变化时候就会直接更新C#的类.很方便.</p>
-<p>注意前面需要指定<code>syntax = &quot;proto3&quot;</code></p>
-<p>Proto 2 和 3 的区别可以参考 <a href="https://solicomo.com/network-dev/protobuf-proto3-vs-proto2.html" target="_blank" rel="noopener">这篇</a>文章</p>
-<h2 id="简单序列与反序列化"><a href="#简单序列与反序列化" class="headerlink" title="简单序列与反序列化"></a>简单序列与反序列化</h2><p>单独使用Proto进行序列化和反序列化很简单,代码如下:</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestProto</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickTestBtn</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//序列化</span></span><br><span class="line">        <span class="keyword">var</span> req1 = <span class="keyword">new</span> TestSyncRequest1();</span><br><span class="line">        req1.User = <span class="string">"ABC"</span>;</span><br><span class="line">        <span class="keyword">var</span> data = req1.ToByteArray();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反序列化</span></span><br><span class="line">        <span class="keyword">var</span> c = TestSyncRequest1.Parser.ParseFrom(data);</span><br><span class="line">        Debug.Log(c.User);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="网络通讯"><a href="#网络通讯" class="headerlink" title="网络通讯"></a>网络通讯</h2><p>配合网络通讯会稍微有些复杂.主要是有两个问题. </p>
-<h3 id="大端-Encoding-BigEndianUnicode-小端-Encoding-Unicode"><a href="#大端-Encoding-BigEndianUnicode-小端-Encoding-Unicode" class="headerlink" title="大端(Encoding.BigEndianUnicode)小端(Encoding.Unicode)"></a>大端(Encoding.BigEndianUnicode)小端(Encoding.Unicode)</h3><p>大端小端就是数据解析的顺序, 比如我的Command定义为9001. Debug byte array 时候会按照8位一转换</p>
-<p><code>十进制35 = 二进制 00101101</code><br><code>十进制41 = 二进制 00101001</code><br><code>十进制9001 = 二进制 00100011 00101001</code></p>
-<p>大端显示为<code>35,41</code>,小端显示<code>41,35</code></p>
-<p>而<code>C#</code>使用<code>BinaryWriter</code>写入<code>MemoryStream</code>时候为<code>小端</code>. 这个要前后端定义好.</p>
-<p>而Protobuf的二进制是不分大小端的,具体的可以参考<a href="https://stackoverflow.com/questions/28905274/endianness-of-protocol-buffer-message" target="_blank" rel="noopener">这篇文章</a></p>
-<p>也就是说Protobuf部分的数据,直接交给相应的Parser即可进行转换,不用关心大小端的问题.</p>
-<p>如果服务器使用的是大端解析的方式,可以使用<a href="https://github.com/jamesqo/Be.IO" target="_blank" rel="noopener">Be.IO</a>这个类库去取代相应的<code>BinaryWriter</code>和<code>BinaryReader</code></p>
-<h3 id="Encode和Decode"><a href="#Encode和Decode" class="headerlink" title="Encode和Decode"></a>Encode和Decode</h3><p>从服务器得到的是二进制数据,如果不附加其他信息是无法直接解析的.最基本的需要附加两个信息.</p>
-<p>一个信息是CommandID,比如9001.通过这个和9001对应Proto文件知道需要用<code>TestSyncResponse1</code>进行解析该二进制. 第二个是二进制长度(一次需要处理多个数据包儿时候需要用到)</p>
-<p>具体示意代码如下</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">byte</span>[] <span class="title">Encode</span>(<span class="params"><span class="keyword">short</span> _commandID, <span class="keyword">byte</span>[] _data</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fs = <span class="keyword">new</span> MemoryStream();</span><br><span class="line">    <span class="keyword">var</span> writer = <span class="keyword">new</span> BeBinaryWriter(fs, Encoding.BigEndianUnicode);</span><br><span class="line"></span><br><span class="line">    writer.Write(_commandID);</span><br><span class="line">    writer.Write((<span class="keyword">uint</span>) _data.Length);</span><br><span class="line">    writer.Write(_data);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> result = fs.ToArray();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> T Decode&lt;T&gt;(<span class="keyword">byte</span>[] _data) <span class="keyword">where</span> T : IMessage, <span class="keyword">new</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> fs = <span class="keyword">new</span> MemoryStream(_data);</span><br><span class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> BeBinaryReader(fs, Encoding.BigEndianUnicode);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> command = reader.ReadInt16();</span><br><span class="line">    <span class="keyword">var</span> length = reader.ReadInt32();</span><br><span class="line">    <span class="keyword">var</span> rawData = reader.ReadBytes(length);</span><br><span class="line"></span><br><span class="line">    T message = <span class="keyword">new</span> T();</span><br><span class="line">    message.MergeFrom(rawData);</span><br><span class="line">    <span class="keyword">return</span> message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>以上是在知道具体解析类情(泛型T)况下才可,当对网络层进行独立封装时候.往往无法知晓具体类型<br>此时可以单独存储生成ProtoClass的<code>MessageParser</code>.然后向上返回IMessage</p>
-<p>Decode函数改为<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> IMessage <span class="title">Decode</span>(<span class="params"><span class="keyword">byte</span>[] _data, MessageParser _parser</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fs = <span class="keyword">new</span> MemoryStream(_data);</span><br><span class="line">        <span class="keyword">var</span> reader = <span class="keyword">new</span> BeBinaryReader(fs, Encoding.BigEndianUnicode);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> command = reader.ReadInt16();</span><br><span class="line">        <span class="keyword">var</span> length = reader.ReadInt32();</span><br><span class="line">        <span class="keyword">var</span> rawData = reader.ReadBytes(length);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> _parser.ParseFrom(rawData);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>上层封装所有生成类的<code>MessageParser</code>引用<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProtoConfig</span></span></span><br><span class="line"><span class="class">   &#123;</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Initialize</span><span class="params">()</span></span></span><br><span class="line"><span class="function">       </span>&#123;</span><br><span class="line">           p = <span class="keyword">new</span> ProtoInfo();</span><br><span class="line">           p.command = <span class="number">9001</span>;</span><br><span class="line">           p.request = TestSyncRequest1.Parser;</span><br><span class="line">           p.response = TestSyncResponse1.Parser;</span><br><span class="line">           mList.Add(p);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">public</span> ProtoInfo p;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
-<p>调用方式为</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = Decode(response<span class="meta">.Data</span>, ProtoConfig.<span class="keyword">instance.p.response);</span></span><br><span class="line"><span class="keyword">var </span><span class="keyword">b </span>= a as TestSyncResponse1<span class="comment">;</span></span><br><span class="line"><span class="built_in">Debug</span>.Log(<span class="string">"Response ID : "</span> + <span class="keyword">b.Id);</span></span><br></pre></td></tr></table></figure>
+            <h2 id="为何要外置"><a href="#为何要外置" class="headerlink" title="为何要外置"></a>为何要外置</h2><p><code>Behavior Designer</code>是Unity的一个插件,我用与处理AI逻辑.当AI逻辑很复杂的情况下会使用到<code>ExternalBehavior</code>.</p>
+<p><code>ExternalBehavior</code>相当于是<code>BehaviorTree</code>的嵌套. 但是对于多重嵌套情况 他自带的Task支持的并不好.</p>
+<p>比如:</p>
+<p>一个角色AI,最外层的逻辑可能为<code>发呆</code>,<code>觅食</code>,<code>巡逻</code>等等.</p>
+<p><code>觅食</code>和<code>巡逻</code>是两个<code>ExternalBehavior</code>,里面的实现又会用到另外的两个<code>ExternalBehavior</code>,比如<code>移动</code>,<code>攻击</code></p>
+<p>这时候我们有两个角色,<code>角色A</code>,<code>角色B</code>. AB两个角色其<code>移动</code>,<code>攻击</code>使用不同的<code>ExternalBehavior</code></p>
+<p><code>A-Move</code>,<code>A-Attack</code>,<code>B-Move</code>,<code>B-Attack</code></p>
+<p>由于嵌套最里层的<code>ExternalBehavior</code>不同,所以导致上层的<code>觅食</code>,<code>巡逻</code> 也需要有两个. </p>
+<p><code>角色A-觅食</code>,<code>角色A-巡逻</code><br><code>角色B-觅食</code>,<code>角色B-巡逻</code></p>
+<p>这样如果当AI非常复杂,嵌套层级又多.维护起来非常麻烦.</p>
+<h2 id="改进方法"><a href="#改进方法" class="headerlink" title="改进方法"></a>改进方法</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-171241.jpg" alt="QQ20171216-171241"></p>
+<p>将对应的<code>ExternalBehavior</code>提到外层的<code>Variables</code>变量中来,利用<code>ExternalBehavior</code>和主的<code>Behavior</code>如果变量名相同则自动Override的特性.将所有的<code>ExternalBehavior</code>放出来.只要保证编写每个<code>ExternalBehavior</code>时候,使用相同的变量名,则自动替换所有的.</p>
+<p>还是上面的例子. 建立<code>Variables</code></p>
+<ul>
+<li>LowLevelAI_Move</li>
+<li>LowLevelAI_Attack</li>
+<li>HightLevelAI_Eat</li>
+<li>HightLevelAI_Patrol</li>
+</ul>
+<p>这样对于角色A和角色B,Eat和Patrol可以使用同一个<code>ExternalBehavior</code>,只是<code>Move</code>和<code>Attack</code>分别使用不同的.</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>CEExternalBehaviorTree.cs</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 自定义ExternalBehavior</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 使用SharedExternalTree做参数,该参数可以在BD Root处进行设置.这样就可以在外部配置相应的需要Override的BD</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">[<span class="meta">TaskIcon(<span class="meta-string">"BehaviorTreeReferenceIcon.png"</span>)</span>]</span><br><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEExternalBehaviorTree</span> : <span class="title">BehaviorReference</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> CESharedExternalTree externalTree;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> BehaviorDesigner.Runtime.<span class="function">ExternalBehavior[] <span class="title">GetExternalBehaviors</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (externalTree.Value != <span class="literal">null</span>) <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;externalTree.Value&#125;;</span><br><span class="line">        <span class="keyword">var</span> dummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;dummy&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CESharedExternalTree.cs</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> CESharedExternalTree : SharedVariable&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> static <span class="keyword">implicit</span> operator CESharedExternalTree(BehaviorDesigner.Runtime.ExternalBehavior <span class="keyword">value</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> new CESharedExternalTree &#123;<span class="keyword">Value</span> = <span class="keyword">value</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CEIsExternalTreeNotNull.cs</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEIsExternalTreeNotNull</span> : <span class="title">Conditional</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> CESharedExternalTree tree;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> BehaviorDesigner.Runtime.ExternalBehavior mDummy;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnAwake</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mDummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> TaskStatus <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (tree.Value == <span class="literal">null</span> || tree.Value == mDummy)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>同时需要在<code>Resources/BD</code>目录下放置一个<code>Dummy</code>的<code>ExternalBehavior</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-172214.jpg" alt="QQ20171216-172214"></p>
+<p>这么做的操作是为了做判空,因为如果<code>ExternalBehavior</code>默认为空则运行时候就会报错. 而做判空是为了更方便做扩展.</p>
+<p>还是刚才的例子,如果角色A和角色B的<code>Move</code>,<code>Attack</code>不同点 一个在于是走,一个是跑,一个是近战攻击,一个是远程攻击.</p>
+<p>那就是可以建立一个CommonAI,其变量为:</p>
+<ul>
+<li>LowLevelAI_Walk</li>
+<li>LowLevelAI_Run</li>
+<li>LowLevelAI_CloseAttack</li>
+<li>LowLevelAI_RangeAttack</li>
+<li>HightLevelAI_Eat</li>
+<li>HightLevelAI_Patrol</li>
+</ul>
+<p>这样角色A和角色B可以用同一个<code>BehaviorTree</code>,只是实现不同的行为,没有的默认留空. 内部逻辑通过<code>CEIsExternalTreeNotNull</code>进行判断,从而选择不同的实现方式.</p>
 
           
         
@@ -435,7 +445,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -481,7 +491,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -503,7 +513,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/6c4bc820-eb7b-11e7-8403-29e39698c0c1/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/d8549fe0-f91a-11e7-8661-1f20a751e9e4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -292,7 +292,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/6c4bc820-eb7b-11e7-8403-29e39698c0c1/" itemprop="url">Math 向量基于某一坐标轴旋转固定角度</a></h1>
+                <a class="post-title-link" href="/d8549fe0-f91a-11e7-8661-1f20a751e9e4/" itemprop="url">Unity动态加载NavMesh</a></h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T11:01:38+08:00">
-                2017-12-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T19:05:35+08:00">
+                2018-01-14
               </time>
             
 
@@ -366,13 +366,23 @@
       
         
           
-            <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://media.giphy.com/media/fCTqTWJSMvwVJllgBY/giphy.gif" alt="QQ20171228-105907-HD"></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestCode</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Transform target;</span><br><span class="line">    <span class="keyword">public</span> Transform chaser;</span><br><span class="line">    <span class="keyword">public</span> GameObject destination;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> dir = (target.position - chaser.position).normalized;</span><br><span class="line">        <span class="keyword">var</span> fleeDir = Quaternion.AngleAxis(<span class="number">10</span>f, Vector3.up) * dir;</span><br><span class="line">        <span class="keyword">var</span> desPosLocal = fleeDir * <span class="number">3</span>f;</span><br><span class="line">        destination.transform.position = target.transform.TransformPoint(desPosLocal);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//画Flee方向</span></span><br><span class="line">        Debug.DrawRay(target.position, dir * <span class="number">3</span>f, Color.green);</span><br><span class="line"></span><br><span class="line">        Debug.DrawRay(target.position, fleeDir * <span class="number">3</span>f, Color.red);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>dir首先取得的是逃离的方向(目标的局部坐标系)</p>
-<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">旋转后向量 </span>=<span class="string"> Quaternion.AngleAxis(旋转角度, 坐标轴) * 原向量</span></span><br></pre></td></tr></table></figure>
-<p>该公式可以把某一个向量基于某一个坐标轴旋转指定的角度(欧拉角)</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">target</span><span class="selector-class">.transform</span><span class="selector-class">.TransformPoint</span>(<span class="selector-tag">desPosLocal</span>);</span><br></pre></td></tr></table></figure>
-<p>将局部坐标转换为世界坐标</p>
+            <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://media.giphy.com/media/3h3z1dXjhq1RyDUvDq/giphy.gif" alt="QQ20180114-190238-HD"></p>
+<p>新版本的Unity可以将NavMeshData存成一个Prefab,在任意场景(即使不是同一个项目).动态的加载进来.或者在编辑模式加载均可.</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>手先从Github上面Check下来适合自己IDE的插件: <a href="https://github.com/Unity-Technologies/NavMeshComponents" target="_blank" rel="noopener">地址</a></p>
+<p>使用其内置的<code>NavMeshSurface</code>配合其他的Component生成对应的NavMeshData.</p>
+<p>注意:不要使用<code>Navigation</code>标签下的Bake按钮生成NavMesh. 该标签下生成的NavMesh是旧版本,只能用于生成的场景.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180114-191550.jpg" alt="QQ20180114-191550"></p>
+<p>生成的NavMesh会在场景所在的层级下面同名文件夹内</p>
+<p>名字为<code>NavMesh-</code> + GameObject的名字</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180114-191649.jpg" alt="QQ20180114-191649"></p>
+<h2 id="加载代码"><a href="#加载代码" class="headerlink" title="加载代码"></a>加载代码</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AddNavMeshOnStart</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NavMeshData navMeshData;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NavMeshDataInstance mInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (navMeshData != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            mInstance = NavMesh.AddNavMeshData(navMeshData, transform.position, transform.rotation);</span><br><span class="line">            Debug.Log(<span class="string">"Add nav mesh data"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>核心代码就是<code>NavMesh.AddNavMeshData(xxxx)</code>. 如果是想Runtime加载,就放在Start里面.如果是想编辑模式就加载则可以加入<code>[ExecuteInEditMode]</code>标签.然后onEnable时候调用.</p>
+<p>注意: 在编辑模式下加载则使用<code>Navigation</code>标签下的Clean是无法清除已经加载的NavMesh的<br>需要自己写代码使用<code>NavMesh.RemoveNavMeshData(xxxx);</code>手动清楚掉</p>
+<h2 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h2><p>对我个人而言,新版的NavMesh 主要用于 编辑场景和游戏场景分开. 在编辑场景中制作地图,地图中会绑定许多为了做NavMesh而加入的Object. </p>
+<p>基于原来的NavMesh系统</p>
+<p>一种方案是 编辑结束后,复制整个场景删除无用的GameObject,把当前场景作为游戏场景.<br>另一种方案就是 在场景上绑定清理代码. 在Play的第一帧清除掉无用的GameObject.</p>
+<p>第一种方案麻烦的地方在于场景的反复编辑,每次都要执行复制删除.第二种方案在于刚开始Play时候要删GameObject,使得初始化时候会卡.</p>
+<p>新的NavMesh可以完美解决这个问题.</p>
 
           
         
@@ -412,7 +422,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/25/">25</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/26/">26</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -458,7 +468,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -480,7 +490,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
