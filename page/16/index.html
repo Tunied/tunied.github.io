@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/19753c20-e23f-11e7-869e-21b0f4c1ad88/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/dce56270-e88e-11e7-9d4a-778b0cc8b129/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -292,7 +292,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/19753c20-e23f-11e7-869e-21b0f4c1ad88/" itemprop="url">Unity外置ExternalBehavior</a></h1>
+                <a class="post-title-link" href="/dce56270-e88e-11e7-9d4a-778b0cc8b129/" itemprop="url">BehaviorDesigner LowerPriority Bug及解决方案</a></h1>
         
 
         <div class="post-meta">
@@ -304,8 +304,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T16:57:09+08:00">
-                2017-12-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T17:43:14+08:00">
+                2017-12-24
               </time>
             
 
@@ -314,28 +314,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -366,46 +344,17 @@
       
         
           
-            <h2 id="为何要外置"><a href="#为何要外置" class="headerlink" title="为何要外置"></a>为何要外置</h2><p><code>Behavior Designer</code>是Unity的一个插件,我用与处理AI逻辑.当AI逻辑很复杂的情况下会使用到<code>ExternalBehavior</code>.</p>
-<p><code>ExternalBehavior</code>相当于是<code>BehaviorTree</code>的嵌套. 但是对于多重嵌套情况 他自带的Task支持的并不好.</p>
-<p>比如:</p>
-<p>一个角色AI,最外层的逻辑可能为<code>发呆</code>,<code>觅食</code>,<code>巡逻</code>等等.</p>
-<p><code>觅食</code>和<code>巡逻</code>是两个<code>ExternalBehavior</code>,里面的实现又会用到另外的两个<code>ExternalBehavior</code>,比如<code>移动</code>,<code>攻击</code></p>
-<p>这时候我们有两个角色,<code>角色A</code>,<code>角色B</code>. AB两个角色其<code>移动</code>,<code>攻击</code>使用不同的<code>ExternalBehavior</code></p>
-<p><code>A-Move</code>,<code>A-Attack</code>,<code>B-Move</code>,<code>B-Attack</code></p>
-<p>由于嵌套最里层的<code>ExternalBehavior</code>不同,所以导致上层的<code>觅食</code>,<code>巡逻</code> 也需要有两个. </p>
-<p><code>角色A-觅食</code>,<code>角色A-巡逻</code><br><code>角色B-觅食</code>,<code>角色B-巡逻</code></p>
-<p>这样如果当AI非常复杂,嵌套层级又多.维护起来非常麻烦.</p>
-<h2 id="改进方法"><a href="#改进方法" class="headerlink" title="改进方法"></a>改进方法</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-171241.jpg" alt="QQ20171216-171241"></p>
-<p>将对应的<code>ExternalBehavior</code>提到外层的<code>Variables</code>变量中来,利用<code>ExternalBehavior</code>和主的<code>Behavior</code>如果变量名相同则自动Override的特性.将所有的<code>ExternalBehavior</code>放出来.只要保证编写每个<code>ExternalBehavior</code>时候,使用相同的变量名,则自动替换所有的.</p>
-<p>还是上面的例子. 建立<code>Variables</code></p>
-<ul>
-<li>LowLevelAI_Move</li>
-<li>LowLevelAI_Attack</li>
-<li>HightLevelAI_Eat</li>
-<li>HightLevelAI_Patrol</li>
-</ul>
-<p>这样对于角色A和角色B,Eat和Patrol可以使用同一个<code>ExternalBehavior</code>,只是<code>Move</code>和<code>Attack</code>分别使用不同的.</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>CEExternalBehaviorTree.cs</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 自定义ExternalBehavior</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 使用SharedExternalTree做参数,该参数可以在BD Root处进行设置.这样就可以在外部配置相应的需要Override的BD</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">[<span class="meta">TaskIcon(<span class="meta-string">"BehaviorTreeReferenceIcon.png"</span>)</span>]</span><br><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEExternalBehaviorTree</span> : <span class="title">BehaviorReference</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> CESharedExternalTree externalTree;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> BehaviorDesigner.Runtime.<span class="function">ExternalBehavior[] <span class="title">GetExternalBehaviors</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (externalTree.Value != <span class="literal">null</span>) <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;externalTree.Value&#125;;</span><br><span class="line">        <span class="keyword">var</span> dummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;dummy&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>CESharedExternalTree.cs</p>
-<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> CESharedExternalTree : SharedVariable&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> static <span class="keyword">implicit</span> operator CESharedExternalTree(BehaviorDesigner.Runtime.ExternalBehavior <span class="keyword">value</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> new CESharedExternalTree &#123;<span class="keyword">Value</span> = <span class="keyword">value</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>CEIsExternalTreeNotNull.cs</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEIsExternalTreeNotNull</span> : <span class="title">Conditional</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> CESharedExternalTree tree;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> BehaviorDesigner.Runtime.ExternalBehavior mDummy;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnAwake</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mDummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> TaskStatus <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (tree.Value == <span class="literal">null</span> || tree.Value == mDummy)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>同时需要在<code>Resources/BD</code>目录下放置一个<code>Dummy</code>的<code>ExternalBehavior</code></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-172214.jpg" alt="QQ20171216-172214"></p>
-<p>这么做的操作是为了做判空,因为如果<code>ExternalBehavior</code>默认为空则运行时候就会报错. 而做判空是为了更方便做扩展.</p>
-<p>还是刚才的例子,如果角色A和角色B的<code>Move</code>,<code>Attack</code>不同点 一个在于是走,一个是跑,一个是近战攻击,一个是远程攻击.</p>
-<p>那就是可以建立一个CommonAI,其变量为:</p>
-<ul>
-<li>LowLevelAI_Walk</li>
-<li>LowLevelAI_Run</li>
-<li>LowLevelAI_CloseAttack</li>
-<li>LowLevelAI_RangeAttack</li>
-<li>HightLevelAI_Eat</li>
-<li>HightLevelAI_Patrol</li>
-</ul>
-<p>这样角色A和角色B可以用同一个<code>BehaviorTree</code>,只是实现不同的行为,没有的默认留空. 内部逻辑通过<code>CEIsExternalTreeNotNull</code>进行判断,从而选择不同的实现方式.</p>
+            <p>这个问题到底是不是一个Bug还不好说,因为是非正规渠道获取的插件,所以没法去论坛提问.我给Support去了一封邮件,不过目前还没有得到答案.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171224-173639.jpg" alt="QQ20171224-173639"></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunAfterTwoSecond</span> : <span class="type">Conditional</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> TaskStatus OnUpdate()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!(Time.time &gt; <span class="number">2</span>f)) <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">        Debug.Log(<span class="string">"RunAfterTwoSecond check is TRUE, should run next task"</span>);</span><br><span class="line">        <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如图所示. 逻辑首先会执行<code>TreeB</code>,然后2秒以后.<code>TreeA</code>的判断逻辑会触发成功(因为设置了LowerPriority)</p>
+<p>此时会执行一遍<code>TreeA</code>,因为最终结果有<code>Return Failure</code>的装饰.所以又会执行<code>TreeB</code></p>
+<p>此时<code>TreeA</code>的条件会一直触发返回<code>TRUE</code>,但是<code>TreeA</code>不会再次运行.</p>
+<p>这个Bug触发的条件有两个,一个是<code>RunAfterTwoSecond</code>在2秒以后恒定返回<code>TRUE</code>,且后续逻辑执行导致整个<code>Tree</code>返回了<code>Failure</code>.</p>
+<p>第二个条件是,后续的条件逻辑返回的是<code>TaskRunning</code>. 所以导致整个<code>Selector</code>逻辑卡死在同一个loop中.</p>
+<p>暂时绕开的解决方案如图:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171224-173552.jpg" alt="QQ20171224-173552"></p>
+<p>每个有<code>LowerPriority</code>判断的子树,除了需要不停做判断的<code>Conditional</code>以外全部都设置到一个永远返回<code>Success</code>的Deco下面</p>
 
           
         
@@ -445,7 +394,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/27/">27</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/15/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><span class="page-number current">16</span><a class="page-number" href="/page/17/">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/17/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -491,7 +440,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
