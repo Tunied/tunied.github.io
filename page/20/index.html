@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next gemini use-motion" lang="zh-Hans">
+<html class="theme-next gemini" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -103,7 +101,7 @@
     sidebar: {"position":"left","display":"hide","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
     tabs: true,
-    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    motion: {"enable":false,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
       author: '博主'
@@ -405,7 +403,7 @@
 <p>在APK所在的目录执行如下命令:</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">apktool</span> <span class="selector-tag">d</span> <span class="selector-tag">xxx</span><span class="selector-class">.apk</span></span><br></pre></td></tr></table></figure>
 <p>使用<code>keytool</code>查看<code>original/META-INF/CERT.RSA</code></p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="keyword">file</span> 解压后的目录<span class="regexp">/original/M</span>ETA-INF<span class="regexp">/CERT.RSA</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="keyword">file</span> 解压后的目录/original/META-<span class="literal">INF</span>/CERT.RSA</span><br></pre></td></tr></table></figure>
 <p>得到结果</p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/59787968.png" alt="59787968"></p>
 <p>可以看到<code>MD5</code>这行的信息和使用微信提供的工具查看到的信息相同.</p>
@@ -434,7 +432,7 @@
 <p>注意<strong>不能</strong>在<code>/Plugins/Android/任意文件夹/libs</code>目录. 因为这样会导致jar包被重复打包,导入jar文件冲突(DEX xxx 什么的错误).</p>
 <h2 id="Unity合并AndroidManifest-xml"><a href="#Unity合并AndroidManifest-xml" class="headerlink" title="Unity合并AndroidManifest.xml"></a>Unity合并AndroidManifest.xml</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>因为<code>wxapi.WXEntryActivity</code>的问题,在<code>AndroidManifest.xml</code>中必须导出这个Activity,而使用Unity直接打包,就需要给最终的<code>AndroidManifest.xml</code>加入这部分信息.</p>
 <p>Unity规定</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Plugins/</span>Android<span class="regexp">/任意文件夹/</span>AndroidManifest.xml</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Plugins/</span>Android<span class="regexp">/任意文件夹/</span>AndroidManifest.xml</span><br></pre></td></tr></table></figure>
 <p>在Android子文件夹下的<code>AndroidManifest.xml</code>文件会Merge到最终的<code>AndroidManifest.xml</code>中来. </p>
 <p>如果存在<code>/Plugins/Android/AndroidManifest.xml</code>则使用该<code>AndroidManifest.xml</code>作为初始的模板,如果不存在则使用默认的.</p>
 <h3 id="project-properties"><a href="#project-properties" class="headerlink" title="project.properties"></a>project.properties</h3><p>之前试了好几次都不行,困扰了我半天. 后来发现是因为子目录中没有包含<code>project.properties</code>文件.</p>
