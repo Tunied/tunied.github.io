@@ -340,6 +340,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="c31973c0-d7bf-11e7-a35f-8d0b55c052f5/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -367,7 +378,7 @@
         
           
             <h2 id="C-中Sort的排序实现"><a href="#C-中Sort的排序实现" class="headerlink" title="C#中Sort的排序实现"></a>C#中Sort的排序实现</h2><p><a href="https://msdn.microsoft.com/en-us/library/b0zbh7b6(v=vs.110" target="_blank" rel="noopener">MSDN</a>.aspx)</p>
-<div class="note success"><p>此方法使用 Array.Sort 方法，后者适用<code>反省排序</code>，如下所示︰</p>
+<p>此方法使用 Array.Sort 方法，后者适用<code>反省排序</code>，如下所示︰</p>
 <ul>
 <li>如果分区大小少于 16 个元素，它使用插入排序算法。</li>
 <li>如果分区数超过 2 * LogN，其中 N 是范围的输入数组，它使用 Heapsort 算法。<br>否则，它使用快速排序算法。</li>
@@ -375,7 +386,7 @@
 <p>此实现将执行不稳定排序 也就是说,如果两个元素相等,可能不会保留它们的顺序.<br>与此相反,稳定排序保留相等的元素的顺序。 </p>
 <ul>
 <li>一般情况下,此方法为 O (n log n) 操作，其中 n 是 Count; 最坏的情况是 O (n ^2) 操作。</li>
-</ul></div>
+</ul>
 <h3 id="插入排序-Insertion-Sort"><a href="#插入排序-Insertion-Sort" class="headerlink" title="插入排序 (Insertion Sort)"></a>插入排序 (Insertion Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/insertion-sort/" target="_blank" rel="noopener">原文连接</a></p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/00c37c01-098a-43c4-bd6c-660a00e35404.gif" alt="00c37c01-098a-43c4-bd6c-660a00e35404"></p>
 <h3 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序 (Quick Sort)"></a>快速排序 (Quick Sort)</h3><p><a href="http://bubkoo.com/2014/01/12/sort-algorithm/quick-sort/" target="_blank" rel="noopener">原文连接</a></p>
@@ -687,6 +698,14 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://oldking.disqus.com/count.js" async></script>
+    
+
+    
+
+  
+
 
 
 
@@ -699,10 +718,6 @@
   
 
 
-
-
-
-  
 
 
 

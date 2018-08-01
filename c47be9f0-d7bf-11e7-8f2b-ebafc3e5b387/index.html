@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/f75f68ad-bd44-4776-b542-ac43712b090e.png">
 <meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/5fd1a19e-d57e-4be1-9057-c879817a638b.jpeg">
 <meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/673be8de-23af-49f4-951e-d1684c59d226.jpeg">
-<meta property="og:updated_time" content="2017-12-03T01:42:09.000Z">
+<meta property="og:updated_time" content="2018-08-01T08:47:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Unity中的屏幕适配及PixelPerfect">
 <meta name="twitter:description" content="PixelPerfect什么叫PixelPerfect? 假设 1unit = 1 pixel   像素只可以等倍数的放大,比如1倍,2倍,3倍… 假设相机的Size是5 则在Editor屏幕中,一列(Heigh方向)显示10个像素.  Game屏(目标设备)的分辨率的高必须为10的整数被n x 10 (10,20,30,40 这样) 此时只要把Editor中的像素 1:n的复制到 Game屏 即">
@@ -350,6 +350,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -388,7 +399,9 @@
 <p>再假设,此时更改Game屏的分辨率到 30x13 ,  </p>
 <p>需要把Editor中的10个像素 基于某种算法 复制到 Game屏的13个像素中 此时就不是PixelPerfect.</p>
 <p>换句话说就是 </p>
-<div class="note success"><p><strong>目标设备分辨率(Game屏幕) 必须是 开发分辨率 (Editor屏) 的整数倍才行.</strong></p></div>
+<blockquote>
+<p><strong>目标设备分辨率(Game屏幕) 必须是 开发分辨率 (Editor屏) 的整数倍才行.</strong></p>
+</blockquote>
 <p>注意: 目标分辨率不能小于开发分辨率,比如 开发分辨率是100px高,但是设备分辨率只有50px高. 此时如果期望把100px显示在50px的设备上 必然会缩放,缩放必然会丢像素,所以无法为PixelPerfect</p>
 <p>就着上面说,<code>因为设备分辨率是固定的,所以能调整的仅有开发分辨率,也就是相机的Size.</code></p>
 <p>假设 设备分辨率为1440x900 , 高度为900px. (1unit=1pixel) 则由如下关系</p>
@@ -455,7 +468,9 @@
 </tbody>
 </table>
 <p>假设设备分辨率(高度) 是 1000px</p>
-<div class="note success"><p><strong>开发中的相机Size <em> 2 </em> N = 设备分辨率. </strong></p></div>
+<blockquote>
+<p><strong>开发中的相机Size <em> 2 </em> N = 设备分辨率. </strong></p>
+</blockquote>
 <p>N一定为整数,从上面表中可以知道N此时为3 (因为1000px 在900px~1200px之间)</p>
 <p>从而求出</p>
 <p>开发中的相机Size = 设备分辨率/(2*N) = 1000/6 = 166.666666</p>
@@ -516,7 +531,9 @@
 <p>根据缩放宽高比不变这条可以推导公式<br>设定:<br>开发分辨率宽 = 开W<br>开发分辨率高 = 开H<br>设备分辨率宽 = 设W<br>设备分辨率高 = 设H</p>
 <p>其中 开H 也就是最后需要求得的值.从而推导,再给定的设备上 需要把CameraSize调整到何值</p>
 <p>推导得到</p>
-<div class="note success"><p><strong>CameraSize =  开W <em> 设H / (设W </em> 2)</strong></p></div>
+<blockquote>
+<p><strong>CameraSize =  开W <em> 设H / (设W </em> 2)</strong></p>
+</blockquote>
 <h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><p>实际项目中, UI层一般都采取的是Canvas的全屏适配.也就不存在锁宽锁高. 主要是Scene场景. 能想到的比较典型的例子是</p>
 <p><strong>涂鸦跳跃 (锁宽)</strong></p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/5fd1a19e-d57e-4be1-9057-c879817a638b.jpeg" alt="5fd1a19e-d57e-4be1-9057-c879817a638b"></p>
@@ -623,7 +640,12 @@
           
   
     <div class="comments" id="comments">
-      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMjEyMi84Njg2"></div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     </div>
   
 
@@ -892,6 +914,26 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://oldking.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://oldking.wang/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/';
+          this.page.identifier = 'c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/';
+          this.page.title = 'Unity中的屏幕适配及PixelPerfect';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://oldking.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
 
 
 
@@ -904,21 +946,6 @@
   
 
 
-
-
-
-  
-    <script type="text/javascript">
-      (function(d, s) {
-        var j, e = d.getElementsByTagName(s)[0];
-        if (typeof LivereTower === 'function') { return; }
-        j = d.createElement(s);
-        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-        j.async = true;
-        e.parentNode.insertBefore(j, e);
-      })(document, 'script');
-    </script>
-  
 
 
 

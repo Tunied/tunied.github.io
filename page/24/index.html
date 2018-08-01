@@ -340,6 +340,17 @@
 
           
             
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/85eaf220-d806-11e7-8ea6-639de8f06c5d/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="85eaf220-d806-11e7-8ea6-639de8f06c5d/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
           
 
           
@@ -375,7 +386,9 @@
 <h3 id="NormalMap的含义"><a href="#NormalMap的含义" class="headerlink" title="NormalMap的含义"></a>NormalMap的含义</h3><p>首先要说的是什么是NormalMap,<a href="https://docs.unity3d.com/Manual/StandardShaderMaterialParameterNormalMap.html" target="_blank" rel="noopener">官网</a>解说的非常清楚了.</p>
 <p>普通Mesh<br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-065816.jpg" alt="QQ20171204-065816"></p>
 <p>加入NormalMap<br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-065917.jpg" alt="QQ20171204-065917"></p>
-<div class="note success"><p>each pixel in the texture of the normal map (called a texel) represents a deviation in surface normal direction away from the “true” surface normal of the flat (or smooth interpolated) polygon.</p></div>
+<blockquote>
+<p>each pixel in the texture of the normal map (called a texel) represents a deviation in surface normal direction away from the “true” surface normal of the flat (or smooth interpolated) polygon.</p>
+</blockquote>
 <h3 id="Normal映射及TBN"><a href="#Normal映射及TBN" class="headerlink" title="Normal映射及TBN"></a>Normal映射及TBN</h3><p>最让我不理解的是教程中关于切线(tangents)的解释. 他直接说到</p>
 <blockquote>
 <p>As we have a flat surface, all tangents simply point in the same direction,which is to the right.</p>
@@ -387,7 +400,9 @@
 <p>首先是UV映射. 可以看Y2B上的<a href="https://www.youtube.com/watch?v=YPX33hoXGa8" target="_blank" rel="noopener">这个视频</a>,</p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-071033.jpg" alt="QQ20171204-071033"></p>
 <p>没有涉及到太底层的数学推导,感性的认知UVMaping就是</p>
-<div class="note success"><p><strong>给定UV中的一个三角形U(三个点分别为U1,U2,U3) =&gt; 通过某种方法映射到 =&gt; 模型中的三角形P(P1,P2,P3)</strong></p></div>
+<blockquote>
+<p><strong>给定UV中的一个三角形U(三个点分别为U1,U2,U3) =&gt; 通过某种方法映射到 =&gt; 模型中的三角形P(P1,P2,P3)</strong></p>
+</blockquote>
 <p>这个<a href="https://www.youtube.com/watch?v=KQYxxndNNlA" target="_blank" rel="noopener">视频</a>有开了一个头,但是也没具体讲. 不过具体的映射方法,应该是和线性插值有关,没有细研究</p>
 <p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-190005.jpg" alt="QQ20171203-190005"></p>
 <p>可以用<code>线性插值</code>,<code>双线性插值</code>,<code>Trilinear</code>,<code>Bilinear</code> 作为Key搜搜看.</p>
@@ -696,6 +711,14 @@
 
   
 
+    
+      <script id="dsq-count-scr" src="https://oldking.disqus.com/count.js" async></script>
+    
+
+    
+
+  
+
 
 
 
@@ -708,10 +731,6 @@
   
 
 
-
-
-
-  
 
 
 
