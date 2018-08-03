@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/4242f7f0-1714-11e8-9242-bf2f9719042a/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/c6660210-17ba-11e8-9e87-45e9f0e9cada/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/4242f7f0-1714-11e8-9242-bf2f9719042a/" itemprop="url">创建 Isometric Tile Mesh用于Unity原生Navigation寻路</a></h1>
+                <a class="post-title-link" href="/c6660210-17ba-11e8-9e87-45e9f0e9cada/" itemprop="url">ShareSDK配置手札</a></h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-21T22:34:01+08:00">
-                2018-02-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T18:25:59+08:00">
+                2018-02-22
               </time>
             
 
@@ -313,28 +313,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -343,9 +321,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/4242f7f0-1714-11e8-9242-bf2f9719042a/#comments" itemprop="discussionUrl">
+                <a href="/c6660210-17ba-11e8-9e87-45e9f0e9cada/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="4242f7f0-1714-11e8-9242-bf2f9719042a/" itemprop="commentCount"></span>
+                        data-disqus-identifier="c6660210-17ba-11e8-9e87-45e9f0e9cada/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -375,29 +353,26 @@
       
         
           
-            <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>Unity 无论自身的TileMap(2018版本),还是Asset Store中的插件,对于Isometric(斜45度)的地图支持的都不好.几乎都处于不可用的状态中.</p>
-<p>唯一一个不错的且免费的插件是<a href="!http://www.seanba.com/tiled2unity">Tiled2Unity</a></p>
-<p>插件的原理是使用<a href="!http://www.mapeditor.org/">Tiled</a>对地图进行编辑,然后通过该插件导入到Unity中使用. </p>
-<p>其地图导入部分做的很好,Isometric的地图完全没有问题. 但是其引入的是<code>PolygonCollider2D</code>作为物理碰撞.</p>
-<p>对于纯2D的横版游戏完全没有问题.但是如果是俯视的大地图 比如 金庸群侠传,英雄无敌 等等 这种视角的游戏, 如果需要使用原生的寻路系统(NavMeshAgent). 就必须要自己想办法</p>
-<p>其实工具内部可以自己写<code>ICustomTiledImporter</code>实现,然后在Tiled中使用AutoTile,编辑相应的规则.</p>
-<p>最终实现的流程是就是</p>
-<ul>
-<li>编辑AutoTile,使得放置地表时候自动创建Tile Object(粉色的那个,在ObjectLayer).</li>
-<li>自己写<code>ICustomTiledImporter</code>读取相应的Property.然后生成相应的Unity中的GameObject</li>
-</ul>
-<h2 id="我的方案"><a href="#我的方案" class="headerlink" title="我的方案"></a>我的方案</h2><p>使用AutoTile我觉得太麻烦,所以直接写个工具,将Map导出一份Json,读入Json中的Property信息即可以.<br>所以就剩下第二部分逻辑. 在相应的Tile部分生成GameObject用于NavMesh 的 Bake.</p>
-<p>就是在Tiled中创建两个色块Tile(红色,绿色). 红色的色块是不能走的地方,绿色色块是可以走的地方</p>
-<p>在Unity中读取对应的信息,找到红色和绿色色块.在对应的位置放置上红色的Prefab和绿色的Prefab.</p>
-<p>这种两个Prefab就是一个空的3D物品,然后设置成<code>Navigation Static</code>,一个设置为<code>Walkable</code>,一个设置为<code>NotWalkable</code></p>
-<p>然后直接Bake NavMesh即可.</p>
-<p>所以最终的问题 就是如何产生这个 红色或者绿色的Prefab.</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>生成相应的Mesh代码如下.</p>
-<p>我使用了<code>OdinInspector</code>制作界面.如果不是用则自定义CustomEditor放置两个按钮对应<code>MakeTile</code>和<code>SaveTile</code>即可</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Sirenix.OdinInspector;</span><br><span class="line"><span class="keyword">using</span> UnityEditor;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line">[<span class="meta">RequireComponent(typeof(MeshFilter))</span>]</span><br><span class="line">[<span class="meta">RequireComponent(typeof(MeshRenderer))</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MeshTileMaker</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> A = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> B = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> C = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> D = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> AP = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> BP = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> CP = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> DP = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> TILE_HEIGH;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">LabelText(<span class="meta-string">"Tile的宽度:"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> TILE_WIDTH = <span class="number">0.64</span>f;</span><br><span class="line">    [<span class="meta">LabelText(<span class="meta-string">"3D模型的高度:"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> CUBE_HEIGH = <span class="number">0.2</span>f;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    [<span class="meta">Button(ButtonSizes.Large)</span>]</span><br><span class="line">    [<span class="meta">ButtonGroup(<span class="meta-string">"Function"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">MakeTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        DoMakeTile();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">GUIColor(0, 1, 0)</span>]</span><br><span class="line">    [<span class="meta">ButtonGroup(<span class="meta-string">"Function"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SaveTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">string</span> path = EditorUtility.SaveFilePanel(<span class="string">"Save Mesh"</span>, <span class="string">"Assets/"</span>, name, <span class="string">"asset"</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">string</span>.IsNullOrEmpty(path)) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        path = FileUtil.GetProjectRelativePath(path);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> filter = GetComponent&lt;MeshFilter&gt;();</span><br><span class="line">        <span class="keyword">var</span> meshToSave = filter.mesh;</span><br><span class="line"></span><br><span class="line">        MeshUtility.Optimize(meshToSave);</span><br><span class="line"></span><br><span class="line">        AssetDatabase.CreateAsset(meshToSave, path);</span><br><span class="line">        AssetDatabase.SaveAssets();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">DoMakeTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        TILE_HEIGH = TILE_WIDTH / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> HALF_WIDHT = TILE_WIDTH / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> HALF_HEIGH = TILE_HEIGH / <span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> vertices = <span class="keyword">new</span> Vector3[<span class="number">8</span>];</span><br><span class="line">        vertices[A] = <span class="keyword">new</span> Vector3(-HALF_WIDHT, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        vertices[B] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, HALF_HEIGH);</span><br><span class="line">        vertices[C] = <span class="keyword">new</span> Vector3(HALF_WIDHT, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        vertices[D] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, -HALF_HEIGH);</span><br><span class="line"></span><br><span class="line">        vertices[AP] = <span class="keyword">new</span> Vector3(-HALF_WIDHT, CUBE_HEIGH, <span class="number">0</span>);</span><br><span class="line">        vertices[BP] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, CUBE_HEIGH, HALF_HEIGH);</span><br><span class="line">        vertices[CP] = <span class="keyword">new</span> Vector3(HALF_WIDHT, CUBE_HEIGH, <span class="number">0</span>);</span><br><span class="line">        vertices[DP] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, CUBE_HEIGH, -HALF_HEIGH);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> triangles = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">12</span> * <span class="number">3</span>];</span><br><span class="line">        <span class="keyword">var</span> startIndex = <span class="number">0</span>;</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, B, A);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, B, D);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, AP, BP, DP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, BP, CP, DP);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, AP, DP, A);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, A, DP, D);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, DP, CP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, CP, C);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, B, BP, AP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, B, AP, A);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, CP, BP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, BP, B);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> mesh = <span class="keyword">new</span> Mesh &#123;name = <span class="string">"TileMesh"</span>&#125;;</span><br><span class="line">        mesh.vertices = vertices;</span><br><span class="line">        mesh.triangles = triangles;</span><br><span class="line">        GetComponent&lt;MeshFilter&gt;().mesh = mesh;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DoPushTriangles</span>(<span class="params"><span class="keyword">ref</span> <span class="keyword">int</span>[] _triangles, <span class="keyword">ref</span> <span class="keyword">int</span> _startIndex, <span class="keyword">int</span> _A, <span class="keyword">int</span> _B, <span class="keyword">int</span> _C</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        _triangles[_startIndex] = _A;</span><br><span class="line">        _triangles[_startIndex + <span class="number">1</span>] = _B;</span><br><span class="line">        _triangles[_startIndex + <span class="number">2</span>] = _C;</span><br><span class="line">        _startIndex += <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230512.jpg" alt="QQ20180221-230512"></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230021.jpg" alt="QQ20180221-230021"></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230057.jpg" alt="QQ20180221-230057"></p>
+            <h2 id="修改步骤"><a href="#修改步骤" class="headerlink" title="修改步骤"></a>修改步骤</h2><h3 id="修改-ShareSDKUnity3DBridge"><a href="#修改-ShareSDKUnity3DBridge" class="headerlink" title="修改 ShareSDKUnity3DBridge"></a>修改 ShareSDKUnity3DBridge</h3><p>编辑ShareSDKUnity3DBridge.m文件. 在Finder中打开,ShareSDK的IOS目录下</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-182851.jpg" alt="QQ20180222-182851"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-182921.jpg" alt="QQ20180222-182921"></p>
+<p>注释掉所有不使用的平台</p>
+<h3 id="ShareSDK-cs"><a href="#ShareSDK-cs" class="headerlink" title="ShareSDK.cs"></a>ShareSDK.cs</h3><p>替换ShareSDK中的appKey和appSecret为自己的Key</p>
+<h3 id="DevInfoSet-cs"><a href="#DevInfoSet-cs" class="headerlink" title="DevInfoSet.cs"></a>DevInfoSet.cs</h3><p>修改其内部的所有<code>app_key</code>和<code>app_secret</code>等相应信息为自己的</p>
+<h3 id="ChosenPlatforms-cs"><a href="#ChosenPlatforms-cs" class="headerlink" title="ChosenPlatforms.cs"></a>ChosenPlatforms.cs</h3><p>修改其内部所有用不到的平台<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.XXXX[<span class="string">"chosen"</span>] = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="EditorUI-cs"><a href="#EditorUI-cs" class="headerlink" title="EditorUI.cs"></a>EditorUI.cs</h3><p>更改OnInspectorGUI函数为</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public override void OnInspectorGUI()</span><br><span class="line">       &#123;</span><br><span class="line">           EditorGUILayout<span class="meta">.Space</span>()<span class="comment">;</span></span><br><span class="line">           EditorGUILayout.LabelField(<span class="string">"点击保存"</span>)<span class="comment">;</span></span><br><span class="line">           EditorGUILayout<span class="meta">.Space</span>()<span class="comment">;</span></span><br><span class="line">           if (GUILayout.<span class="keyword">Button("保存"))</span></span><br><span class="line"><span class="keyword"> </span>          &#123;</span><br><span class="line">               Save()<span class="comment">;</span></span><br><span class="line">               <span class="built_in">Debug</span>.Log(<span class="string">"Done Save"</span>)<span class="comment">;</span></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ShareSDKPostProcessBuild-cs"><a href="#ShareSDKPostProcessBuild-cs" class="headerlink" title="ShareSDKPostProcessBuild.cs"></a>ShareSDKPostProcessBuild.cs</h3><p>更改<code>EditInfoPlist</code>函数内部的URL Scheme为自己对应的key</p>
+<h3 id="移动SDK"><a href="#移动SDK" class="headerlink" title="移动SDK"></a>移动SDK</h3><p>将目录移动到一个统一文件夹内部</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-183750.jpg" alt="QQ20180222-183750"></p>
+<p>修改<code>onPostProcessBuild</code>中的file路径为新SDK包的路径</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">var files</span> = Directory.GetFiles(unityEditorAssetPath + <span class="string">"/Plugins/FixShareSDK/ShareSDKiOSAutoPackage/Editor/SDKPorter"</span>, <span class="string">"*.projmods"</span>, SearchOption.AllDirectories);</span><br></pre></td></tr></table></figure>
+<h3 id="更新Platforms"><a href="#更新Platforms" class="headerlink" title="更新Platforms"></a>更新Platforms</h3><p>建立空的GameObject,挂载<code>ShareSDK</code>和<code>Manage Platforms</code><br>点击保存按钮.</p>
+<h2 id="检查Xcode项目"><a href="#检查Xcode项目" class="headerlink" title="检查Xcode项目"></a>检查Xcode项目</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-180840.jpg" alt="QQ20180222-180840"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-180942.jpg" alt="QQ20180222-180942"></p>
+<p>检查导出的Xcode是否配置正确,及是否导出了多余的Lib包</p>
+<h2 id="更改设置的原因"><a href="#更改设置的原因" class="headerlink" title="更改设置的原因"></a>更改设置的原因</h2><p>其默认的Unity包是依赖于Public变量改变来更新配置的. 但是Unity有时候会回滚操作(不明原因),之前设置的东西全部回滚为初始的配置了.</p>
+<p>所以直接采用代码硬更改.</p>
 
           
         
@@ -437,7 +412,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/11/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><span class="page-number current">12</span><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/13/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -483,7 +458,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Unity," />
+  <meta name="keywords" content="NavMesh," />
 
 
 
@@ -79,29 +79,18 @@
 
 
 
-<meta name="description" content="PixelPerfect什么叫PixelPerfect? 假设 1unit = 1 pixel   像素只可以等倍数的放大,比如1倍,2倍,3倍… 假设相机的Size是5 则在Editor屏幕中,一列(Heigh方向)显示10个像素.  Game屏(目标设备)的分辨率的高必须为10的整数被n x 10 (10,20,3">
-<meta name="keywords" content="Unity">
+<meta name="description" content="错误 “IsStopped” can only be called on an active agent that has been placed on a NavMesh.    “GetRemainingDistance” can only be called on an active agent that has">
+<meta name="keywords" content="NavMesh">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity中的屏幕适配及PixelPerfect">
-<meta property="og:url" content="http://oldking.wang/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/index.html">
+<meta property="og:title" content="出现 XXX can only be called on an active agent that has been placed on a NavMesh 的原因及解决方法">
+<meta property="og:url" content="http://oldking.wang/02be5110-96ee-11e8-b96a-33aa607b4d67/index.html">
 <meta property="og:site_name" content="隔壁老王">
-<meta property="og:description" content="PixelPerfect什么叫PixelPerfect? 假设 1unit = 1 pixel   像素只可以等倍数的放大,比如1倍,2倍,3倍… 假设相机的Size是5 则在Editor屏幕中,一列(Heigh方向)显示10个像素.  Game屏(目标设备)的分辨率的高必须为10的整数被n x 10 (10,20,30,40 这样) 此时只要把Editor中的像素 1:n的复制到 Game屏 即">
+<meta property="og:description" content="错误 “IsStopped” can only be called on an active agent that has been placed on a NavMesh.    “GetRemainingDistance” can only be called on an active agent that has been placed on a NavMesh.  或者其他类似的,由于没有">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/a.png">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/8985113e-7962-4d5c-840a-a032ab77a46f.jpg">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/97f07975-dba4-478c-ae39-f8e3d020e700.jpg">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/a58f291c-e110-404f-bada-28842cdc6c83.jpg">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/c2cd50a9-8bc8-4023-90de-891ca8df826a.jpg">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/92b988e9-a161-41dd-8979-9d07efa78223.jpg">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/b1f0bbc9-5a2c-4d4f-9165-63e189e41659.jpg">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/f75f68ad-bd44-4776-b542-ac43712b090e.png">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/5fd1a19e-d57e-4be1-9057-c879817a638b.jpeg">
-<meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/673be8de-23af-49f4-951e-d1684c59d226.jpeg">
-<meta property="og:updated_time" content="2018-08-01T08:47:34.000Z">
+<meta property="og:updated_time" content="2018-08-03T07:35:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity中的屏幕适配及PixelPerfect">
-<meta name="twitter:description" content="PixelPerfect什么叫PixelPerfect? 假设 1unit = 1 pixel   像素只可以等倍数的放大,比如1倍,2倍,3倍… 假设相机的Size是5 则在Editor屏幕中,一列(Heigh方向)显示10个像素.  Game屏(目标设备)的分辨率的高必须为10的整数被n x 10 (10,20,30,40 这样) 此时只要把Editor中的像素 1:n的复制到 Game屏 即">
-<meta name="twitter:image" content="http://p09vx6soj.bkt.clouddn.com/a.png">
+<meta name="twitter:title" content="出现 XXX can only be called on an active agent that has been placed on a NavMesh 的原因及解决方法">
+<meta name="twitter:description" content="错误 “IsStopped” can only be called on an active agent that has been placed on a NavMesh.    “GetRemainingDistance” can only be called on an active agent that has been placed on a NavMesh.  或者其他类似的,由于没有">
 
 
 
@@ -131,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://oldking.wang/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/"/>
+  <link rel="canonical" href="http://oldking.wang/02be5110-96ee-11e8-b96a-33aa607b4d67/"/>
 
 
 
 
 
-  <title>Unity中的屏幕适配及PixelPerfect | 隔壁老王</title>
+  <title>出现 XXX can only be called on an active agent that has been placed on a NavMesh 的原因及解决方法 | 隔壁老王</title>
   
 
 
@@ -283,7 +272,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/02be5110-96ee-11e8-b96a-33aa607b4d67/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -300,7 +289,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Unity中的屏幕适配及PixelPerfect</h1>
+          <h1 class="post-title" itemprop="name headline">出现 XXX can only be called on an active agent that has been placed on a NavMesh 的原因及解决方法</h1>
         
 
         <div class="post-meta">
@@ -312,8 +301,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T16:00:31+08:00">
-                2017-12-02
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T15:22:42+08:00">
+                2018-08-03
               </time>
             
 
@@ -353,9 +342,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/#comments" itemprop="discussionUrl">
+                <a href="/02be5110-96ee-11e8-b96a-33aa607b4d67/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/" itemprop="commentCount"></span>
+                        data-disqus-identifier="02be5110-96ee-11e8-b96a-33aa607b4d67/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -388,155 +377,34 @@
       
 
       
-        <h2 id="PixelPerfect"><a href="#PixelPerfect" class="headerlink" title="PixelPerfect"></a>PixelPerfect</h2><p><strong>什么叫PixelPerfect?</strong></p>
-<p>假设 1unit = 1 pixel </p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/a.png" alt="a"></p>
-<p>像素只可以等倍数的放大,比如1倍,2倍,3倍…</p>
-<p>假设相机的Size是5 则在Editor屏幕中,一列(Heigh方向)显示10个像素.  Game屏(目标设备)的分辨率的高必须为10的整数被<br>n x 10 (10,20,30,40 这样)</p>
-<p>此时只要把Editor中的像素 1:n的复制到 Game屏 即可, 此时就是 PixelPerfect  (n是整数倍)</p>
-<p>再假设,此时更改Game屏的分辨率到 30x13 ,  </p>
-<p>需要把Editor中的10个像素 基于某种算法 复制到 Game屏的13个像素中 此时就不是PixelPerfect.</p>
-<p>换句话说就是 </p>
-<blockquote>
-<p><strong>目标设备分辨率(Game屏幕) 必须是 开发分辨率 (Editor屏) 的整数倍才行.</strong></p>
+        <h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><blockquote>
+<p>“IsStopped” can only be called on an active agent that has been placed on a NavMesh.</p>
 </blockquote>
-<p>注意: 目标分辨率不能小于开发分辨率,比如 开发分辨率是100px高,但是设备分辨率只有50px高. 此时如果期望把100px显示在50px的设备上 必然会缩放,缩放必然会丢像素,所以无法为PixelPerfect</p>
-<p>就着上面说,<code>因为设备分辨率是固定的,所以能调整的仅有开发分辨率,也就是相机的Size.</code></p>
-<p>假设 设备分辨率为1440x900 , 高度为900px. (1unit=1pixel) 则由如下关系</p>
-<table>
-<thead>
-<tr>
-<th>设备分辨率</th>
-<th>开发分辨率</th>
-<th>相机Size</th>
-<th>相机Size</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>900px</td>
-<td>900px</td>
-<td>450</td>
-<td>1x</td>
-</tr>
-<tr>
-<td>900px</td>
-<td>450px</td>
-<td>225</td>
-<td>2x</td>
-</tr>
-<tr>
-<td>900px</td>
-<td>300px</td>
-<td>150</td>
-<td>3x</td>
-</tr>
-<tr>
-<td>900px</td>
-<td>225px</td>
-<td>112.5</td>
-<td>4x</td>
-</tr>
-</tbody>
-</table>
-<p>容易混淆: 开发分辨率并不是图片的大小,比如一张背景图可以是1000px x 1000px的 只不过显示的区域是900px 450px (仅仅显示一部分). 反过来说 一个角色 可以是 30px x 50px. 同理 显示的区域仍旧是 900px 450px.  图片画多大和开发分辨率无关.</p>
-<h3 id="PixelPerfect-适合的适配方案"><a href="#PixelPerfect-适合的适配方案" class="headerlink" title="PixelPerfect 适合的适配方案"></a>PixelPerfect 适合的适配方案</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/8985113e-7962-4d5c-840a-a032ab77a46f.jpg" alt="8985113e-7962-4d5c-840a-a032ab77a46f"></p>
-<p>比如横板卷轴,设计关卡高度为300px,上下留出50px冗余 也就是 美术做了一张  1000px x 400px的图片. 其中间300px是所有设备都会显示的,上下个50px是根据设备不同.<br>有的显示有的不显示 且不显示的话也不会影响整体的游戏体验.</p>
-<p>此时在保证PixelPerfect的情况下 设备分辨率必须满足</p>
-<table>
-<thead>
-<tr>
-<th>倍率</th>
-<th>设备分辨率高度范围</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1x</td>
-<td>300px~400px</td>
-</tr>
-<tr>
-<td>2x</td>
-<td>600px~800px</td>
-</tr>
-<tr>
-<td>3x</td>
-<td>900px~1200px</td>
-</tr>
-</tbody>
-</table>
-<p>假设设备分辨率(高度) 是 1000px</p>
+<hr>
 <blockquote>
-<p><strong>开发中的相机Size <em> 2 </em> N = 设备分辨率. </strong></p>
+<p>“GetRemainingDistance” can only be called on an active agent that has been placed on a NavMesh.</p>
 </blockquote>
-<p>N一定为整数,从上面表中可以知道N此时为3 (因为1000px 在900px~1200px之间)</p>
-<p>从而求出</p>
-<p>开发中的相机Size = 设备分辨率/(2*N) = 1000/6 = 166.666666</p>
-<p>反过来也可以说</p>
-<p>通过把相机Size设置为166.666666, 使得原图以扩大3被的情况下映射到了1000px分辨率的设备上了. 从而达到了PixelPerfect.</p>
-<p>注意:</p>
-<p>Size=166.66666, 也就是一个屏幕内可以显示的像素是333.3333px. 这也是为什么图片要制作为 300px有效像素,然后上下再留出50px冗余像素的原因</p>
-<h3 id="不适合做PixelPerfect的例子"><a href="#不适合做PixelPerfect的例子" class="headerlink" title="不适合做PixelPerfect的例子"></a>不适合做PixelPerfect的例子</h3><p>比如 设备分辨率是 850px</p>
-<p>按照上面的公式 <code>开发中的相机Size * 2 * N = 设备分辨率</code>.  </p>
-<table>
-<thead>
-<tr>
-<th>N的取值</th>
-<th>开发中相机Size*2</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1x</td>
-<td>850px</td>
-</tr>
-<tr>
-<td>2x</td>
-<td>425px</td>
-</tr>
-<tr>
-<td>3x</td>
-<td>283.333px</td>
-</tr>
-</tbody>
-</table>
-<p>可以看出</p>
-<p><code>N=2</code> 则 会显示出开发分辨率下425px的内容,但是美术画的图是1000px x 400px的,多出来25px空白,<br><code>N=1</code> 则 显示283.333px的内容 小于300px的有效内容. 会显示不全. 比如上图例子中那样 可能头上的陷阱就看不到了.</p>
-<p>此时  并没有办法使得在PixelPerfect的情况下使得开发分辨率锁定在300px~400px之间.  2x的情况会导致穿帮,3x会导致显示内容过小</p>
-<p>如若要做PixelPerfect 则需要做不锁高的游戏,也就是游戏世界中的高度大于1个视口高度,比如泰拉瑞亚这种,世界很大,能看到的只是其中一个区域. 此时相机高度发生一定变化 并不会导致穿帮.<br>或者上下直接留黑边,然后采取N=2的情况去做处理.</p>
-<h2 id="普通的屏幕适配方案"><a href="#普通的屏幕适配方案" class="headerlink" title="普通的屏幕适配方案"></a>普通的屏幕适配方案</h2><p>对于普通游戏(非像素游戏),其实没有必要非达到PixelPerfect的. 那此时一般采取的适配方案是锁高,或者锁宽.或者两种之间的变种.</p>
-<h3 id="锁高"><a href="#锁高" class="headerlink" title="锁高"></a>锁高</h3><p>锁高也是最简单的一种. 比如开发分辨率设定是 任意宽度 x 1000px . 然后在给定 任意设备分辨率的情况下. 希望可以把这1000px都显示出来.无论能显示多宽的内容.</p>
-<p>比如设备高度是 500px , 那就是把现有内容缩小一倍显示在屏幕上. 如果设备是800px 则是缩小0.8 (800/1000)显示在屏幕上.</p>
-<p>注意: 容易和PixelPerfect混淆的是. PixelPerfect是通过调整CameraSize从而保证缩放比例一定是整数,而普通锁高适配是恒定CameraSize</p>
-<p>啰嗦一句. 上面的公式   开发中的相机Size <em> 2 </em> N = 设备分辨率 同样也适用这里. 只不过开发相机Size恒定 . 而N就是真正缩放的倍数.比如上面例子中0.5(500/1000), 0.8(800/1000)</p>
-<p>只不过这个N 在Unity的面板里面是看不到的.</p>
-<p>比如开发分辨率定位720px x 1280px . 在Unity中讲CameraSize设置为6.4  (6.4x2=12.8 默认 1unit=100px)</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/97f07975-dba4-478c-ae39-f8e3d020e700.jpg" alt="97f07975-dba4-478c-ae39-f8e3d020e700"></p>
-<p>开发分辨率 720x1280 :</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/a58f291c-e110-404f-bada-28842cdc6c83.jpg" alt="a58f291c-e110-404f-bada-28842cdc6c83"></p>
-<p>设备分辨率 300x500:</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/c2cd50a9-8bc8-4023-90de-891ca8df826a.jpg" alt="c2cd50a9-8bc8-4023-90de-891ca8df826a"></p>
-<p>设备分辨率 30x300:</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/92b988e9-a161-41dd-8979-9d07efa78223.jpg" alt="92b988e9-a161-41dd-8979-9d07efa78223"></p>
-<p><strong>在锁高的情况下,上下两个五角星一直会显示,无论设备分辨率是多少.</strong></p>
-<p>此时并不用做任何的操作</p>
-<h3 id="锁宽"><a href="#锁宽" class="headerlink" title="锁宽"></a>锁宽</h3><p>锁宽稍微要复杂一些.  首先要明确的是.适配的方式就是在<code>保证宽高比</code>的情况下 放大缩小.使得锁定的一方完全显示在屏幕内.</p>
-<p>还是上面的例子. 开发分辨率是 720x1280 . 设备分辨率是 30x300  锁高的情况下就是把 1280px 缩放到 300px的设备上</p>
-<p>缩放倍数 = 300/1280 = 0.234375<br>因为宽高比不便. 所以宽度被缩放到了0.234375 * 720px = 168.75px. 设备只有30px的宽. 所以只能看到上下两颗星星. 左右的看不到.</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/b1f0bbc9-5a2c-4d4f-9165-63e189e41659.jpg" alt="b1f0bbc9-5a2c-4d4f-9165-63e189e41659"></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/f75f68ad-bd44-4776-b542-ac43712b090e.png" alt="f75f68ad-bd44-4776-b542-ac43712b090e"></p>
-<p><strong>锁宽的情况下需要更改CameraSize从而使得在不同设备的情况下,在设备上看到的宽度和开发中的一样.</strong></p>
-<p>根据缩放宽高比不变这条可以推导公式<br>设定:<br>开发分辨率宽 = 开W<br>开发分辨率高 = 开H<br>设备分辨率宽 = 设W<br>设备分辨率高 = 设H</p>
-<p>其中 开H 也就是最后需要求得的值.从而推导,再给定的设备上 需要把CameraSize调整到何值</p>
-<p>推导得到</p>
+<p>或者其他类似的,由于没有把NavMeshAgent放置在NavMesh所导致的错误</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>大部分原因是两种</p>
+<ul>
+<li>初始化时候放置的NavMeshAgent的Position比NavMesh要低.</li>
+</ul>
+<p>比如像我自己的项目,就出现这种情况. 我的NavMesh最后<code>Bake</code>完所在的平面是(0,0.2f,0) 也就是 <code>y = 0.2f</code> 的平面. 但是我创建NavMeshAgent时候,其在Prefab中默认的坐标是(0,0,0)</p>
+<ul>
+<li>Agent之前在NavMesh上面.但是后面通过设置<code>transfrom.position</code>导致其偏离的NavMesh.</li>
+</ul>
+<p>以上两种情况都会出现 如下的错误信息</p>
 <blockquote>
-<p><strong>CameraSize =  开W <em> 设H / (设W </em> 2)</strong></p>
+<p>XXX can only be called on an active agent that has been placed on a NavMesh</p>
 </blockquote>
-<h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><p>实际项目中, UI层一般都采取的是Canvas的全屏适配.也就不存在锁宽锁高. 主要是Scene场景. 能想到的比较典型的例子是</p>
-<p><strong>涂鸦跳跃 (锁宽)</strong></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/5fd1a19e-d57e-4be1-9057-c879817a638b.jpeg" alt="5fd1a19e-d57e-4be1-9057-c879817a638b"></p>
-<p><strong>Flappy bird (锁高)</strong></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/673be8de-23af-49f4-951e-d1684c59d226.jpeg" alt="673be8de-23af-49f4-951e-d1684c59d226"></p>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ul>
+<li>初始化时候就设置Position偏移</li>
+</ul>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Prefab ;</span><br><span class="line"><span class="keyword">var</span> offsetV3 = <span class="keyword">new</span> <span class="type">Vector</span>(<span class="number">0</span>,<span class="number">0.21</span>f,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = GameObject.Instantiate(Prefab, offsetV3, Quaternion.identity);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用Wrap函数</li>
+</ul>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Prefab;</span><br><span class="line"><span class="keyword">var</span> offsetV3 = <span class="keyword">new</span> <span class="type">Vector</span>(<span class="number">0</span>,<span class="number">0.21</span>f,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = GameObject.Instantiate(Prefab);</span><br><span class="line"><span class="keyword">var</span> agent = <span class="keyword">new</span><span class="type">Go</span>.GetComponent&lt;NavMeshAgent&gt;();</span><br><span class="line">agent.Wrap(offsetV3);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -583,7 +451,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Unity/" rel="tag"># Unity</a>
+            <a href="/tags/NavMesh/" rel="tag"># NavMesh</a>
           
         </div>
       
@@ -596,8 +464,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/" rel="next" title="在自己服务器(搬瓦工)上部署Hexo且用git同步">
-                <i class="fa fa-chevron-left"></i> 在自己服务器(搬瓦工)上部署Hexo且用git同步
+              <a href="/3dbcea40-93fd-11e8-82b5-5f6e29863172/" rel="next" title="Unity UGUI Image 善用纹理的WrapMode">
+                <i class="fa fa-chevron-left"></i> Unity UGUI Image 善用纹理的WrapMode
               </a>
             
           </div>
@@ -605,10 +473,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea/" rel="prev" title="Hexo配置流程">
-                Hexo配置流程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -749,7 +613,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PixelPerfect"><span class="nav-number">1.</span> <span class="nav-text">PixelPerfect</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PixelPerfect-适合的适配方案"><span class="nav-number">1.1.</span> <span class="nav-text">PixelPerfect 适合的适配方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不适合做PixelPerfect的例子"><span class="nav-number">1.2.</span> <span class="nav-text">不适合做PixelPerfect的例子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#普通的屏幕适配方案"><span class="nav-number">2.</span> <span class="nav-text">普通的屏幕适配方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#锁高"><span class="nav-number">2.1.</span> <span class="nav-text">锁高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锁宽"><span class="nav-number">2.2.</span> <span class="nav-text">锁宽</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际应用场景"><span class="nav-number">3.</span> <span class="nav-text">实际应用场景</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#错误"><span class="nav-number">1.</span> <span class="nav-text">错误</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因"><span class="nav-number">2.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方法"><span class="nav-number">3.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
             
 
           </div>
@@ -919,9 +783,9 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://oldking.wang/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/';
-          this.page.identifier = 'c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/';
-          this.page.title = 'Unity中的屏幕适配及PixelPerfect';
+          this.page.url = 'http://oldking.wang/02be5110-96ee-11e8-b96a-33aa607b4d67/';
+          this.page.identifier = '02be5110-96ee-11e8-b96a-33aa607b4d67/';
+          this.page.title = '出现 XXX can only be called on an active agent that has been placed on a NavMesh 的原因及解决方法';
         };
         var d = document, s = d.createElement('script');
         s.src = 'https://oldking.disqus.com/embed.js';

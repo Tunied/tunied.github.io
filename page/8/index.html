@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/9bae8910-3994-11e8-bcca-ef87fcce56f0/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/30ae8bd0-55e4-11e8-aeef-7d501aa687e4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/9bae8910-3994-11e8-bcca-ef87fcce56f0/" itemprop="url">使用Obfuscator对代码进行混淆</a></h1>
+                <a class="post-title-link" href="/30ae8bd0-55e4-11e8-aeef-7d501aa687e4/" itemprop="url">Odin - Inspector and Serializer 使用手札</a></h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T20:18:26+08:00">
-                2018-04-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T20:58:39+08:00">
+                2018-05-12
               </time>
             
 
@@ -343,9 +343,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/9bae8910-3994-11e8-bcca-ef87fcce56f0/#comments" itemprop="discussionUrl">
+                <a href="/30ae8bd0-55e4-11e8-aeef-7d501aa687e4/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="9bae8910-3994-11e8-bcca-ef87fcce56f0/" itemprop="commentCount"></span>
+                        data-disqus-identifier="30ae8bd0-55e4-11e8-aeef-7d501aa687e4/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -375,28 +375,13 @@
       
         
           
-            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>游戏上线后,遭到各种各样的破解. 前期还仅仅是尝试改改内存,这个还好 虽然后来也被破解了.但是应对方法比较简单.</p>
-<p>后来<code>GG大玩家</code>居然直接<code>Dll Hook</code>挂Mod… 太看得起我了-.-</p>
-<h2 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h2><p>虽然可以做dll注入防护(原理应该是给自己用到的所有Dll做白名单,其他的一概不允许),不过考虑到接入那么多渠道.再做这部分的防护. 一键打包脚本 应该是个巨大的工作量.所以还是放弃了..</p>
-<h2 id="Obfuscator"><a href="#Obfuscator" class="headerlink" title="Obfuscator"></a>Obfuscator</h2><p><code>Obfuscator</code>是AssetStore上很火的一个插件,可以进行代码混淆并且生成<code>伪函数</code>,对于注入来说应该会加大不少难度. 希望<code>GG大玩家</code>的<code>Hacker</code>们会喜欢. 期待你们的下次破解~~</p>
-<h3 id="测试工程"><a href="#测试工程" class="headerlink" title="测试工程"></a>测试工程</h3><p>写一个标准的<code>MVC</code>,界面两个按钮. 一个控制加分数,一个控制减分数</p>
-<p><strong>UI层</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UIMediator</span> :</span> MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickAddScoreBtn</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ScoreVoManger.instance.GetVo().num += <span class="number">1</span>;</span><br><span class="line">        Debug.Log(<span class="string">"On click add score btn"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickSubScoreBtn</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ScoreVoManger.instance.GetVo().num -= <span class="number">1</span>;</span><br><span class="line">        Debug.Log(<span class="string">"On click sub score btn"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>VoHandler</strong><br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class ScoreVoManger</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> ScoreVoManger mInstance;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> ScoreVoManger<span class="built_in"> instance </span>=&gt; mInstance ?? (mInstance =<span class="built_in"> new </span>ScoreVoManger());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> readonly ScoreVo mVo;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> ScoreVoManger()</span><br><span class="line">    &#123;</span><br><span class="line">        mVo =<span class="built_in"> new </span>ScoreVo();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span> void ChangeScore(int _addValue)</span><br><span class="line">    &#123;</span><br><span class="line">        mVo.num += _addValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span> ScoreVo GetVo()</span><br><span class="line">    &#123;</span><br><span class="line">       <span class="built_in"> return </span>mVo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><strong>Vo</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScoreVo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> num;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ScoreVo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        num = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="效果截图"><a href="#效果截图" class="headerlink" title="效果截图"></a>效果截图</h3><p>直接使用<code>Obfuscator</code>默认参数. 编译后Dump出代码</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/WX20180406-203428.png" alt="WX20180406-203428"></p>
-<h2 id="Update-v1"><a href="#Update-v1" class="headerlink" title="Update v1"></a>Update v1</h2><p>把<code>Obfuscator</code>用到正式的项目中去还是走了不少弯路的. 总结一下遇到的几个问题</p>
-<h3 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h3><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JsonUtility.FromJson&lt;ClassName&gt;<span class="comment">(**Json字符串**)</span>;</span><br></pre></td></tr></table></figure>
-<p>对于需要从Jaon中直接序列化与反序列化的对象,需要在对应的Class上面标记[Skip]</p>
-<h3 id="Plugins目录"><a href="#Plugins目录" class="headerlink" title="Plugins目录"></a>Plugins目录</h3><p><code>Obfuscator</code>不会对<code>Plugins</code>目录下的代码进行混淆,但是有些插件并不是默认放入该目录下,需要对相应插件进行目录迁移</p>
-<h3 id="Behavior-Designer"><a href="#Behavior-Designer" class="headerlink" title="Behavior Designer"></a>Behavior Designer</h3><p>所有<code>Behavior Designer</code>用到的Class均要设置为[Skip],他的说明文档里面也有提到.</p>
-<h3 id="Enum"><a href="#Enum" class="headerlink" title="Enum"></a>Enum</h3><p>这个折腾了好久. 所有枚举变量均要设置[SkipRename],即使对应的Class已经设置了[Skip].也要设置</p>
-<h3 id="IL2CPP"><a href="#IL2CPP" class="headerlink" title="IL2CPP"></a>IL2CPP</h3><p><code>IL2CPP</code>模式下,开混淆后不可开调试模式(Development Build).否则会编译报错.</p>
-<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><ul>
-<li>项目尽早集成<code>Obfuscator</code>,且多上真机看效果.后期集成不可预知性太高,早起集成还可以让所有UI中函数加入[Skip]标签,这样可以对MonoObject进行混淆.加大扰码力度</li>
-<li>尽量少使用<code>Invoke</code>,如果需要也最好集中处理(<code>CopyEngine.CallLater(_callback,_delayTime)</code>),并且要使用nameof(函数名),否则混淆不一定可用</li>
-<li>不使用enum,直接使用const int变量.这样可以做混淆</li>
-</ul>
+            <h2 id="Odin-Inspector-and-Serializer"><a href="#Odin-Inspector-and-Serializer" class="headerlink" title="Odin - Inspector and Serializer"></a>Odin - Inspector and Serializer</h2><p><a href="!https://assetstore.unity.com/packages/tools/utilities/odin-inspector-and-serializer-89041">Odin - Inspector and Serializer</a> 是Unity一个超级好用的编辑器扩展插件.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/0a15170a-a8f1-4343-a0d1-99718c9bee52.jpg" alt="0a15170a-a8f1-4343-a0d1-99718c9bee52"></p>
+<p>如果还没有用过,建议去尝试一下. </p>
+<h2 id="手札"><a href="#手札" class="headerlink" title="手札"></a>手札</h2><h3 id="修改在Inspector中显示的名字"><a href="#修改在Inspector中显示的名字" class="headerlink" title="修改在Inspector中显示的名字"></a>修改在Inspector中显示的名字</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">LabelText(<span class="meta-string">"血量"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> blood;</span><br></pre></td></tr></table></figure>
+<h3 id="如果条件达成则显示"><a href="#如果条件达成则显示" class="headerlink" title="如果条件达成则显示"></a>如果条件达成则显示</h3><p>标签包含 <code>ShowIf,HideIf,EnableIf,DisableIf</code>, 同时支持枚举类型</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">bool</span> isShowBlood;</span><br><span class="line"></span><br><span class="line">[<span class="meta">ShowIf(<span class="meta-string">"isShowBlood"</span>),[LabelText(<span class="meta-string">"血量"</span>)</span>]]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> blood;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> InfoMessageType</span><br><span class="line">&#123;</span><br><span class="line">    None,</span><br><span class="line">    Info,</span><br><span class="line">    Warning,</span><br><span class="line">    Error,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ShowAndHideIfExamples</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">EnumToggleButtons</span>]</span><br><span class="line">    <span class="keyword">public</span> InfoMessageType SomeEnum;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">bool</span> IsToggled;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ShowIf(<span class="meta-string">"SomeEnum"</span>, InfoMessageType.Info)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector3 Info;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ShowIf(<span class="meta-string">"SomeEnum"</span>, InfoMessageType.Warning)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector2 Warning;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ShowIf(<span class="meta-string">"SomeEnum"</span>, InfoMessageType.Error)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector3 Error;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ShowIf(<span class="meta-string">"IsToggled"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector2 VisibleWhenToggled;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">HideIf(<span class="meta-string">"IsToggled"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector3 HiddenWhenToggled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -436,7 +421,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/9/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -482,7 +467,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

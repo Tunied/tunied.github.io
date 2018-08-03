@@ -82,7 +82,7 @@
 <meta name="description" content="独立游戏开发者">
 <meta property="og:type" content="website">
 <meta property="og:title" content="隔壁老王">
-<meta property="og:url" content="http://oldking.wang/page/23/index.html">
+<meta property="og:url" content="http://oldking.wang/page/29/index.html">
 <meta property="og:site_name" content="隔壁老王">
 <meta property="og:description" content="独立游戏开发者">
 <meta property="og:locale" content="zh-Hans">
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://oldking.wang/page/23/"/>
+  <link rel="canonical" href="http://oldking.wang/page/29/"/>
 
 
 
@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/bd1616d0-d8d3-11e7-9689-e5893dd48eee/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/bd1616d0-d8d3-11e7-9689-e5893dd48eee/" itemprop="url">ScrollView自适应大小及屏幕DebugLogPanel</a></h1>
+                <a class="post-title-link" href="/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/" itemprop="url">C# List<T>.Sort  探究</a></h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T17:15:57+08:00">
-                2017-12-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-01T00:00:00+08:00">
+                2017-12-01
               </time>
             
 
@@ -325,8 +325,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C#</span>
                   </a>
                 </span>
 
@@ -343,9 +343,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/bd1616d0-d8d3-11e7-9689-e5893dd48eee/#comments" itemprop="discussionUrl">
+                <a href="/c31973c0-d7bf-11e7-a35f-8d0b55c052f5/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="bd1616d0-d8d3-11e7-9689-e5893dd48eee/" itemprop="commentCount"></span>
+                        data-disqus-identifier="c31973c0-d7bf-11e7-a35f-8d0b55c052f5/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -375,17 +375,42 @@
       
         
           
-            <p>游戏开始接入各种平台,所以需要一个可以在屏幕上能看到的Debug面板. 制作方法如下</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-170729.jpg" alt="QQ20171204-170729"></p>
-<p>创建<code>ScrollView</code>组件,其中<code>Content</code>上面需要绑定<code>Content Size Fitter</code>和<code>Vertical Layout Group</code></p>
-<p>然后再最外层挂载<code>CELog</code>代码</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CELog</span> :</span> MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> CELog mInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Warring</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Log(_msg, <span class="string">"yellow"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Error</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Log(_msg, <span class="string">"red"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Log</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance.SetLog(_msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Log</span><span class="params">(<span class="built_in">string</span> _msg, <span class="built_in">string</span> _color)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance.SetLog(<span class="string">"&lt;color="</span> + _color + <span class="string">"&gt;"</span> + _msg + <span class="string">"&lt;/color&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Text logPanel;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> maxLogNum = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">string</span> mLogMsg;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mCurrentLogNum;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance = <span class="keyword">this</span>;</span><br><span class="line">        mLogMsg = <span class="string">""</span>;</span><br><span class="line">        logPanel.text = <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetLog</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mCurrentLogNum++;</span><br><span class="line">        <span class="keyword">if</span> (mCurrentLogNum &gt;= maxLogNum)</span><br><span class="line">        &#123;</span><br><span class="line">            mLogMsg = <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        mLogMsg += _msg + <span class="string">"\n"</span>;</span><br><span class="line">        logPanel.text = mLogMsg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>外部调用方法:</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickBtn1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    CELog.Log(<span class="string">"This is normal message"</span>);</span><br><span class="line">    CELog.Warring(<span class="string">"This is warring message"</span>);</span><br><span class="line">    CELog.Error(<span class="string">"This is error message"</span>);</span><br><span class="line">    CELog.Log(<span class="string">"This is cyan color message"</span>, <span class="string">"cyan"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>执行结果:</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-172816.jpg" alt="QQ20171204-172816"></p>
-<p><code>ScrollView</code>可以根据内部内容多少自适应大小 </p>
-<p><a href="https://docs.unity3d.com/Manual/HOWTO-UIFitContentSize.html" target="_blank" rel="noopener">官方文档</a>有相应的<code>HowTo</code>教程</p>
+            <h2 id="C-中Sort的排序实现"><a href="#C-中Sort的排序实现" class="headerlink" title="C#中Sort的排序实现"></a>C#中Sort的排序实现</h2><p><a href="https://msdn.microsoft.com/en-us/library/b0zbh7b6(v=vs.110" target="_blank" rel="noopener">MSDN</a>.aspx)</p>
+<p>此方法使用 Array.Sort 方法，后者适用<code>反省排序</code>，如下所示︰</p>
+<ul>
+<li>如果分区大小少于 16 个元素，它使用插入排序算法。</li>
+<li>如果分区数超过 2 * LogN，其中 N 是范围的输入数组，它使用 Heapsort 算法。<br>否则，它使用快速排序算法。</li>
+</ul>
+<p>此实现将执行不稳定排序 也就是说,如果两个元素相等,可能不会保留它们的顺序.<br>与此相反,稳定排序保留相等的元素的顺序。 </p>
+<ul>
+<li>一般情况下,此方法为 O (n log n) 操作，其中 n 是 Count; 最坏的情况是 O (n ^2) 操作。</li>
+</ul>
+<h3 id="插入排序-Insertion-Sort"><a href="#插入排序-Insertion-Sort" class="headerlink" title="插入排序 (Insertion Sort)"></a>插入排序 (Insertion Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/insertion-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/00c37c01-098a-43c4-bd6c-660a00e35404.gif" alt="00c37c01-098a-43c4-bd6c-660a00e35404"></p>
+<h3 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序 (Quick Sort)"></a>快速排序 (Quick Sort)</h3><p><a href="http://bubkoo.com/2014/01/12/sort-algorithm/quick-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/45cf8e7b-6be1-4eb6-9be3-500494650c47.gif" alt="45cf8e7b-6be1-4eb6-9be3-500494650c47"></p>
+<h3 id="堆排序-Heap-Sort"><a href="#堆排序-Heap-Sort" class="headerlink" title="堆排序 (Heap Sort)"></a>堆排序 (Heap Sort)</h3><p><a href="http://bubkoo.com/2014/01/14/sort-algorithm/heap-sort/" target="_blank" rel="noopener">原文连接</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/d99c5742-7e13-426b-a1cf-0be34c0228b9.gif" alt="d99c5742-7e13-426b-a1cf-0be34c0228b9"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/33085f44-157c-4b99-b50b-cc4874278e38.png" alt="33085f44-157c-4b99-b50b-cc4874278e38"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h3 id="个人理解"><a href="#个人理解" class="headerlink" title="个人理解"></a>个人理解</h3><p><code>插入排序 (Insertion Sort)</code></p>
+<blockquote>
+<p>最简单,适合小数量元素排序<br>快速排序 (Quick Sort)</p>
+</blockquote>
+<p><code>快速排序 (Quick Sort)</code></p>
+<blockquote>
+<p>主旨就是将所有元素切块分成 [小于A],[A],[大于A] 然后再递归小于A和大于A的两部分 直到最终排序完成<br>堆排序 (Heap Sort)</p>
+</blockquote>
+<p><code>堆排序 (Heap Sort)</code></p>
+<blockquote>
+<p>从树的最后一个节点(数组的最后一位)开始,进行Build-Max-Heap然后递归的index-1,再继续次操作.</p>
+</blockquote>
+<h3 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h3><p>如果按CSDN中所说,内部排序是根据待排序元素的多少进行选择最终排序算法.<br>按上面三种排序的话,在<code>list.Sort((x,y)=&gt;{...})</code>函数中,理论不应该存在x,y是同一个元素的情况.<br>所以之前代码中比较函数写的都是<code>x&gt;y?1:-1</code>这样排序会不准.</p>
+<p><strong>应该改为</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(x==y)<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">return</span> x&gt;y?<span class="number">1</span>:<span class="number">-1</span></span><br></pre></td></tr></table></figure>
+<p><strong>Unity中测试结果</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TSortData</span></span></span><br><span class="line"><span class="class">   &#123;</span></span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">int</span> UID;</span><br><span class="line">       <span class="keyword">public</span> <span class="keyword">int</span> sortIndex;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   var <span class="built_in">list</span> = <span class="keyword">new</span> List&lt;TSortData&gt;();</span><br><span class="line">   <span class="keyword">for</span> (var i = <span class="number">0</span>; i &lt; <span class="number">30</span>; i++)</span><br><span class="line">   &#123;</span><br><span class="line">       var data = <span class="keyword">new</span> TSortData</span><br><span class="line">       &#123;</span><br><span class="line">           UID = i,</span><br><span class="line">           sortIndex = Random.Range(<span class="number">10</span>, <span class="number">99</span>)</span><br><span class="line">       &#125;;</span><br><span class="line">       <span class="built_in">list</span>.Add(data);</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="built_in">list</span>.Sort((x, y) =&gt;</span><br><span class="line">   &#123;</span><br><span class="line">       <span class="keyword">if</span> (x.UID == y.UID)</span><br><span class="line">       &#123;</span><br><span class="line">           Debug.LogFormat(<span class="string">"Sort x,y is the same element &lt;color=red&gt;UID = &#123;0&#125;&lt;/color&gt;, sortIndex = &#123;1&#125;"</span>, x.UID, x.sortIndex);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">return</span> x.sortIndex &gt; y.sortIndex ? <span class="number">1</span> : <span class="number">-1</span>;</span><br><span class="line">   &#125;);</span><br></pre></td></tr></table></figure>
+<p><strong>结果</strong></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/61268421.png" alt="61268421"></p>
 
           
         
@@ -425,7 +450,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/22/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/22/">22</a><span class="page-number current">23</span><a class="page-number" href="/page/24/">24</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/24/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/28/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/28/">28</a><span class="page-number current">29</span>
   </nav>
 
 
