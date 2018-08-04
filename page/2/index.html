@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/3dbcea40-93fd-11e8-82b5-5f6e29863172/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/02be5110-96ee-11e8-b96a-33aa607b4d67/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/3dbcea40-93fd-11e8-82b5-5f6e29863172/" itemprop="url">Unity UGUI Image 善用纹理的WrapMode</a></h1>
+                <a class="post-title-link" href="/02be5110-96ee-11e8-b96a-33aa607b4d67/" itemprop="url">出现 XXX can only be called on an active agent that has been placed on a NavMesh 的原因及解决方法</a></h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T21:34:10+08:00">
-                2018-07-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T15:22:42+08:00">
+                2018-08-03
               </time>
             
 
@@ -343,9 +343,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/3dbcea40-93fd-11e8-82b5-5f6e29863172/#comments" itemprop="discussionUrl">
+                <a href="/02be5110-96ee-11e8-b96a-33aa607b4d67/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="3dbcea40-93fd-11e8-82b5-5f6e29863172/" itemprop="commentCount"></span>
+                        data-disqus-identifier="02be5110-96ee-11e8-b96a-33aa607b4d67/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -375,24 +375,34 @@
       
         
           
-            <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><img src="/media/Jietu20180730-213540.jpg" alt="Jietu20180730-213540"></p>
-<p>做之前箭头演示Demo时候,直接Tiled抻拉了箭头Body部分. 底下有一段Warning提示,之前一直没注意.今天无意间看到了.</p>
-<blockquote>
-<p>It looks like you want to tile a sprite with no border. It would be more efficient to …</p>
+            <h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><blockquote>
+<p>“IsStopped” can only be called on an active agent that has been placed on a NavMesh.</p>
 </blockquote>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>其实这个说的是使用纹理的WrapMode设置错了. 虽然可以做到Tiled.但是效率不高.</p>
-<p>切换到<code>Wireframe</code>下看的一目了然.</p>
-<p><img src="/media/Jietu20180730-214355.jpg" alt="Jietu20180730-214355"></p>
-<p>可以看到 <code>Clamp</code>是通过绘制了多个”方块”才达到的Tiled,而<code>Repeat</code>只绘制了一个”方块”. 专业一点的说法就是后者 使用的顶点(vertices)比前者少. 所以性能会高 😀</p>
-<h2 id="引申阅读"><a href="#引申阅读" class="headerlink" title="引申阅读"></a>引申阅读</h2><p><a href="https://blog.csdn.net/lzhq1982/article/details/75045358" target="_blank" rel="noopener">Unity Shader入门精要笔记（十二）：纹理属性</a><br>里面有详细的介绍 <code>Clamp</code>和<code>Repeat</code>的区别</p>
-<p><code>Repeat</code><br><img src="/media/20170712210355009.jpg" alt="20170712210355009"></p>
-<p><code>Clamp</code><br><img src="/media/20170712210408517.jpg" alt="20170712210408517"></p>
-<p>注意 Clamp 是对纹理外围1像素进行无限抻拉. 详情也可参照 <a href="https://docs.unity3d.com/ScriptReference/TextureWrapMode.Clamp.html" target="_blank" rel="noopener">官网API TextureWrapMode.Clamp</a></p>
+<hr>
 <blockquote>
-<p>Clamps the texture to the last pixel at the edge.</p>
-<p>This is useful for preventing wrapping artifacts when mapping an image onto an object and you don’t want the texture to tile. UV coordinates will be clamped to the range 0…1. When UVs are larger than 1 or smaller than 0, the last pixel at the border will be used.</p>
-<p>This mode is called “clamp to edge” in graphics APIs like Vulkan, Metal and OpenGL.</p>
+<p>“GetRemainingDistance” can only be called on an active agent that has been placed on a NavMesh.</p>
 </blockquote>
+<p>或者其他类似的,由于没有把NavMeshAgent放置在NavMesh所导致的错误</p>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>大部分原因是两种</p>
+<ul>
+<li>初始化时候放置的NavMeshAgent的Position比NavMesh要低.</li>
+</ul>
+<p>比如像我自己的项目,就出现这种情况. 我的NavMesh最后<code>Bake</code>完所在的平面是(0,0.2f,0) 也就是 <code>y = 0.2f</code> 的平面. 但是我创建NavMeshAgent时候,其在Prefab中默认的坐标是(0,0,0)</p>
+<ul>
+<li>Agent之前在NavMesh上面.但是后面通过设置<code>transfrom.position</code>导致其偏离的NavMesh.</li>
+</ul>
+<p>以上两种情况都会出现 如下的错误信息</p>
+<blockquote>
+<p>XXX can only be called on an active agent that has been placed on a NavMesh</p>
+</blockquote>
+<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ul>
+<li>初始化时候就设置Position偏移</li>
+</ul>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Prefab ;</span><br><span class="line"><span class="keyword">var</span> offsetV3 = <span class="keyword">new</span> <span class="type">Vector</span>(<span class="number">0</span>,<span class="number">0.21</span>f,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = GameObject.Instantiate(Prefab, offsetV3, Quaternion.identity);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>使用Wrap函数</li>
+</ul>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Prefab;</span><br><span class="line"><span class="keyword">var</span> offsetV3 = <span class="keyword">new</span> <span class="type">Vector</span>(<span class="number">0</span>,<span class="number">0.21</span>f,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = GameObject.Instantiate(Prefab);</span><br><span class="line"><span class="keyword">var</span> agent = <span class="keyword">new</span><span class="type">Go</span>.GetComponent&lt;NavMeshAgent&gt;();</span><br><span class="line">agent.Wrap(offsetV3);</span><br></pre></td></tr></table></figure>
 
           
         
@@ -432,7 +442,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -478,7 +488,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -500,7 +510,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

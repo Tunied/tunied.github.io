@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/d8549fe0-f91a-11e7-8661-1f20a751e9e4/">
+    <link itemprop="mainEntityOfPage" href="http://oldking.wang/98516910-f9d2-11e7-9821-d3ed16e6835d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -290,7 +290,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/d8549fe0-f91a-11e7-8661-1f20a751e9e4/" itemprop="url">Unity动态加载NavMesh</a></h1>
+                <a class="post-title-link" href="/98516910-f9d2-11e7-9821-d3ed16e6835d/" itemprop="url">Unity在编辑模式中使用代码更新Prefab并保持引用</a></h1>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T19:05:35+08:00">
-                2018-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T17:00:55+08:00">
+                2018-01-15
               </time>
             
 
@@ -343,9 +343,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/d8549fe0-f91a-11e7-8661-1f20a751e9e4/#comments" itemprop="discussionUrl">
+                <a href="/98516910-f9d2-11e7-9821-d3ed16e6835d/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="d8549fe0-f91a-11e7-8661-1f20a751e9e4/" itemprop="commentCount"></span>
+                        data-disqus-identifier="98516910-f9d2-11e7-9821-d3ed16e6835d/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -375,23 +375,18 @@
       
         
           
-            <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://media.giphy.com/media/3h3z1dXjhq1RyDUvDq/giphy.gif" alt="QQ20180114-190238-HD"></p>
-<p>新版本的Unity可以将NavMeshData存成一个Prefab,在任意场景(即使不是同一个项目).动态的加载进来.或者在编辑模式加载均可.</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>手先从Github上面Check下来适合自己IDE的插件: <a href="https://github.com/Unity-Technologies/NavMeshComponents" target="_blank" rel="noopener">地址</a></p>
-<p>使用其内置的<code>NavMeshSurface</code>配合其他的Component生成对应的NavMeshData.</p>
-<p>注意:不要使用<code>Navigation</code>标签下的Bake按钮生成NavMesh. 该标签下生成的NavMesh是旧版本,只能用于生成的场景.</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180114-191550.jpg" alt="QQ20180114-191550"></p>
-<p>生成的NavMesh会在场景所在的层级下面同名文件夹内</p>
-<p>名字为<code>NavMesh-</code> + GameObject的名字</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180114-191649.jpg" alt="QQ20180114-191649"></p>
-<h2 id="加载代码"><a href="#加载代码" class="headerlink" title="加载代码"></a>加载代码</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AddNavMeshOnStart</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NavMeshData navMeshData;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NavMeshDataInstance mInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (navMeshData != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            mInstance = NavMesh.AddNavMeshData(navMeshData, transform.position, transform.rotation);</span><br><span class="line">            Debug.Log(<span class="string">"Add nav mesh data"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>核心代码就是<code>NavMesh.AddNavMeshData(xxxx)</code>. 如果是想Runtime加载,就放在Start里面.如果是想编辑模式就加载则可以加入<code>[ExecuteInEditMode]</code>标签.然后onEnable时候调用.</p>
-<p>注意: 在编辑模式下加载则使用<code>Navigation</code>标签下的Clean是无法清除已经加载的NavMesh的<br>需要自己写代码使用<code>NavMesh.RemoveNavMeshData(xxxx);</code>手动清楚掉</p>
-<h2 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h2><p>对我个人而言,新版的NavMesh 主要用于 编辑场景和游戏场景分开. 在编辑场景中制作地图,地图中会绑定许多为了做NavMesh而加入的Object. </p>
-<p>基于原来的NavMesh系统</p>
-<p>一种方案是 编辑结束后,复制整个场景删除无用的GameObject,把当前场景作为游戏场景.<br>另一种方案就是 在场景上绑定清理代码. 在Play的第一帧清除掉无用的GameObject.</p>
-<p>第一种方案麻烦的地方在于场景的反复编辑,每次都要执行复制删除.第二种方案在于刚开始Play时候要删GameObject,使得初始化时候会卡.</p>
-<p>新的NavMesh可以完美解决这个问题.</p>
+            <h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>一键将EditMap导出为ReleaseMap. 在编辑场景构建游戏地图,地图数据中绑定了许多只有编辑场景才会用到的数据.比如用于生成NavMesh的Cube,用于场景排序的代码等等.</p>
+<p>希望构建点击一个按钮,对应的导出一份Release版本的地图Prefab数据. 用于游戏场景中使用. 同时再次运行脚本时候,游戏场景中对于该Prefab的引用不会消失</p>
+<p>相当于点击了 Inspector中Prefab的 Apply按钮</p>
+<h2 id="核心代码示例"><a href="#核心代码示例" class="headerlink" title="核心代码示例"></a>核心代码示例</h2><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> void OnClickBtn()</span><br><span class="line"> &#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = <span class="keyword">new</span> <span class="type">GameObject</span>();</span><br><span class="line">     <span class="keyword">new</span><span class="type">Go</span>.name = <span class="string">"OutPrefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> sp = <span class="keyword">new</span><span class="type">Go</span>.AddComponent&lt;PrefabOutCode&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> cubeAPath = <span class="string">"Assets/TestGround/NeedLinkPrefab/CubeA.prefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> cubeA = (GameObject) AssetDatabase.LoadAssetAtPath(cubeAPath, typeof(GameObject));</span><br><span class="line"></span><br><span class="line">     sp.linkPrefab = cubeA;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> outPrefabPath = <span class="string">"Assets/TestGround/OutPrefab/OutPrefab.prefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> outPreafb = (GameObject) AssetDatabase.LoadAssetAtPath(outPrefabPath, typeof(GameObject));</span><br><span class="line"></span><br><span class="line">     PrefabUtility.ReplacePrefab(<span class="keyword">new</span><span class="type">Go</span>, outPreafb, ReplacePrefabOptions.ReplaceNameBased);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     DestroyImmediate(<span class="keyword">new</span><span class="type">Go</span>);</span><br><span class="line"></span><br><span class="line">     Debug.Log(<span class="string">"DONE"</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>目录结构:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180115-171117.jpg" alt="QQ20180115-171117"></p>
+<p><code>AssetDatabase.LoadAssetAtPath</code> 可以加载到目录中的Prefab</p>
+<p><code>sp.linkPrefab = cubeA</code> 将Preafb Link到GameObject中来. 比如新生成的GameObject有个public 变量<br>需要Link 一个AudioClip. (就是替代原来的 用鼠标将Prefab拖拽到Inspector中的操作)</p>
+<p><code>PrefabUtility.ReplacePrefab(newGo, outPreafb, ReplacePrefabOptions.ReplaceNameBased)</code></p>
+<p>使用<code>ReplacePrefabOptions.ReplaceNameBased</code>这种方式,可以在保证原有Preafb引用不丢失的情况下替换.</p>
+<p>默认的<code>Default</code>模式会全部替换,但是引用丢失.</p>
+<p>使用<code>ConnectToPrefab</code>会在原有的基础上增加东西,引用不会丢失</p>
 
           
         
@@ -431,7 +426,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/29/">29</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/14/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/14/">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/">16</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/16/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -477,7 +472,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -499,7 +494,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
