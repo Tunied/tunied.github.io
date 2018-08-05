@@ -90,7 +90,7 @@
 <meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230512.jpg">
 <meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230021.jpg">
 <meta property="og:image" content="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230057.jpg">
-<meta property="og:updated_time" content="2018-02-21T15:15:48.000Z">
+<meta property="og:updated_time" content="2018-08-05T09:03:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建 Isometric Tile Mesh用于Unity原生Navigation寻路">
 <meta name="twitter:description" content="遇到的问题Unity 无论自身的TileMap(2018版本),还是Asset Store中的插件,对于Isometric(斜45度)的地图支持的都不好.几乎都处于不可用的状态中. 唯一一个不错的且免费的插件是Tiled2Unity 插件的原理是使用Tiled对地图进行编辑,然后通过该插件导入到Unity中使用.  其地图导入部分做的很好,Isometric的地图完全没有问题. 但是其引入的是Po">
@@ -382,8 +382,8 @@
 
       
         <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>Unity 无论自身的TileMap(2018版本),还是Asset Store中的插件,对于Isometric(斜45度)的地图支持的都不好.几乎都处于不可用的状态中.</p>
-<p>唯一一个不错的且免费的插件是<a href="!http://www.seanba.com/tiled2unity">Tiled2Unity</a></p>
-<p>插件的原理是使用<a href="!http://www.mapeditor.org/">Tiled</a>对地图进行编辑,然后通过该插件导入到Unity中使用. </p>
+<p>唯一一个不错的且免费的插件是<a href="http://www.seanba.com/tiled2unity" target="_blank" rel="noopener">Tiled2Unity</a></p>
+<p>插件的原理是使用<a href="http://www.mapeditor.org/" target="_blank" rel="noopener">Tiled</a>对地图进行编辑,然后通过该插件导入到Unity中使用. </p>
 <p>其地图导入部分做的很好,Isometric的地图完全没有问题. 但是其引入的是<code>PolygonCollider2D</code>作为物理碰撞.</p>
 <p>对于纯2D的横版游戏完全没有问题.但是如果是俯视的大地图 比如 金庸群侠传,英雄无敌 等等 这种视角的游戏, 如果需要使用原生的寻路系统(NavMeshAgent). 就必须要自己想办法</p>
 <p>其实工具内部可以自己写<code>ICustomTiledImporter</code>实现,然后在Tiled中使用AutoTile,编辑相应的规则.</p>
