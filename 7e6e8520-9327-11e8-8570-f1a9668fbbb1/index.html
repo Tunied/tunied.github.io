@@ -83,7 +83,7 @@
 <meta name="keywords" content="Math,2D">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Unity使用UGUI的Image在Canvas中画直线">
-<meta property="og:url" content="http://oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/index.html">
+<meta property="og:url" content="http://www.oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/index.html">
 <meta property="og:site_name" content="隔壁老王">
 <meta property="og:description" content="效果图 核心代码12345678910111213141516171819202122232425262728293031323334353637using System;using UnityEngine;using UnityEngine.UI;public class TestDrawLine : MonoBehaviour&amp;#123;    public Image arrow; //Im">
 <meta property="og:locale" content="zh-Hans">
@@ -122,7 +122,7 @@
 
 
 
-  <link rel="canonical" href="http://oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/"/>
+  <link rel="canonical" href="http://www.oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/"/>
 
 
 
@@ -274,7 +274,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -383,7 +383,7 @@
 <h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.UI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestDrawLine</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Image arrow; <span class="comment">//Image 素材</span></span><br><span class="line">    <span class="keyword">public</span> RectTransform pa; <span class="comment">//A点</span></span><br><span class="line">    <span class="keyword">public</span> RectTransform pb; <span class="comment">//B点</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> rP = pa.rectTransform().anchoredPosition;</span><br><span class="line">        <span class="keyword">var</span> tp = pa.position;</span><br><span class="line">        Debug.Log(<span class="string">$"A点  Transform P:(<span class="subst">&#123;tp.x&#125;</span>,<span class="subst">&#123;tp.y&#125;</span>) RectTransform P :(<span class="subst">&#123;rP.x&#125;</span>,<span class="subst">&#123;rP.y&#125;</span>)"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        arrow.transform.position = pa.position;</span><br><span class="line">        arrow.transform.localRotation = Quaternion.AngleAxis(-GetAngle(), Vector3.forward);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> distance = Vector2.Distance(pb.anchoredPosition, pa.anchoredPosition);</span><br><span class="line">        arrow.rectTransform.sizeDelta = <span class="keyword">new</span> Vector2(<span class="number">10</span>, Math.Max(<span class="number">1</span>, distance - <span class="number">30</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">GetAngle</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> dir = pb.position - pa.position;</span><br><span class="line">        <span class="keyword">var</span> dirV2 = <span class="keyword">new</span> Vector2(dir.x, dir.y);</span><br><span class="line">        <span class="keyword">var</span> angle = Vector2.SignedAngle(dirV2, Vector2.down);</span><br><span class="line">        <span class="keyword">return</span> angle;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h2><p>恩,代码没几行 但是涉及到的知识点还挺多. 感觉可以当 <code>Unity面试题</code> 来用啊 哈哈.</p>
 <h3 id="取得两个坐标点之间的夹角"><a href="#取得两个坐标点之间的夹角" class="headerlink" title="取得两个坐标点之间的夹角"></a>取得两个坐标点之间的夹角</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Vector2</span><span class="selector-class">.SignedAngle</span>(<span class="selector-tag">dirV2</span>, <span class="selector-tag">Vector2</span><span class="selector-class">.down</span>)</span><br></pre></td></tr></table></figure>
-<p>这个我之前有写过,详情参见 <a href="http://oldking.wang/479077a0-7bb4-11e8-a311-29f834f4679d/">求两向量在0~360度之间的角度值及实际应用</a></p>
+<p>这个我之前有写过,详情参见 <a href="http://oldking.wang/479077a0-7bb4-11e8-a311-29f834f4679d/" target="_blank" rel="noopener">求两向量在0~360度之间的角度值及实际应用</a></p>
 <h3 id="取得Canvas中元素的x-y坐标"><a href="#取得Canvas中元素的x-y坐标" class="headerlink" title="取得Canvas中元素的x,y坐标"></a>取得Canvas中元素的x,y坐标</h3><p>我在<code>Start</code>函数有输出,元素的<code>Transform.position</code>和<code>RectTransform.position</code>(实际应用时候应该取锚点)是有区别的</p>
 <p>输出Log为:</p>
 <blockquote>
@@ -779,7 +779,7 @@
     
       <script type="text/javascript">
         var disqus_config = function () {
-          this.page.url = 'http://oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/';
+          this.page.url = 'http://www.oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/';
           this.page.identifier = '7e6e8520-9327-11e8-8570-f1a9668fbbb1/';
           this.page.title = 'Unity使用UGUI的Image在Canvas中画直线';
         };
@@ -821,6 +821,21 @@
   
 
   
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
 
   
 
