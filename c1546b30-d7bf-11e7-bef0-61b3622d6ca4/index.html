@@ -176,7 +176,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">独立游戏开发者</p>
+        <h1 class="site-subtitle" itemprop="description">独立游戏开发者</h1>
       
   </div>
 
@@ -295,7 +295,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在自己服务器(搬瓦工)上部署Hexo且用git同步</h1>
+          <h2 class="post-title" itemprop="name headline">在自己服务器(搬瓦工)上部署Hexo且用git同步</h2>
         
 
         <div class="post-meta">
@@ -342,17 +342,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="c1546b30-d7bf-11e7-bef0-61b3622d6ca4/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -548,12 +537,7 @@
           
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+      <div id="vcomments"></div>
     </div>
   
 
@@ -592,7 +576,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">隔壁老王</p>
-              <p class="site-description motion-element" itemprop="description">独立游戏开发者</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -602,7 +586,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -624,7 +608,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -822,26 +806,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://oldking.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://www.oldking.wang/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/';
-          this.page.identifier = 'c1546b30-d7bf-11e7-bef0-61b3622d6ca4/';
-          this.page.title = '在自己服务器(搬瓦工)上部署Hexo且用git同步';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://oldking.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
 
 
 
@@ -857,8 +821,27 @@
 
 
 
+  
 
 
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: false,
+        notify: false,
+        app_id: 'VgjGdP2hIi00FTVlhhkQYpOx-gzGzoHsz',
+        app_key: 'f6jqD57DmTmu5lR3DdobF3py',
+        placeholder: '说点啥?'
+    });
+  </script>
 
 
 

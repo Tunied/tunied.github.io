@@ -124,7 +124,7 @@
 
 
 
-  <title>隔壁老王</title>
+  <title>隔壁老王 - 独立游戏开发者</title>
   
 
 
@@ -169,7 +169,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">独立游戏开发者</p>
+        <h1 class="site-subtitle" itemprop="description">独立游戏开发者</h1>
       
   </div>
 
@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/02be5110-96ee-11e8-b96a-33aa607b4d67/">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/9bae8910-3994-11e8-bcca-ef87fcce56f0/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -288,9 +288,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/02be5110-96ee-11e8-b96a-33aa607b4d67/" itemprop="url">出现 XXX can only be called on an active agent that has been placed on a NavMesh 的原因及解决方法</a></h1>
+                <a class="post-title-link" href="/9bae8910-3994-11e8-bcca-ef87fcce56f0/" itemprop="url">使用Obfuscator对代码进行混淆</a></h2>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-03T15:22:42+08:00">
-                2018-08-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T20:18:26+08:00">
+                2018-04-06
               </time>
             
 
@@ -338,16 +338,168 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/02be5110-96ee-11e8-b96a-33aa607b4d67/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="02be5110-96ee-11e8-b96a-33aa607b4d67/" itemprop="commentCount"></span>
-                </a>
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>游戏上线后,遭到各种各样的破解. 前期还仅仅是尝试改改内存,这个还好 虽然后来也被破解了.但是应对方法比较简单.</p>
+<p>后来<code>GG大玩家</code>居然直接<code>Dll Hook</code>挂Mod… 太看得起我了-.-</p>
+<h2 id="防御"><a href="#防御" class="headerlink" title="防御"></a>防御</h2><p>虽然可以做dll注入防护(原理应该是给自己用到的所有Dll做白名单,其他的一概不允许),不过考虑到接入那么多渠道.再做这部分的防护. 一键打包脚本 应该是个巨大的工作量.所以还是放弃了..</p>
+<h2 id="Obfuscator"><a href="#Obfuscator" class="headerlink" title="Obfuscator"></a>Obfuscator</h2><p><code>Obfuscator</code>是AssetStore上很火的一个插件,可以进行代码混淆并且生成<code>伪函数</code>,对于注入来说应该会加大不少难度. 希望<code>GG大玩家</code>的<code>Hacker</code>们会喜欢. 期待你们的下次破解~~</p>
+<h3 id="测试工程"><a href="#测试工程" class="headerlink" title="测试工程"></a>测试工程</h3><p>写一个标准的<code>MVC</code>,界面两个按钮. 一个控制加分数,一个控制减分数</p>
+<p><strong>UI层</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UIMediator</span> :</span> MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickAddScoreBtn</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ScoreVoManger.instance.GetVo().num += <span class="number">1</span>;</span><br><span class="line">        Debug.Log(<span class="string">"On click add score btn"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickSubScoreBtn</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        ScoreVoManger.instance.GetVo().num -= <span class="number">1</span>;</span><br><span class="line">        Debug.Log(<span class="string">"On click sub score btn"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>VoHandler</strong><br><figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public class ScoreVoManger</span><br><span class="line">&#123;</span><br><span class="line">   <span class="keyword"> private</span><span class="keyword"> static</span> ScoreVoManger mInstance;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span><span class="keyword"> static</span> ScoreVoManger<span class="built_in"> instance </span>=&gt; mInstance ?? (mInstance =<span class="built_in"> new </span>ScoreVoManger());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> readonly ScoreVo mVo;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> private</span> ScoreVoManger()</span><br><span class="line">    &#123;</span><br><span class="line">        mVo =<span class="built_in"> new </span>ScoreVo();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span> void ChangeScore(int _addValue)</span><br><span class="line">    &#123;</span><br><span class="line">        mVo.num += _addValue;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword"> public</span> ScoreVo GetVo()</span><br><span class="line">    &#123;</span><br><span class="line">       <span class="built_in"> return </span>mVo;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>Vo</strong><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ScoreVo</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> num;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ScoreVo</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        num = <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="效果截图"><a href="#效果截图" class="headerlink" title="效果截图"></a>效果截图</h3><p>直接使用<code>Obfuscator</code>默认参数. 编译后Dump出代码</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/WX20180406-203428.png" alt="WX20180406-203428"></p>
+<h2 id="Update-v1"><a href="#Update-v1" class="headerlink" title="Update v1"></a>Update v1</h2><p>把<code>Obfuscator</code>用到正式的项目中去还是走了不少弯路的. 总结一下遇到的几个问题</p>
+<h3 id="Json"><a href="#Json" class="headerlink" title="Json"></a>Json</h3><figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">JsonUtility.FromJson&lt;ClassName&gt;<span class="comment">(**Json字符串**)</span>;</span><br></pre></td></tr></table></figure>
+<p>对于需要从Jaon中直接序列化与反序列化的对象,需要在对应的Class上面标记[Skip]</p>
+<h3 id="Plugins目录"><a href="#Plugins目录" class="headerlink" title="Plugins目录"></a>Plugins目录</h3><p><code>Obfuscator</code>不会对<code>Plugins</code>目录下的代码进行混淆,但是有些插件并不是默认放入该目录下,需要对相应插件进行目录迁移</p>
+<h3 id="Behavior-Designer"><a href="#Behavior-Designer" class="headerlink" title="Behavior Designer"></a>Behavior Designer</h3><p>所有<code>Behavior Designer</code>用到的Class均要设置为[Skip],他的说明文档里面也有提到.</p>
+<h3 id="Enum"><a href="#Enum" class="headerlink" title="Enum"></a>Enum</h3><p>这个折腾了好久. 所有枚举变量均要设置[SkipRename],即使对应的Class已经设置了[Skip].也要设置</p>
+<h3 id="IL2CPP"><a href="#IL2CPP" class="headerlink" title="IL2CPP"></a>IL2CPP</h3><p><code>IL2CPP</code>模式下,开混淆后不可开调试模式(Development Build).否则会编译报错.</p>
+<h2 id="建议"><a href="#建议" class="headerlink" title="建议"></a>建议</h2><ul>
+<li>项目尽早集成<code>Obfuscator</code>,且多上真机看效果.后期集成不可预知性太高,早起集成还可以让所有UI中函数加入[Skip]标签,这样可以对MonoObject进行混淆.加大扰码力度</li>
+<li>尽量少使用<code>Invoke</code>,如果需要也最好集中处理(<code>CopyEngine.CallLater(_callback,_delayTime)</code>),并且要使用nameof(函数名),否则混淆不一定可用</li>
+<li>不使用enum,直接使用const int变量.这样可以做混淆</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/7fe419b0-3657-11e8-b4e4-cb31989e149f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/7fe419b0-3657-11e8-b4e4-cb31989e149f/" itemprop="url">Unity中使用JsonObject插件动态序列与反序列化对象</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
               </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T17:23:27+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
             
           
 
@@ -375,34 +527,1283 @@
       
         
           
-            <h2 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h2><blockquote>
-<p>“IsStopped” can only be called on an active agent that has been placed on a NavMesh.</p>
-</blockquote>
-<hr>
+            <h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>游戏的存档是放在客户端的,之前是直接使用的二进制序列化</p>
 <blockquote>
-<p>“GetRemainingDistance” can only be called on an active agent that has been placed on a NavMesh.</p>
+<p>对象标记<code>[Serializable]</code>标签,然后直接转换成二进制文件</p>
 </blockquote>
-<p>或者其他类似的,由于没有把NavMeshAgent放置在NavMesh所导致的错误</p>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>大部分原因是两种</p>
-<ul>
-<li>初始化时候放置的NavMeshAgent的Position比NavMesh要低.</li>
-</ul>
-<p>比如像我自己的项目,就出现这种情况. 我的NavMesh最后<code>Bake</code>完所在的平面是(0,0.2f,0) 也就是 <code>y = 0.2f</code> 的平面. 但是我创建NavMeshAgent时候,其在Prefab中默认的坐标是(0,0,0)</p>
-<ul>
-<li>Agent之前在NavMesh上面.但是后面通过设置<code>transfrom.position</code>导致其偏离的NavMesh.</li>
-</ul>
-<p>以上两种情况都会出现 如下的错误信息</p>
+<p>这样操作乍看没问题,但是当上线后需要加入新功能,问题就暴露出来了</p>
+<p>玩家此时已经有本地存档了,当我对本地<code>Vo对象</code>加入新属性时候,二进制代码无法和Class进行对应.于是乎就会出现 旧存档无法使用的情况.</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>需要找到一种 可以在Class已经发生更新后,仍旧可以用旧的存档进行反序列化的方法.</p>
+<p>能想到的有两种. 一种是Google的<code>Protobuf</code>,一种是<code>Json</code>.</p>
+<p><code>Protobuf</code>只要保证新加入的key是向后延续的,就可以兼容之前的数据.</p>
+<p><code>Json</code>的话,如果用Unity内置的Json类是无法实现的,因为他需要做Json-Objecet的映射.不过<code>JsonObject</code>这个插件可以实现动态解析.</p>
+<h2 id="我的选择"><a href="#我的选择" class="headerlink" title="我的选择"></a>我的选择</h2><p><code>Protobuf</code>的话 主要是体积小,一般用于网络传输. 我主要是用于游戏存档.整体存档数据不大.所以<code>JsonObject</code>更适合我.</p>
+<p>并且其代码很简洁,后期自己如果有一些特殊需求,扩展起来也会很方便的.</p>
+<h2 id="JsonObject"><a href="#JsonObject" class="headerlink" title="JsonObject"></a>JsonObject</h2><h3 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h3><p><a href="https://assetstore.unity.com/packages/tools/input-management/json-object-710" target="_blank" rel="noopener">Unity AssetsStore</a><br><a href="https://github.com/mtschoen/JSONObject" target="_blank" rel="noopener">GitHub(推荐)</a></p>
+<h3 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h3><p>TeamVo</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> Code;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Team</span> : <span class="title">ICEJsonSerializable</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">string</span> TEAM_NAME = <span class="string">"a"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">string</span> ALL_MEMBER_LIST = <span class="string">"b"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">string</span> CITY = <span class="string">"c"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> teamName;</span><br><span class="line">    <span class="keyword">public</span> List&lt;Person&gt; allMembersList;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//New</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">string</span> city;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Team</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        allMembersList = <span class="keyword">new</span> List&lt;Person&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">FromJson</span>(<span class="params">JSONObject _jsonObject</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        _jsonObject.GetField(ALL_MEMBER_LIST, _obj =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">foreach</span> (<span class="keyword">var</span> menberObj <span class="keyword">in</span> _obj.list)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">var</span> person = <span class="keyword">new</span> Person();</span><br><span class="line">                person.FromJson(menberObj);</span><br><span class="line">                allMembersList.Add(person);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        _jsonObject.GetField(TEAM_NAME, _obj =&gt; &#123; teamName = _obj.str; &#125;, name =&gt; &#123; teamName = <span class="string">"NotSet"</span>; &#125;);</span><br><span class="line">        _jsonObject.GetField(CITY, _obj =&gt; &#123; city = _obj.str; &#125;, _notFound =&gt; &#123; city = <span class="string">"NotFound"</span>; &#125;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> JSONObject <span class="title">ToJsonObject</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> returnObj = <span class="keyword">new</span> JSONObject();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> menberList = <span class="keyword">new</span> JSONObject(JSONObject.Type.ARRAY);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="keyword">var</span> person <span class="keyword">in</span> allMembersList)</span><br><span class="line">        &#123;</span><br><span class="line">            menberList.Add(person.ToJsonObject());</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        returnObj.AddField(ALL_MEMBER_LIST, menberList);</span><br><span class="line">        returnObj.AddField(TEAM_NAME, teamName);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> returnObj;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//序列化方法</span></span><br><span class="line"><span class="keyword">var</span> json = team.ToJsonObject();</span><br><span class="line"><span class="keyword">var</span> str = json.ToString();</span><br><span class="line"></span><br><span class="line"><span class="comment">//反序列化</span></span><br><span class="line"><span class="keyword">var</span> team = <span class="keyword">new</span> <span class="type">Team</span>();</span><br><span class="line">team.FromJson(<span class="keyword">new</span> <span class="type">JSONObject</span>(str));</span><br></pre></td></tr></table></figure>
+<h3 id="代码说明"><a href="#代码说明" class="headerlink" title="代码说明"></a>代码说明</h3><p>序列化部分比较简单,所有Vo对象实现 序列化反序列化接口.然后递归创建<code>JsonObject</code>即可</p>
+<p>反序列化<code>JsonObject</code>处理比较好的部分是</p>
+<p><code>_jsonObject.GetField(key,成功回调,失败回调)</code></p>
+<p>也就是取数据使用回调函数</p>
+<p>比如像<code>TeamVo</code>中,我第一次序列化时候并不包含<code>city</code>字段. 当我序列化成功后,给<code>TeamVo</code>中加入<code>city</code>字段</p>
+<p>再读取之前序列化好的Json(进行反序列化). </p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">_jsonObject</span>.GetField(CITY, <span class="variable">_obj</span> =&gt; &#123; city = <span class="variable">_obj</span>.<span class="built_in">str</span>; &#125;, <span class="variable">_notFound</span> =&gt; &#123; city = <span class="string">"NotFound"</span>; &#125;);</span><br></pre></td></tr></table></figure>
+<p>我就可以很轻松的兼容旧的序列化文件.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/00e482d0-3558-11e8-bda2-bf71a18d2be3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/00e482d0-3558-11e8-bda2-bf71a18d2be3/" itemprop="url">Unity新版AssetBundles使用手札</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T10:54:32+08:00">
+                2018-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="使用目的"><a href="#使用目的" class="headerlink" title="使用目的"></a>使用目的</h3><p>之前的项目(单机弱联网),所有资源一直放置在<code>Resources</code>目录,后来因为期望将配置文件放到服务器.可以实现<code>不发版本从而更新配置文件的</code>目的 开始接触<code>AssetBundles</code></p>
+<h3 id="生成AssetBundles"><a href="#生成AssetBundles" class="headerlink" title="生成AssetBundles"></a>生成AssetBundles</h3><p>新版的<code>AssetBundles</code>(Unity 5.0+,2017,2018…) 相比旧版省事很多.看了下<a href="https://docs.unity3d.com/ScriptReference/BuildPipeline.html" target="_blank" rel="noopener">API</a>原有的函数</p>
+<p><code>BuildPipeline.BuildAssetBundle</code>已经被<strong>弃用</strong>了.目前AB应该只使用</p>
+<p><code>BuildPipeline.BuildAssetBundles</code> 进行全部的AB文件打包.</p>
+<h4 id="打包代码"><a href="#打包代码" class="headerlink" title="打包代码"></a>打包代码</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">MenuItem(<span class="meta-string">"CopyEngine/AssetBundles/Build All"</span>)</span>]</span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">BuildAllAssetBundles</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (Directory.Exists(FOLDER_PATH))</span><br><span class="line">    &#123;</span><br><span class="line">        CEOneKeyReleaseUtils.DeleteFolder(FOLDER_PATH);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Directory.CreateDirectory(FOLDER_PATH);</span><br><span class="line"></span><br><span class="line">    DoBuildBundles(<span class="string">"Mac"</span>, BuildTarget.StandaloneOSX);</span><br><span class="line">    DoBuildBundles(<span class="string">"Android"</span>, BuildTarget.Android);</span><br><span class="line">    DoBuildBundles(<span class="string">"IOS"</span>, BuildTarget.iOS);</span><br><span class="line">    DoBuildBundles(<span class="string">"Win"</span>, BuildTarget.StandaloneWindows);</span><br><span class="line">    Caching.ClearCache();</span><br><span class="line">    AssetDatabase.Refresh();</span><br><span class="line">    Debug.Log(<span class="string">"Done build all assets bundles"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DoBuildBundles</span>(<span class="params"><span class="keyword">string</span> _subFolder, BuildTarget _target</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> assetBundleDirectory = FOLDER_PATH + <span class="string">"/"</span> + _subFolder;</span><br><span class="line">    <span class="keyword">if</span> (!Directory.Exists(assetBundleDirectory))</span><br><span class="line">    &#123;</span><br><span class="line">        Directory.CreateDirectory(assetBundleDirectory);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, _target);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="缓存机制"><a href="#缓存机制" class="headerlink" title="缓存机制"></a>缓存机制</h3><p>缓存基础知识可以参考<a href="https://unity3d.com/cn/learn/tutorials/topics/best-practices/assetbundle-usage-patterns" target="_blank" rel="noopener">AssetBundle usage patterns</a>的<code>4.2.1. Shipped with project</code>~<code>4.2.3. Built-in caching</code>这块.</p>
+<p>核心部分就是使用<code>UnityWebRequest</code>下载并读取<code>AB</code></p>
+<h4 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//mUrl为请求地址</span></span><br><span class="line"><span class="comment">//mHash是用作缓存的Hash值,从AssetBundleManifest中取得</span></span><br><span class="line"><span class="keyword">using</span> (<span class="keyword">var</span> uwr = UnityWebRequest.GetAssetBundle(mUrl, mHash, <span class="number">0</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">yield</span> <span class="keyword">return</span> uwr.SendWebRequest();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (uwr.isNetworkError || uwr.isHttpError)</span><br><span class="line">    &#123;</span><br><span class="line">        Debug.LogError(<span class="string">"[CEAB] get ab on error:\n"</span> + uwr.error + <span class="string">"\nURL:"</span> + mUrl);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> bundle = DownloadHandlerAssetBundle.GetContent(uwr);</span><br><span class="line">        <span class="comment">//做自己的操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="AssetBundleManifest"><a href="#AssetBundleManifest" class="headerlink" title="AssetBundleManifest"></a>AssetBundleManifest</h3><p>首先要注意的是,使用<code>BuildPipeline.BuildAssetBundles</code>打包生成<code>AB</code>目录,会有两个<code>AssetBundleManifest</code>文件. 比如上面的打包代码</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">DoBuildBundles</span>(<span class="string">"Android"</span>, BuildTarget.Android);</span><br></pre></td></tr></table></figure>
+<p>会在指定的目录下生成一个名叫<code>Android</code>的目录,其内部放置的<code>AB</code>素材是适合安卓平台下使用的. 同时会产生一个 名字叫<code>Android</code>但是没有后缀,另外一个有<code>manifest</code>后缀的文件(Android.manifest)</p>
+<p><code>Android.manifest</code>这个文件<strong>不是</strong>真正的<code>AssetBundleManifest</code>,没有文件名的那个文件才是.</p>
+<p><code>*.manifest</code>在旧版的API文档(低于Unity5.0)中有说明,是用于内部构建使用,也就是可以直接忽略不管的.</p>
+<p>真正需要加载的文件是没有文件名的那个.</p>
+<h3 id="将AB文件放入StreamingAssets"><a href="#将AB文件放入StreamingAssets" class="headerlink" title="将AB文件放入StreamingAssets"></a>将AB文件放入StreamingAssets</h3><p>将AB放入或者不放入<code>StreamingAssets</code>要看项目而定. 主要是在包体大小和进入等待时间之间做一个平衡吧.</p>
+<h4 id="核心代码-1"><a href="#核心代码-1" class="headerlink" title="核心代码"></a>核心代码</h4><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">CEABConfig</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> <span class="keyword">string</span> STREAMING_PATH_URL =</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR</span></span><br><span class="line">        Application.dataPath + <span class="string">"/StreamingAssets/AssetBundles/"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> UNITY_ANDROID</span></span><br><span class="line">        <span class="string">"jar:file://"</span> + Application.dataPath + <span class="string">"!/assets/AssetBundles/"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> UNITY_IPHONE</span></span><br><span class="line">        Application.dataPath + <span class="string">"/Raw/AssetBundles/"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> UNITY_STANDALONE</span></span><br><span class="line">        Application.dataPath + <span class="string">"/StreamingAssets/AssetBundles/"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">        <span class="keyword">string</span>.Empty;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">readonly</span> <span class="keyword">string</span> PLATFORM =</span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> UNITY_EDITOR_WIN</span></span><br><span class="line">        <span class="string">"Win"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> UNITY_EDITOR_OSX</span></span><br><span class="line">        <span class="string">"Mac"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> UNITY_ANDROID</span></span><br><span class="line">        <span class="string">"Android"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> UNITY_IPHONE</span></span><br><span class="line">        <span class="string">"IOS"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> UNITY_STANDALONE_WIN</span></span><br><span class="line">        <span class="string">"Win"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> UNITY_STANDALONE_OSX</span></span><br><span class="line">        <span class="string">"Mac"</span>;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">        <span class="keyword">string</span>.Empty;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用方式:</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> localFilePath = CEABConfig.STREAMING_PATH_URL + CEABConfig.PLATFORM + <span class="string">"/"</span> + _abName;</span><br><span class="line"><span class="keyword">var</span> bundle = AssetBundle.LoadFromFile(localFilePath);</span><br></pre></td></tr></table></figure>
+<h4 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h4><p>在安卓平台<code>StreamingAssets</code>中的文件是放入一个<code>jar</code>包之中保存的,所以正常的方法是<strong>无法</strong>查找某一个文件是否存在的.</p>
+<p>比如在Editor或者Standalone中是可以直接用<code>File.Exist(xxx)</code>判断是否存在某一个<code>AB</code>,从而决定是从<code>StreamingAssets</code>中加载还是从<code>UnityWebRequest</code>中请求.</p>
+<p>但是在安卓中是不可以.</p>
+<p>目前我想到的是两种方式, 一种是在生成AB包时候同时生成相应的配置文件,通过该文件来实现<code>File.Exist(xxx)</code>的逻辑.</p>
+<p>另外一种是使用try-catch然后直接生取对应的AB文件. 进行异常监听. </p>
+<p>目前我项目中使用的是第二种方式.</p>
+<h3 id="我AB的使用方式"><a href="#我AB的使用方式" class="headerlink" title="我AB的使用方式"></a>我AB的使用方式</h3><p>目前我项目中的<code>AB</code>使用流程如下</p>
+<p><strong>1–&gt;</strong> 使用文章开头提供的脚本在单独的项目中打包所有<code>AB</code></p>
 <blockquote>
-<p>XXX can only be called on an active agent that has been placed on a NavMesh</p>
+<p>使用单独项目原因是,如果主项目很大,每次打包要好久. 将需要打包的资源单独放置一个新项目中会快很多</p>
 </blockquote>
-<h2 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h2><ul>
-<li>初始化时候就设置Position偏移</li>
-</ul>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Prefab ;</span><br><span class="line"><span class="keyword">var</span> offsetV3 = <span class="keyword">new</span> <span class="type">Vector</span>(<span class="number">0</span>,<span class="number">0.21</span>f,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = GameObject.Instantiate(Prefab, offsetV3, Quaternion.identity);</span><br></pre></td></tr></table></figure>
+<p><strong>2–&gt;</strong> 将生成好的全平台(“Mac”,”Windows”,”Android”,”IOS”)AB,Copy到主项目的<code>StreamingAssets</code>目录下</p>
+<p>同时Copy一份到主目录外(用于一键打包脚本)</p>
+<blockquote>
+<p>这样做的好处是在开发阶段测试很方便,打包每个平台的测试工程均可,且无需联网下载<code>AB</code></p>
+<p>(代码中需要设置,在测试环境中只使用<code>StreamingAssets</code>中的AB)</p>
+</blockquote>
+<p><strong>3–&gt;</strong> 使用一键发布脚本进行安卓或者IOS平台打包:</p>
+<p>首先删除<code>StreamingAssets</code>目录下的全平台AB<br>再根据平台不同,将主目录外的备份文件.相应的Copy进来</p>
+<p><strong>4–&gt;</strong> 正式工程取得某个AB时候</p>
+<p>首先请求<code>AssetBundleManifest</code>文件(从服务器请求,不缓存)</p>
+<p>然后从中取得该<code>AB</code>的Hash值. 用该值和<code>StreamingAssets</code>中的<code>AB</code>进行比较. 如果相同则直接从<code>StreamingAssets</code>中加载.(注意,<strong>不能</strong>使用<code>UnityWebRequest</code>进行加载,否则会复制出一份缓存文件来).</p>
+<p>如果不相同,则使用该<code>Hash</code>做key 通过<code>UnityWebRequest</code>请求. 这样会把相应的<code>AB</code>缓存下来. 下次不需要再从服务器中下载.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/c6660210-17ba-11e8-9e87-45e9f0e9cada/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/c6660210-17ba-11e8-9e87-45e9f0e9cada/" itemprop="url">ShareSDK配置手札</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-22T18:25:59+08:00">
+                2018-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="修改步骤"><a href="#修改步骤" class="headerlink" title="修改步骤"></a>修改步骤</h2><h3 id="修改-ShareSDKUnity3DBridge"><a href="#修改-ShareSDKUnity3DBridge" class="headerlink" title="修改 ShareSDKUnity3DBridge"></a>修改 ShareSDKUnity3DBridge</h3><p>编辑ShareSDKUnity3DBridge.m文件. 在Finder中打开,ShareSDK的IOS目录下</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-182851.jpg" alt="QQ20180222-182851"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-182921.jpg" alt="QQ20180222-182921"></p>
+<p>注释掉所有不使用的平台</p>
+<h3 id="ShareSDK-cs"><a href="#ShareSDK-cs" class="headerlink" title="ShareSDK.cs"></a>ShareSDK.cs</h3><p>替换ShareSDK中的appKey和appSecret为自己的Key</p>
+<h3 id="DevInfoSet-cs"><a href="#DevInfoSet-cs" class="headerlink" title="DevInfoSet.cs"></a>DevInfoSet.cs</h3><p>修改其内部的所有<code>app_key</code>和<code>app_secret</code>等相应信息为自己的</p>
+<h3 id="ChosenPlatforms-cs"><a href="#ChosenPlatforms-cs" class="headerlink" title="ChosenPlatforms.cs"></a>ChosenPlatforms.cs</h3><p>修改其内部所有用不到的平台<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.XXXX[<span class="string">"chosen"</span>] = <span class="literal">false</span>;</span><br></pre></td></tr></table></figure></p>
+<h3 id="EditorUI-cs"><a href="#EditorUI-cs" class="headerlink" title="EditorUI.cs"></a>EditorUI.cs</h3><p>更改OnInspectorGUI函数为</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public override void OnInspectorGUI()</span><br><span class="line">       &#123;</span><br><span class="line">           EditorGUILayout<span class="meta">.Space</span>()<span class="comment">;</span></span><br><span class="line">           EditorGUILayout.LabelField(<span class="string">"点击保存"</span>)<span class="comment">;</span></span><br><span class="line">           EditorGUILayout<span class="meta">.Space</span>()<span class="comment">;</span></span><br><span class="line">           if (GUILayout.<span class="keyword">Button("保存"))</span></span><br><span class="line"><span class="keyword"> </span>          &#123;</span><br><span class="line">               Save()<span class="comment">;</span></span><br><span class="line">               <span class="built_in">Debug</span>.Log(<span class="string">"Done Save"</span>)<span class="comment">;</span></span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ShareSDKPostProcessBuild-cs"><a href="#ShareSDKPostProcessBuild-cs" class="headerlink" title="ShareSDKPostProcessBuild.cs"></a>ShareSDKPostProcessBuild.cs</h3><p>更改<code>EditInfoPlist</code>函数内部的URL Scheme为自己对应的key</p>
+<h3 id="移动SDK"><a href="#移动SDK" class="headerlink" title="移动SDK"></a>移动SDK</h3><p>将目录移动到一个统一文件夹内部</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-183750.jpg" alt="QQ20180222-183750"></p>
+<p>修改<code>onPostProcessBuild</code>中的file路径为新SDK包的路径</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">var files</span> = Directory.GetFiles(unityEditorAssetPath + <span class="string">"/Plugins/FixShareSDK/ShareSDKiOSAutoPackage/Editor/SDKPorter"</span>, <span class="string">"*.projmods"</span>, SearchOption.AllDirectories);</span><br></pre></td></tr></table></figure>
+<h3 id="更新Platforms"><a href="#更新Platforms" class="headerlink" title="更新Platforms"></a>更新Platforms</h3><p>建立空的GameObject,挂载<code>ShareSDK</code>和<code>Manage Platforms</code><br>点击保存按钮.</p>
+<h2 id="检查Xcode项目"><a href="#检查Xcode项目" class="headerlink" title="检查Xcode项目"></a>检查Xcode项目</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-180840.jpg" alt="QQ20180222-180840"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180222-180942.jpg" alt="QQ20180222-180942"></p>
+<p>检查导出的Xcode是否配置正确,及是否导出了多余的Lib包</p>
+<h2 id="更改设置的原因"><a href="#更改设置的原因" class="headerlink" title="更改设置的原因"></a>更改设置的原因</h2><p>其默认的Unity包是依赖于Public变量改变来更新配置的. 但是Unity有时候会回滚操作(不明原因),之前设置的东西全部回滚为初始的配置了.</p>
+<p>所以直接采用代码硬更改.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/4242f7f0-1714-11e8-9242-bf2f9719042a/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/4242f7f0-1714-11e8-9242-bf2f9719042a/" itemprop="url">创建 Isometric Tile Mesh用于Unity原生Navigation寻路</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-21T22:34:01+08:00">
+                2018-02-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>Unity 无论自身的TileMap(2018版本),还是Asset Store中的插件,对于Isometric(斜45度)的地图支持的都不好.几乎都处于不可用的状态中.</p>
+<p>唯一一个不错的且免费的插件是<a href="http://www.seanba.com/tiled2unity" target="_blank" rel="noopener">Tiled2Unity</a></p>
+<p>插件的原理是使用<a href="http://www.mapeditor.org/" target="_blank" rel="noopener">Tiled</a>对地图进行编辑,然后通过该插件导入到Unity中使用. </p>
+<p>其地图导入部分做的很好,Isometric的地图完全没有问题. 但是其引入的是<code>PolygonCollider2D</code>作为物理碰撞.</p>
+<p>对于纯2D的横版游戏完全没有问题.但是如果是俯视的大地图 比如 金庸群侠传,英雄无敌 等等 这种视角的游戏, 如果需要使用原生的寻路系统(NavMeshAgent). 就必须要自己想办法</p>
+<p>其实工具内部可以自己写<code>ICustomTiledImporter</code>实现,然后在Tiled中使用AutoTile,编辑相应的规则.</p>
+<p>最终实现的流程是就是</p>
 <ul>
-<li>使用Wrap函数</li>
+<li>编辑AutoTile,使得放置地表时候自动创建Tile Object(粉色的那个,在ObjectLayer).</li>
+<li>自己写<code>ICustomTiledImporter</code>读取相应的Property.然后生成相应的Unity中的GameObject</li>
 </ul>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Prefab;</span><br><span class="line"><span class="keyword">var</span> offsetV3 = <span class="keyword">new</span> <span class="type">Vector</span>(<span class="number">0</span>,<span class="number">0.21</span>f,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = GameObject.Instantiate(Prefab);</span><br><span class="line"><span class="keyword">var</span> agent = <span class="keyword">new</span><span class="type">Go</span>.GetComponent&lt;NavMeshAgent&gt;();</span><br><span class="line">agent.Wrap(offsetV3);</span><br></pre></td></tr></table></figure>
+<h2 id="我的方案"><a href="#我的方案" class="headerlink" title="我的方案"></a>我的方案</h2><p>使用AutoTile我觉得太麻烦,所以直接写个工具,将Map导出一份Json,读入Json中的Property信息即可以.<br>所以就剩下第二部分逻辑. 在相应的Tile部分生成GameObject用于NavMesh 的 Bake.</p>
+<p>就是在Tiled中创建两个色块Tile(红色,绿色). 红色的色块是不能走的地方,绿色色块是可以走的地方</p>
+<p>在Unity中读取对应的信息,找到红色和绿色色块.在对应的位置放置上红色的Prefab和绿色的Prefab.</p>
+<p>这种两个Prefab就是一个空的3D物品,然后设置成<code>Navigation Static</code>,一个设置为<code>Walkable</code>,一个设置为<code>NotWalkable</code></p>
+<p>然后直接Bake NavMesh即可.</p>
+<p>所以最终的问题 就是如何产生这个 红色或者绿色的Prefab.</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>生成相应的Mesh代码如下.</p>
+<p>我使用了<code>OdinInspector</code>制作界面.如果不是用则自定义CustomEditor放置两个按钮对应<code>MakeTile</code>和<code>SaveTile</code>即可</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Sirenix.OdinInspector;</span><br><span class="line"><span class="keyword">using</span> UnityEditor;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line">[<span class="meta">RequireComponent(typeof(MeshFilter))</span>]</span><br><span class="line">[<span class="meta">RequireComponent(typeof(MeshRenderer))</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MeshTileMaker</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> A = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> B = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> C = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> D = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> AP = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> BP = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> CP = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> DP = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> TILE_HEIGH;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">LabelText(<span class="meta-string">"Tile的宽度:"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> TILE_WIDTH = <span class="number">0.64</span>f;</span><br><span class="line">    [<span class="meta">LabelText(<span class="meta-string">"3D模型的高度:"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> CUBE_HEIGH = <span class="number">0.2</span>f;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    [<span class="meta">Button(ButtonSizes.Large)</span>]</span><br><span class="line">    [<span class="meta">ButtonGroup(<span class="meta-string">"Function"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">MakeTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        DoMakeTile();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">GUIColor(0, 1, 0)</span>]</span><br><span class="line">    [<span class="meta">ButtonGroup(<span class="meta-string">"Function"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SaveTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">string</span> path = EditorUtility.SaveFilePanel(<span class="string">"Save Mesh"</span>, <span class="string">"Assets/"</span>, name, <span class="string">"asset"</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">string</span>.IsNullOrEmpty(path)) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        path = FileUtil.GetProjectRelativePath(path);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> filter = GetComponent&lt;MeshFilter&gt;();</span><br><span class="line">        <span class="keyword">var</span> meshToSave = filter.mesh;</span><br><span class="line"></span><br><span class="line">        MeshUtility.Optimize(meshToSave);</span><br><span class="line"></span><br><span class="line">        AssetDatabase.CreateAsset(meshToSave, path);</span><br><span class="line">        AssetDatabase.SaveAssets();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">DoMakeTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        TILE_HEIGH = TILE_WIDTH / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> HALF_WIDHT = TILE_WIDTH / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> HALF_HEIGH = TILE_HEIGH / <span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> vertices = <span class="keyword">new</span> Vector3[<span class="number">8</span>];</span><br><span class="line">        vertices[A] = <span class="keyword">new</span> Vector3(-HALF_WIDHT, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        vertices[B] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, HALF_HEIGH);</span><br><span class="line">        vertices[C] = <span class="keyword">new</span> Vector3(HALF_WIDHT, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        vertices[D] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, -HALF_HEIGH);</span><br><span class="line"></span><br><span class="line">        vertices[AP] = <span class="keyword">new</span> Vector3(-HALF_WIDHT, CUBE_HEIGH, <span class="number">0</span>);</span><br><span class="line">        vertices[BP] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, CUBE_HEIGH, HALF_HEIGH);</span><br><span class="line">        vertices[CP] = <span class="keyword">new</span> Vector3(HALF_WIDHT, CUBE_HEIGH, <span class="number">0</span>);</span><br><span class="line">        vertices[DP] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, CUBE_HEIGH, -HALF_HEIGH);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> triangles = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">12</span> * <span class="number">3</span>];</span><br><span class="line">        <span class="keyword">var</span> startIndex = <span class="number">0</span>;</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, B, A);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, B, D);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, AP, BP, DP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, BP, CP, DP);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, AP, DP, A);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, A, DP, D);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, DP, CP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, CP, C);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, B, BP, AP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, B, AP, A);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, CP, BP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, BP, B);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> mesh = <span class="keyword">new</span> Mesh &#123;name = <span class="string">"TileMesh"</span>&#125;;</span><br><span class="line">        mesh.vertices = vertices;</span><br><span class="line">        mesh.triangles = triangles;</span><br><span class="line">        GetComponent&lt;MeshFilter&gt;().mesh = mesh;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DoPushTriangles</span>(<span class="params"><span class="keyword">ref</span> <span class="keyword">int</span>[] _triangles, <span class="keyword">ref</span> <span class="keyword">int</span> _startIndex, <span class="keyword">int</span> _A, <span class="keyword">int</span> _B, <span class="keyword">int</span> _C</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        _triangles[_startIndex] = _A;</span><br><span class="line">        _triangles[_startIndex + <span class="number">1</span>] = _B;</span><br><span class="line">        _triangles[_startIndex + <span class="number">2</span>] = _C;</span><br><span class="line">        _startIndex += <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230512.jpg" alt="QQ20180221-230512"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230021.jpg" alt="QQ20180221-230021"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230057.jpg" alt="QQ20180221-230057"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/98516910-f9d2-11e7-9821-d3ed16e6835d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/98516910-f9d2-11e7-9821-d3ed16e6835d/" itemprop="url">Unity在编辑模式中使用代码更新Prefab并保持引用</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T17:00:55+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>一键将EditMap导出为ReleaseMap. 在编辑场景构建游戏地图,地图数据中绑定了许多只有编辑场景才会用到的数据.比如用于生成NavMesh的Cube,用于场景排序的代码等等.</p>
+<p>希望构建点击一个按钮,对应的导出一份Release版本的地图Prefab数据. 用于游戏场景中使用. 同时再次运行脚本时候,游戏场景中对于该Prefab的引用不会消失</p>
+<p>相当于点击了 Inspector中Prefab的 Apply按钮</p>
+<h2 id="核心代码示例"><a href="#核心代码示例" class="headerlink" title="核心代码示例"></a>核心代码示例</h2><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> void OnClickBtn()</span><br><span class="line"> &#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = <span class="keyword">new</span> <span class="type">GameObject</span>();</span><br><span class="line">     <span class="keyword">new</span><span class="type">Go</span>.name = <span class="string">"OutPrefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> sp = <span class="keyword">new</span><span class="type">Go</span>.AddComponent&lt;PrefabOutCode&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> cubeAPath = <span class="string">"Assets/TestGround/NeedLinkPrefab/CubeA.prefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> cubeA = (GameObject) AssetDatabase.LoadAssetAtPath(cubeAPath, typeof(GameObject));</span><br><span class="line"></span><br><span class="line">     sp.linkPrefab = cubeA;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> outPrefabPath = <span class="string">"Assets/TestGround/OutPrefab/OutPrefab.prefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> outPreafb = (GameObject) AssetDatabase.LoadAssetAtPath(outPrefabPath, typeof(GameObject));</span><br><span class="line"></span><br><span class="line">     PrefabUtility.ReplacePrefab(<span class="keyword">new</span><span class="type">Go</span>, outPreafb, ReplacePrefabOptions.ReplaceNameBased);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     DestroyImmediate(<span class="keyword">new</span><span class="type">Go</span>);</span><br><span class="line"></span><br><span class="line">     Debug.Log(<span class="string">"DONE"</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>目录结构:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180115-171117.jpg" alt="QQ20180115-171117"></p>
+<p><code>AssetDatabase.LoadAssetAtPath</code> 可以加载到目录中的Prefab</p>
+<p><code>sp.linkPrefab = cubeA</code> 将Preafb Link到GameObject中来. 比如新生成的GameObject有个public 变量<br>需要Link 一个AudioClip. (就是替代原来的 用鼠标将Prefab拖拽到Inspector中的操作)</p>
+<p><code>PrefabUtility.ReplacePrefab(newGo, outPreafb, ReplacePrefabOptions.ReplaceNameBased)</code></p>
+<p>使用<code>ReplacePrefabOptions.ReplaceNameBased</code>这种方式,可以在保证原有Preafb引用不丢失的情况下替换.</p>
+<p>默认的<code>Default</code>模式会全部替换,但是引用丢失.</p>
+<p>使用<code>ConnectToPrefab</code>会在原有的基础上增加东西,引用不会丢失</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/d8549fe0-f91a-11e7-8661-1f20a751e9e4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/d8549fe0-f91a-11e7-8661-1f20a751e9e4/" itemprop="url">Unity动态加载NavMesh</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T19:05:35+08:00">
+                2018-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://media.giphy.com/media/3h3z1dXjhq1RyDUvDq/giphy.gif" alt="QQ20180114-190238-HD"></p>
+<p>新版本的Unity可以将NavMeshData存成一个Prefab,在任意场景(即使不是同一个项目).动态的加载进来.或者在编辑模式加载均可.</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>手先从Github上面Check下来适合自己IDE的插件: <a href="https://github.com/Unity-Technologies/NavMeshComponents" target="_blank" rel="noopener">地址</a></p>
+<p>使用其内置的<code>NavMeshSurface</code>配合其他的Component生成对应的NavMeshData.</p>
+<p>注意:不要使用<code>Navigation</code>标签下的Bake按钮生成NavMesh. 该标签下生成的NavMesh是旧版本,只能用于生成的场景.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180114-191550.jpg" alt="QQ20180114-191550"></p>
+<p>生成的NavMesh会在场景所在的层级下面同名文件夹内</p>
+<p>名字为<code>NavMesh-</code> + GameObject的名字</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180114-191649.jpg" alt="QQ20180114-191649"></p>
+<h2 id="加载代码"><a href="#加载代码" class="headerlink" title="加载代码"></a>加载代码</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AddNavMeshOnStart</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NavMeshData navMeshData;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NavMeshDataInstance mInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (navMeshData != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            mInstance = NavMesh.AddNavMeshData(navMeshData, transform.position, transform.rotation);</span><br><span class="line">            Debug.Log(<span class="string">"Add nav mesh data"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>核心代码就是<code>NavMesh.AddNavMeshData(xxxx)</code>. 如果是想Runtime加载,就放在Start里面.如果是想编辑模式就加载则可以加入<code>[ExecuteInEditMode]</code>标签.然后onEnable时候调用.</p>
+<p>注意: 在编辑模式下加载则使用<code>Navigation</code>标签下的Clean是无法清除已经加载的NavMesh的<br>需要自己写代码使用<code>NavMesh.RemoveNavMeshData(xxxx);</code>手动清楚掉</p>
+<h2 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h2><p>对我个人而言,新版的NavMesh 主要用于 编辑场景和游戏场景分开. 在编辑场景中制作地图,地图中会绑定许多为了做NavMesh而加入的Object. </p>
+<p>基于原来的NavMesh系统</p>
+<p>一种方案是 编辑结束后,复制整个场景删除无用的GameObject,把当前场景作为游戏场景.<br>另一种方案就是 在场景上绑定清理代码. 在Play的第一帧清除掉无用的GameObject.</p>
+<p>第一种方案麻烦的地方在于场景的反复编辑,每次都要执行复制删除.第二种方案在于刚开始Play时候要删GameObject,使得初始化时候会卡.</p>
+<p>新的NavMesh可以完美解决这个问题.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/6c4bc820-eb7b-11e7-8403-29e39698c0c1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/6c4bc820-eb7b-11e7-8403-29e39698c0c1/" itemprop="url">Math 向量基于某一坐标轴旋转固定角度</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T11:01:38+08:00">
+                2017-12-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://media.giphy.com/media/fCTqTWJSMvwVJllgBY/giphy.gif" alt="QQ20171228-105907-HD"></p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestCode</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Transform target;</span><br><span class="line">    <span class="keyword">public</span> Transform chaser;</span><br><span class="line">    <span class="keyword">public</span> GameObject destination;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> dir = (target.position - chaser.position).normalized;</span><br><span class="line">        <span class="keyword">var</span> fleeDir = Quaternion.AngleAxis(<span class="number">10</span>f, Vector3.up) * dir;</span><br><span class="line">        <span class="keyword">var</span> desPosLocal = fleeDir * <span class="number">3</span>f;</span><br><span class="line">        destination.transform.position = target.transform.TransformPoint(desPosLocal);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//画Flee方向</span></span><br><span class="line">        Debug.DrawRay(target.position, dir * <span class="number">3</span>f, Color.green);</span><br><span class="line"></span><br><span class="line">        Debug.DrawRay(target.position, fleeDir * <span class="number">3</span>f, Color.red);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>dir首先取得的是逃离的方向(目标的局部坐标系)</p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">旋转后向量 </span>=<span class="string"> Quaternion.AngleAxis(旋转角度, 坐标轴) * 原向量</span></span><br></pre></td></tr></table></figure>
+<p>该公式可以把某一个向量基于某一个坐标轴旋转指定的角度(欧拉角)</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">target</span><span class="selector-class">.transform</span><span class="selector-class">.TransformPoint</span>(<span class="selector-tag">desPosLocal</span>);</span><br></pre></td></tr></table></figure>
+<p>将局部坐标转换为世界坐标</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/dce56270-e88e-11e7-9d4a-778b0cc8b129/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/dce56270-e88e-11e7-9d4a-778b0cc8b129/" itemprop="url">BehaviorDesigner LowerPriority Bug及解决方案</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T17:43:14+08:00">
+                2017-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这个问题到底是不是一个Bug还不好说,因为是非正规渠道获取的插件,所以没法去论坛提问.我给Support去了一封邮件,不过目前还没有得到答案.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171224-173639.jpg" alt="QQ20171224-173639"></p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunAfterTwoSecond</span> : <span class="type">Conditional</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> TaskStatus OnUpdate()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!(Time.time &gt; <span class="number">2</span>f)) <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">        Debug.Log(<span class="string">"RunAfterTwoSecond check is TRUE, should run next task"</span>);</span><br><span class="line">        <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如图所示. 逻辑首先会执行<code>TreeB</code>,然后2秒以后.<code>TreeA</code>的判断逻辑会触发成功(因为设置了LowerPriority)</p>
+<p>此时会执行一遍<code>TreeA</code>,因为最终结果有<code>Return Failure</code>的装饰.所以又会执行<code>TreeB</code></p>
+<p>此时<code>TreeA</code>的条件会一直触发返回<code>TRUE</code>,但是<code>TreeA</code>不会再次运行.</p>
+<p>这个Bug触发的条件有两个,一个是<code>RunAfterTwoSecond</code>在2秒以后恒定返回<code>TRUE</code>,且后续逻辑执行导致整个<code>Tree</code>返回了<code>Failure</code>.</p>
+<p>第二个条件是,后续的条件逻辑返回的是<code>TaskRunning</code>. 所以导致整个<code>Selector</code>逻辑卡死在同一个loop中.</p>
+<p>暂时绕开的解决方案如图:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171224-173552.jpg" alt="QQ20171224-173552"></p>
+<p>每个有<code>LowerPriority</code>判断的子树,除了需要不停做判断的<code>Conditional</code>以外全部都设置到一个永远返回<code>Success</code>的Deco下面</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/19753c20-e23f-11e7-869e-21b0f4c1ad88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/19753c20-e23f-11e7-869e-21b0f4c1ad88/" itemprop="url">Unity外置ExternalBehavior</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T16:57:09+08:00">
+                2017-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="为何要外置"><a href="#为何要外置" class="headerlink" title="为何要外置"></a>为何要外置</h2><p><code>Behavior Designer</code>是Unity的一个插件,我用与处理AI逻辑.当AI逻辑很复杂的情况下会使用到<code>ExternalBehavior</code>.</p>
+<p><code>ExternalBehavior</code>相当于是<code>BehaviorTree</code>的嵌套. 但是对于多重嵌套情况 他自带的Task支持的并不好.</p>
+<p>比如:</p>
+<p>一个角色AI,最外层的逻辑可能为<code>发呆</code>,<code>觅食</code>,<code>巡逻</code>等等.</p>
+<p><code>觅食</code>和<code>巡逻</code>是两个<code>ExternalBehavior</code>,里面的实现又会用到另外的两个<code>ExternalBehavior</code>,比如<code>移动</code>,<code>攻击</code></p>
+<p>这时候我们有两个角色,<code>角色A</code>,<code>角色B</code>. AB两个角色其<code>移动</code>,<code>攻击</code>使用不同的<code>ExternalBehavior</code></p>
+<p><code>A-Move</code>,<code>A-Attack</code>,<code>B-Move</code>,<code>B-Attack</code></p>
+<p>由于嵌套最里层的<code>ExternalBehavior</code>不同,所以导致上层的<code>觅食</code>,<code>巡逻</code> 也需要有两个. </p>
+<p><code>角色A-觅食</code>,<code>角色A-巡逻</code><br><code>角色B-觅食</code>,<code>角色B-巡逻</code></p>
+<p>这样如果当AI非常复杂,嵌套层级又多.维护起来非常麻烦.</p>
+<h2 id="改进方法"><a href="#改进方法" class="headerlink" title="改进方法"></a>改进方法</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-171241.jpg" alt="QQ20171216-171241"></p>
+<p>将对应的<code>ExternalBehavior</code>提到外层的<code>Variables</code>变量中来,利用<code>ExternalBehavior</code>和主的<code>Behavior</code>如果变量名相同则自动Override的特性.将所有的<code>ExternalBehavior</code>放出来.只要保证编写每个<code>ExternalBehavior</code>时候,使用相同的变量名,则自动替换所有的.</p>
+<p>还是上面的例子. 建立<code>Variables</code></p>
+<ul>
+<li>LowLevelAI_Move</li>
+<li>LowLevelAI_Attack</li>
+<li>HightLevelAI_Eat</li>
+<li>HightLevelAI_Patrol</li>
+</ul>
+<p>这样对于角色A和角色B,Eat和Patrol可以使用同一个<code>ExternalBehavior</code>,只是<code>Move</code>和<code>Attack</code>分别使用不同的.</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>CEExternalBehaviorTree.cs</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 自定义ExternalBehavior</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 使用SharedExternalTree做参数,该参数可以在BD Root处进行设置.这样就可以在外部配置相应的需要Override的BD</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">[<span class="meta">TaskIcon(<span class="meta-string">"BehaviorTreeReferenceIcon.png"</span>)</span>]</span><br><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEExternalBehaviorTree</span> : <span class="title">BehaviorReference</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> CESharedExternalTree externalTree;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> BehaviorDesigner.Runtime.<span class="function">ExternalBehavior[] <span class="title">GetExternalBehaviors</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (externalTree.Value != <span class="literal">null</span>) <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;externalTree.Value&#125;;</span><br><span class="line">        <span class="keyword">var</span> dummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;dummy&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CESharedExternalTree.cs</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> CESharedExternalTree : SharedVariable&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> static <span class="keyword">implicit</span> operator CESharedExternalTree(BehaviorDesigner.Runtime.ExternalBehavior <span class="keyword">value</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> new CESharedExternalTree &#123;<span class="keyword">Value</span> = <span class="keyword">value</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CEIsExternalTreeNotNull.cs</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEIsExternalTreeNotNull</span> : <span class="title">Conditional</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> CESharedExternalTree tree;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> BehaviorDesigner.Runtime.ExternalBehavior mDummy;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnAwake</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mDummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> TaskStatus <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (tree.Value == <span class="literal">null</span> || tree.Value == mDummy)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>同时需要在<code>Resources/BD</code>目录下放置一个<code>Dummy</code>的<code>ExternalBehavior</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-172214.jpg" alt="QQ20171216-172214"></p>
+<p>这么做的操作是为了做判空,因为如果<code>ExternalBehavior</code>默认为空则运行时候就会报错. 而做判空是为了更方便做扩展.</p>
+<p>还是刚才的例子,如果角色A和角色B的<code>Move</code>,<code>Attack</code>不同点 一个在于是走,一个是跑,一个是近战攻击,一个是远程攻击.</p>
+<p>那就是可以建立一个CommonAI,其变量为:</p>
+<ul>
+<li>LowLevelAI_Walk</li>
+<li>LowLevelAI_Run</li>
+<li>LowLevelAI_CloseAttack</li>
+<li>LowLevelAI_RangeAttack</li>
+<li>HightLevelAI_Eat</li>
+<li>HightLevelAI_Patrol</li>
+</ul>
+<p>这样角色A和角色B可以用同一个<code>BehaviorTree</code>,只是实现不同的行为,没有的默认留空. 内部逻辑通过<code>CEIsExternalTreeNotNull</code>进行判断,从而选择不同的实现方式.</p>
 
           
         
@@ -442,7 +1843,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -478,7 +1879,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">隔壁老王</p>
-              <p class="site-description motion-element" itemprop="description">独立游戏开发者</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -488,7 +1889,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -510,7 +1911,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -688,14 +2089,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://oldking.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
 
 
 
@@ -711,8 +2104,27 @@
 
 
 
+  
 
 
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: false,
+        notify: false,
+        app_id: 'VgjGdP2hIi00FTVlhhkQYpOx-gzGzoHsz',
+        app_key: 'f6jqD57DmTmu5lR3DdobF3py',
+        placeholder: '说点啥?'
+    });
+  </script>
 
 
 

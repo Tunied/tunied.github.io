@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://www.oldking.wang/media/Jietu20180720-220109.jpg">
 <meta property="og:image" content="http://www.oldking.wang/media/Jietu20180720-231320.jpg">
 <meta property="og:image" content="http://www.oldking.wang/media/Jietu20180720-220922.jpg">
-<meta property="og:updated_time" content="2018-07-20T16:05:20.000Z">
+<meta property="og:updated_time" content="2018-09-01T13:15:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Unity项目中隐藏StringConst">
 <meta name="twitter:description" content="最终效果 在GUI界面中编辑StringConst  自动生成StringConst.cs文件     封装GlobalConst上层逻辑直接当做普通String字符串处理   目的目前, 就我所知的Unity反编译. 如果采用静态破解IL2CPP项目 切入点一般都从关键字入手. 比如搜索 money,exp,attack等等. 我主要是采用混淆代码的方式应对这种Hack. 但是混淆代码并不能对">
@@ -175,7 +175,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">独立游戏开发者</p>
+        <h1 class="site-subtitle" itemprop="description">独立游戏开发者</h1>
       
   </div>
 
@@ -294,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在Unity项目中隐藏StringConst</h1>
+          <h2 class="post-title" itemprop="name headline">在Unity项目中隐藏StringConst</h2>
         
 
         <div class="post-meta">
@@ -341,17 +341,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/70851a90-8c25-11e8-9c42-b1751b7abeea/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="70851a90-8c25-11e8-9c42-b1751b7abeea/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -533,12 +522,7 @@
           
   
     <div class="comments" id="comments">
-      <div id="disqus_thread">
-        <noscript>
-          Please enable JavaScript to view the
-          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-        </noscript>
-      </div>
+      <div id="vcomments"></div>
     </div>
   
 
@@ -577,7 +561,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">隔壁老王</p>
-              <p class="site-description motion-element" itemprop="description">独立游戏开发者</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -587,7 +571,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -609,7 +593,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -807,26 +791,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://oldking.disqus.com/count.js" async></script>
-    
-
-    
-      <script type="text/javascript">
-        var disqus_config = function () {
-          this.page.url = 'http://www.oldking.wang/70851a90-8c25-11e8-9c42-b1751b7abeea/';
-          this.page.identifier = '70851a90-8c25-11e8-9c42-b1751b7abeea/';
-          this.page.title = '在Unity项目中隐藏StringConst';
-        };
-        var d = document, s = d.createElement('script');
-        s.src = 'https://oldking.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', '' + +new Date());
-        (d.head || d.body).appendChild(s);
-      </script>
-    
-
-  
-
 
 
 
@@ -842,8 +806,27 @@
 
 
 
+  
 
 
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: false,
+        notify: false,
+        app_id: 'VgjGdP2hIi00FTVlhhkQYpOx-gzGzoHsz',
+        app_key: 'f6jqD57DmTmu5lR3DdobF3py',
+        placeholder: '说点啥?'
+    });
+  </script>
 
 
 

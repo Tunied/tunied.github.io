@@ -124,7 +124,7 @@
 
 
 
-  <title>隔壁老王</title>
+  <title>隔壁老王 - 独立游戏开发者</title>
   
 
 
@@ -169,7 +169,7 @@
       </a>
     </div>
       
-        <p class="site-subtitle">独立游戏开发者</p>
+        <h1 class="site-subtitle" itemprop="description">独立游戏开发者</h1>
       
   </div>
 
@@ -271,7 +271,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/3dbcea40-93fd-11e8-82b5-5f6e29863172/">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/b09f8040-de81-11e7-ad11-a1cb35453017/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="隔壁老王">
@@ -288,9 +288,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
+          <h2 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/3dbcea40-93fd-11e8-82b5-5f6e29863172/" itemprop="url">Unity UGUI Image 善用纹理的WrapMode</a></h1>
+                <a class="post-title-link" href="/b09f8040-de81-11e7-ad11-a1cb35453017/" itemprop="url">Unity中使用Protobuf进行网络通讯</a></h2>
         
 
         <div class="post-meta">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-30T21:34:10+08:00">
-                2018-07-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T22:43:45+08:00">
+                2017-12-11
               </time>
             
 
@@ -338,16 +338,176 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/3dbcea40-93fd-11e8-82b5-5f6e29863172/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="3dbcea40-93fd-11e8-82b5-5f6e29863172/" itemprop="commentCount"></span>
-                </a>
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h2><p><a href="https://developers.google.com/protocol-buffers/" target="_blank" rel="noopener">Protocol Buffers</a>是Google定义的一种数据结构.</p>
+<h3 id="本地安装"><a href="#本地安装" class="headerlink" title="本地安装"></a>本地安装</h3><p>安装Protobuf</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install protobuf</span><br></pre></td></tr></table></figure>
+<p>安装Unity插件<a href="https://github.com/5argon/protobuf-unity" target="_blank" rel="noopener">protobuf-unity</a></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/15130039913882.png" alt=""></p>
+<h3 id="测试Proto"><a href="#测试Proto" class="headerlink" title="测试Proto"></a>测试Proto</h3><p>注意,最好按照 插件中指定的命名方法命名.比如我的Proto名字叫<code>game_proto.proto</code>,最后导出的C#类的名字就是<code>GameProto</code></p>
+<p>game_proto.proto</p>
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto3"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//commandID 9001</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">TestSyncRequest1</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> user = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//commandID 9001</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">TestSyncResponse1</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> id = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">string</span> user = <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>插件很高级,当Proto文件变化时候就会直接更新C#的类.很方便.</p>
+<p>注意前面需要指定<code>syntax = &quot;proto3&quot;</code></p>
+<p>Proto 2 和 3 的区别可以参考 <a href="https://solicomo.com/network-dev/protobuf-proto3-vs-proto2.html" target="_blank" rel="noopener">这篇</a>文章</p>
+<h2 id="简单序列与反序列化"><a href="#简单序列与反序列化" class="headerlink" title="简单序列与反序列化"></a>简单序列与反序列化</h2><p>单独使用Proto进行序列化和反序列化很简单,代码如下:</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestProto</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickTestBtn</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">//序列化</span></span><br><span class="line">        <span class="keyword">var</span> req1 = <span class="keyword">new</span> TestSyncRequest1();</span><br><span class="line">        req1.User = <span class="string">"ABC"</span>;</span><br><span class="line">        <span class="keyword">var</span> data = req1.ToByteArray();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//反序列化</span></span><br><span class="line">        <span class="keyword">var</span> c = TestSyncRequest1.Parser.ParseFrom(data);</span><br><span class="line">        Debug.Log(c.User);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="网络通讯"><a href="#网络通讯" class="headerlink" title="网络通讯"></a>网络通讯</h2><p>配合网络通讯会稍微有些复杂.主要是有两个问题. </p>
+<h3 id="大端-Encoding-BigEndianUnicode-小端-Encoding-Unicode"><a href="#大端-Encoding-BigEndianUnicode-小端-Encoding-Unicode" class="headerlink" title="大端(Encoding.BigEndianUnicode)小端(Encoding.Unicode)"></a>大端(Encoding.BigEndianUnicode)小端(Encoding.Unicode)</h3><p>大端小端就是数据解析的顺序, 比如我的Command定义为9001. Debug byte array 时候会按照8位一转换</p>
+<p><code>十进制35 = 二进制 00101101</code><br><code>十进制41 = 二进制 00101001</code><br><code>十进制9001 = 二进制 00100011 00101001</code></p>
+<p>大端显示为<code>35,41</code>,小端显示<code>41,35</code></p>
+<p>而<code>C#</code>使用<code>BinaryWriter</code>写入<code>MemoryStream</code>时候为<code>小端</code>. 这个要前后端定义好.</p>
+<p>而Protobuf的二进制是不分大小端的,具体的可以参考<a href="https://stackoverflow.com/questions/28905274/endianness-of-protocol-buffer-message" target="_blank" rel="noopener">这篇文章</a></p>
+<p>也就是说Protobuf部分的数据,直接交给相应的Parser即可进行转换,不用关心大小端的问题.</p>
+<p>如果服务器使用的是大端解析的方式,可以使用<a href="https://github.com/jamesqo/Be.IO" target="_blank" rel="noopener">Be.IO</a>这个类库去取代相应的<code>BinaryWriter</code>和<code>BinaryReader</code></p>
+<h3 id="Encode和Decode"><a href="#Encode和Decode" class="headerlink" title="Encode和Decode"></a>Encode和Decode</h3><p>从服务器得到的是二进制数据,如果不附加其他信息是无法直接解析的.最基本的需要附加两个信息.</p>
+<p>一个信息是CommandID,比如9001.通过这个和9001对应Proto文件知道需要用<code>TestSyncResponse1</code>进行解析该二进制. 第二个是二进制长度(一次需要处理多个数据包儿时候需要用到)</p>
+<p>具体示意代码如下</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">byte</span>[] <span class="title">Encode</span>(<span class="params"><span class="keyword">short</span> _commandID, <span class="keyword">byte</span>[] _data</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fs = <span class="keyword">new</span> MemoryStream();</span><br><span class="line">    <span class="keyword">var</span> writer = <span class="keyword">new</span> BeBinaryWriter(fs, Encoding.BigEndianUnicode);</span><br><span class="line"></span><br><span class="line">    writer.Write(_commandID);</span><br><span class="line">    writer.Write((<span class="keyword">uint</span>) _data.Length);</span><br><span class="line">    writer.Write(_data);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> result = fs.ToArray();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> T Decode&lt;T&gt;(<span class="keyword">byte</span>[] _data) <span class="keyword">where</span> T : IMessage, <span class="keyword">new</span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> fs = <span class="keyword">new</span> MemoryStream(_data);</span><br><span class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> BeBinaryReader(fs, Encoding.BigEndianUnicode);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> command = reader.ReadInt16();</span><br><span class="line">    <span class="keyword">var</span> length = reader.ReadInt32();</span><br><span class="line">    <span class="keyword">var</span> rawData = reader.ReadBytes(length);</span><br><span class="line"></span><br><span class="line">    T message = <span class="keyword">new</span> T();</span><br><span class="line">    message.MergeFrom(rawData);</span><br><span class="line">    <span class="keyword">return</span> message;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h2><p>以上是在知道具体解析类情(泛型T)况下才可,当对网络层进行独立封装时候.往往无法知晓具体类型<br>此时可以单独存储生成ProtoClass的<code>MessageParser</code>.然后向上返回IMessage</p>
+<p>Decode函数改为<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> IMessage <span class="title">Decode</span>(<span class="params"><span class="keyword">byte</span>[] _data, MessageParser _parser</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> fs = <span class="keyword">new</span> MemoryStream(_data);</span><br><span class="line">        <span class="keyword">var</span> reader = <span class="keyword">new</span> BeBinaryReader(fs, Encoding.BigEndianUnicode);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> command = reader.ReadInt16();</span><br><span class="line">        <span class="keyword">var</span> length = reader.ReadInt32();</span><br><span class="line">        <span class="keyword">var</span> rawData = reader.ReadBytes(length);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> _parser.ParseFrom(rawData);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
+<p>上层封装所有生成类的<code>MessageParser</code>引用<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProtoConfig</span></span></span><br><span class="line"><span class="class">   &#123;</span></span><br><span class="line">       <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Initialize</span><span class="params">()</span></span></span><br><span class="line"><span class="function">       </span>&#123;</span><br><span class="line">           p = <span class="keyword">new</span> ProtoInfo();</span><br><span class="line">           p.command = <span class="number">9001</span>;</span><br><span class="line">           p.request = TestSyncRequest1.Parser;</span><br><span class="line">           p.response = TestSyncResponse1.Parser;</span><br><span class="line">           mList.Add(p);</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">public</span> ProtoInfo p;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>调用方式为</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = Decode(response<span class="meta">.Data</span>, ProtoConfig.<span class="keyword">instance.p.response);</span></span><br><span class="line"><span class="keyword">var </span><span class="keyword">b </span>= a as TestSyncResponse1<span class="comment">;</span></span><br><span class="line"><span class="built_in">Debug</span>.Log(<span class="string">"Response ID : "</span> + <span class="keyword">b.Id);</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/d0327b10-dcb5-11e7-902b-4f747c6830ed/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/d0327b10-dcb5-11e7-902b-4f747c6830ed/" itemprop="url">CESDK IOS环境搭建</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
               </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-09T15:51:49+08:00">
+                2017-12-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
             
           
 
@@ -375,24 +535,1645 @@
       
         
           
-            <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p><img src="/media/Jietu20180730-213540.jpg" alt="Jietu20180730-213540"></p>
-<p>做之前箭头演示Demo时候,直接Tiled抻拉了箭头Body部分. 底下有一段Warning提示,之前一直没注意.今天无意间看到了.</p>
+            <p>IOS环境搭建相对于Android来说要简单一些,不过对于我来说难点在于Xcode不熟,并且OC也不会-.-</p>
+<h2 id="自动打包"><a href="#自动打包" class="headerlink" title="自动打包"></a>自动打包</h2><h3 id="PostProcessBuild"><a href="#PostProcessBuild" class="headerlink" title="PostProcessBuild"></a>PostProcessBuild</h3><p>在开始构建项目之前,先要解决的是自动打包. Unity在新版中已经提供了<a href="https://docs.unity3d.com/ScriptReference/iOS.Xcode.PBXProject.html" target="_blank" rel="noopener">PBXProject</a>,用起来很方便.</p>
+<p>在任意的<code>Editor</code>目录下加入</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XCodeProcessAgent</span></span></span><br><span class="line"><span class="class">    &#123;</span></span><br><span class="line">        <span class="keyword">private</span> PBXProject mProject;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> mTargetGuid;</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">string</span> mProjPath;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Initialize</span><span class="params">(<span class="built_in">string</span> _pathToBuiltProject)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mProjPath = _pathToBuiltProject + <span class="string">"/Unity-iPhone.xcodeproj/project.pbxproj"</span>;</span><br><span class="line">            mProject = <span class="keyword">new</span> PBXProject();</span><br><span class="line">            mProject.ReadFromFile(mProjPath);</span><br><span class="line">            mTargetGuid = mProject.TargetGuidByName(<span class="string">"Unity-iPhone"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Save</span><span class="params">()</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mProject.WriteToFile(mProjPath);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddFramework</span><span class="params">(<span class="built_in">string</span> _framework)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mProject.AddFrameworkToProject(mTargetGuid, _framework, <span class="literal">true</span>);</span><br><span class="line">            Debug.Log(<span class="string">"[CESDK Unity] add framework : "</span> + _framework);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetBuildProperty</span><span class="params">(<span class="built_in">string</span> _property, <span class="built_in">string</span> _value)</span></span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mProject.SetBuildProperty(mTargetGuid, _property, _value);</span><br><span class="line">            Debug.Log(<span class="string">"[CESDK Unity] set property : "</span> + _property + <span class="string">" value to: "</span> + _value);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title">CESDKPostProcessBuild</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//[PostProcessBuild]</span></span><br><span class="line">    [<span class="meta">PostProcessBuild(88)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">onPostProcessBuild</span>(<span class="params">BuildTarget target, <span class="keyword">string</span> pathToBuiltProject</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (target != BuildTarget.iOS)</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.LogWarning(<span class="string">"Target is not iPhone. XCodePostProcess will not run"</span>);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Debug.Log(<span class="string">"[CESDK Unity]: Run IOS XCode Process"</span>);</span><br><span class="line"></span><br><span class="line">        EditProject(pathToBuiltProject);</span><br><span class="line"></span><br><span class="line">        Debug.Log(<span class="string">"[CESDK Unity]: Finish"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">EditProject</span>(<span class="params"><span class="keyword">string</span> _pathToBuiltProject</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> agent = <span class="keyword">new</span> XCodeProcessAgent();</span><br><span class="line">        agent.Initialize(_pathToBuiltProject);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//============</span></span><br><span class="line">        <span class="comment">//==添加Framework</span></span><br><span class="line">        <span class="comment">//============</span></span><br><span class="line">        agent.AddFramework(<span class="string">"AVKit.framework"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//===============</span></span><br><span class="line">        <span class="comment">//==设置Property</span></span><br><span class="line">        <span class="comment">//===============</span></span><br><span class="line">        agent.SetBuildProperty(<span class="string">"ENABLE_BITCODE"</span>, <span class="string">"false"</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment">//最后调用保存</span></span><br><span class="line">        agent.Save();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a href="https://docs.unity3d.com/ScriptReference/Callbacks.PostProcessBuildAttribute.html" target="_blank" rel="noopener">PostProcessBuild</a>标签内部的是执行顺序. 当点击Build时候就会按指定顺序开始执行一个个函数.</p>
+<p>目前我接入一个打点SDK,需要自己import一些Framework,然后每次需要更改<code>BitCode=false</code>,至于其他的可以自行添加<br>Mob的ShareSDK内部也有一个<code>PBXProject</code>,应该是他们为了兼容旧版本Unity或者其他原因自己搞了一个. 他们内部也修改了白名单等(用于回调微信等app)</p>
+<h3 id="Automatically-Sign"><a href="#Automatically-Sign" class="headerlink" title="Automatically Sign"></a>Automatically Sign</h3><p>自动设置TeamID</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171208-181634.jpg" alt="QQ20171208-181634"></p>
+<p>这个要先在<a href="https://developer.apple.com/account/#/membership/" target="_blank" rel="noopener">官网</a>上查到对应的TeamID</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171208-181611.jpg" alt="QQ20171208-181611"></p>
+<p>然后直接填入PlayerSetting中即可</p>
+<h3 id="AppStore-1024x1024-Icon"><a href="#AppStore-1024x1024-Icon" class="headerlink" title="AppStore 1024x1024 Icon"></a>AppStore 1024x1024 Icon</h3><p>直接导出项目会报Warning</p>
 <blockquote>
-<p>It looks like you want to tile a sprite with no border. It would be more efficient to …</p>
+<p>Missing Marketing Icon - iOS Apps must include a 1024x1024px Marketing Icon in PNG format. Apps that do not include the Marketing Icon cannot be submitted for App Review or Beta App Review.</p>
 </blockquote>
-<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>其实这个说的是使用纹理的WrapMode设置错了. 虽然可以做到Tiled.但是效率不高.</p>
-<p>切换到<code>Wireframe</code>下看的一目了然.</p>
-<p><img src="/media/Jietu20180730-214355.jpg" alt="Jietu20180730-214355"></p>
-<p>可以看到 <code>Clamp</code>是通过绘制了多个”方块”才达到的Tiled,而<code>Repeat</code>只绘制了一个”方块”. 专业一点的说法就是后者 使用的顶点(vertices)比前者少. 所以性能会高 😀</p>
-<h2 id="引申阅读"><a href="#引申阅读" class="headerlink" title="引申阅读"></a>引申阅读</h2><p><a href="https://blog.csdn.net/lzhq1982/article/details/75045358" target="_blank" rel="noopener">Unity Shader入门精要笔记（十二）：纹理属性</a><br>里面有详细的介绍 <code>Clamp</code>和<code>Repeat</code>的区别</p>
-<p><code>Repeat</code><br><img src="/media/20170712210355009.jpg" alt="20170712210355009"></p>
-<p><code>Clamp</code><br><img src="/media/20170712210408517.jpg" alt="20170712210408517"></p>
-<p>注意 Clamp 是对纹理外围1像素进行无限抻拉. 详情也可参照 <a href="https://docs.unity3d.com/ScriptReference/TextureWrapMode.Clamp.html" target="_blank" rel="noopener">官网API TextureWrapMode.Clamp</a></p>
+<p>然后上传AppStore时候也不会让过.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171209-163315.jpg" alt="QQ20171209-163315"></p>
+<p>需要手动勾选 Override for iOS,然后全部填上对应的Icon即可</p>
+<h2 id="相互通讯"><a href="#相互通讯" class="headerlink" title="相互通讯"></a>相互通讯</h2><p>OK,写了<code>PostProcessBuild</code>脚本后,就可以直接导出一个可运行的<code>Xcode</code>项目了. 下一步是尝试写一个可以互相通讯的静态<code>Library</code></p>
+<h3 id="创建Library项目"><a href="#创建Library项目" class="headerlink" title="创建Library项目"></a>创建Library项目</h3><p>Xcode直接创建一个静态的Library, 我的叫<code>LibCA</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171209-163500.jpg" alt="QQ20171209-163500"></p>
+<h4 id="XCode部分"><a href="#XCode部分" class="headerlink" title="XCode部分"></a>XCode部分</h4><p>更改<code>LibCA.mm</code>为</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"LibCA.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined (__cplusplus)</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">"C"</span> &#123;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">UnitySendMessage</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *, <span class="keyword">const</span> <span class="keyword">char</span> *, <span class="keyword">const</span> <span class="keyword">char</span> *)</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="title">UnityStringFromNSString</span><span class="params">(NSString* <span class="built_in">string</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span>* cString = <span class="built_in">string</span>.UTF8String;</span><br><span class="line">        <span class="keyword">char</span>* _unityString = (<span class="keyword">char</span>*)<span class="built_in">malloc</span>(<span class="built_in">strlen</span>(cString) + <span class="number">1</span>);</span><br><span class="line">        <span class="built_in">strcpy</span>(_unityString, cString);</span><br><span class="line">        <span class="keyword">return</span> _unityString;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">NSString* <span class="title">NSStringFromUnityString</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* unityString_)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (unityString_ == nil) <span class="keyword">return</span> [NSString <span class="keyword">new</span>];</span><br><span class="line">        <span class="keyword">return</span> [NSString stringWithUTF8String:unityString_];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">GetVersion</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">const</span> <span class="keyword">char</span>* <span class="title">GetMessage</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> UnityStringFromNSString(@<span class="string">"CESDK in running"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">NotifyUnity</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        UnitySendMessage(<span class="string">"CESDK"</span>, <span class="string">"NotifyFromXcode"</span>,<span class="string">"&#123;\"age\":15&#125;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined (__cplusplus)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line">@implementation LibCA</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>其中</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">UnitySendMessage</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *, <span class="keyword">const</span> <span class="keyword">char</span> *, <span class="keyword">const</span> <span class="keyword">char</span> *)</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>UnitySendMessage</code>标明<code>extern</code>表示该函数已经在本文件以外(Unity内部函数)定义好了,这里声明一下可以直接使用.</p>
+<p>使用的时候</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">UnitySendMessage</span>(<span class="string">"CESDK"</span>, <span class="string">"NotifyFromXcode"</span>,<span class="string">"&#123;\"</span>age\<span class="string">":15&#125;"</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>第一个参数:CESDK 是对应的GameObject的Name</li>
+<li>第二个参数:NotifyFromXcode 内部函数名</li>
+<li>第三个参数:传参,直接用JSON,然后C#内用<code>MinJSON</code>解开即可</li>
+</ul>
+<h4 id="Unity部分"><a href="#Unity部分" class="headerlink" title="Unity部分"></a>Unity部分</h4><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestButton</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">DllImport(<span class="meta-string">"__Internal"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">string</span> <span class="title">GetMessage</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">DllImport(<span class="meta-string">"__Internal"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">extern</span> <span class="keyword">void</span> <span class="title">NotifyUnity</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CallToGetMessage</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        CELog.Log(<span class="string">"On CallToGetMessage"</span>);</span><br><span class="line">        CELog.Log(<span class="string">"Message is : "</span> + GetMessage());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">CallToNotifyUnity</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        CELog.Log(<span class="string">"On CallToNotifyUnity"</span>);</span><br><span class="line">        NotifyUnity();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">NotifyFromXcode</span>(<span class="params"><span class="keyword">string</span> _arg</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        CELog.Log(<span class="string">"Receive msg: "</span> + _arg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171209-164337.jpg" alt="QQ20171209-164337"></p>
+<p>写一个<code>MonoBehaviour</code>挂载到根目录叫<code>CESDK</code>的GameObject上面,使用<code>[DllImport(&quot;__Internal&quot;)]</code>表示下面的函数由Xcode内提供,Unity直接调用即可.</p>
+<h3 id="自动构建Library"><a href="#自动构建Library" class="headerlink" title="自动构建Library"></a>自动构建Library</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171209-164841.jpg" alt="QQ20171209-164841"></p>
+<p>修改生成的Library,按上图的设置方式,可以直接Copy到Unity的<code>Assets/Plugins</code>目录下. </p>
+<p>这样每次改变,只需要在<code>Xcode</code>中执行Command+B即可</p>
+<h3 id="遇到的错误"><a href="#遇到的错误" class="headerlink" title="遇到的错误"></a>遇到的错误</h3><h4 id="Invalid-bitcode-signature"><a href="#Invalid-bitcode-signature" class="headerlink" title="Invalid bitcode signature"></a>Invalid bitcode signature</h4><p>导出的Lib运行会报告Bitcode签名有问题,因为我主项目已经禁用了Bitcode<br><img src="http://p09vx6soj.bkt.clouddn.com/47281059.png" alt="47281059"></p>
+<p>所以需要在Library项目中也禁用Bitcode<br><img src="http://p09vx6soj.bkt.clouddn.com/47253864.png" alt="47253864"></p>
+<h4 id="Apple-Mach-O-Linker-Undefined-symbols-for-architecture-armv7"><a href="#Apple-Mach-O-Linker-Undefined-symbols-for-architecture-armv7" class="headerlink" title="Apple Mach-O Linker Undefined symbols for architecture armv7"></a>Apple Mach-O Linker Undefined symbols for architecture armv7</h4><p>这个困扰我好久,发现如果我在项目中直接写代码,函数就可以找到,如果我以Lib方式引入进来就找不到</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/47397332.png" alt="47397332"></p>
+<p>原因是因为Unity导出的项目 <code>iOS Deployment Target</code> 默认是<code>7.0</code>, 但是Xcode创建新项目,默认则是最新的<code>11.1</code>.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171209-165552.jpg" alt="QQ20171209-165552"></p>
+<p>直接把Lib项目的Target改成最低<code>8.0</code>即可. </p>
+<p>此时项目可以Run,只是会报<code>Warning</code>说Lib是<code>8.0</code>,但是Unity中指定的是<code>7.0</code>不过还是可以运行.</p>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171209-154638.jpg" alt="QQ20171209-154638"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p><code>ShareSDK</code>中有一个叫<code>ShareSDKUnity3DBridge</code>的文件. 我理解的他应该是通过<code>PBXProject</code>在Build项目时候,直接将该文件Copy到Class目录下.从而不用写静态库. 虽然不理解这样做的好处. 不过也是个思路. 包括对应<code>Android</code>项目分平台用不同的jar包.也可以先把所有的<code>jar</code>包放工程外,然后通过<code>PBXProject</code>分平台引用不同的<code>Jar</code>从而减小体积.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/7025e640-db2e-11e7-a265-dda975655901/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/7025e640-db2e-11e7-a265-dda975655901/" itemprop="url">CESDK Android阶段性总结</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-07T17:10:15+08:00">
+                2017-12-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="原始打算"><a href="#原始打算" class="headerlink" title="原始打算"></a>原始打算</h2><p>打算直接接入微信和QQ的第三方登录,然后微信,QQ和支付宝的支付.不过研究了几天发现要弄的东西有很多,并且即使最后接入成功<br>后续上第三方市场时候会存在二次签名问题.这样微信登录仍旧会失效. 所以暂且先放放 选择直接使用聚合SDK.</p>
+<p>不过经过这几天的研究又涨了不少知识.这里做下总结.</p>
+<h2 id="Unity导入工程到Intellij"><a href="#Unity导入工程到Intellij" class="headerlink" title="Unity导入工程到Intellij"></a>Unity导入工程到Intellij</h2><p>Unity目前Export有三种方式</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171207-171739.jpg" alt="QQ20171207-171739"></p>
+<p>其中<code>Gradle</code>和<code>ADT</code>都能导出安卓项目,不过尝试过直接导入Intellij.但是均未果. 主要是引入后<code>Gradle</code>都会找不到<code>Gradle Home</code>. 我本地<code>Brew</code>安装了也不行.</p>
+<p>后续采取的方法是直接在Intellij中创建新的Android项目.然后将Unity 导出的项目直接复制进去即可.</p>
+<h2 id="模拟器调试"><a href="#模拟器调试" class="headerlink" title="模拟器调试"></a>模拟器调试</h2><p>直接安装<a href="http://mumu.163.com/" target="_blank" rel="noopener">网易MuMu</a>,Intellij可以直接认出来,进行真机调试.</p>
+<h2 id="应用签名-KeyStore"><a href="#应用签名-KeyStore" class="headerlink" title="应用签名(KeyStore)"></a>应用签名(KeyStore)</h2><p>微信SDK两个难点之一就是这个.</p>
+<h3 id="什么是KeyStore"><a href="#什么是KeyStore" class="headerlink" title="什么是KeyStore"></a>什么是KeyStore</h3><p>首先要弄清楚的就是,什么是应用签名.<br><a href="http://blog.csdn.net/jiangwei0910410003/article/details/50402000" target="_blank" rel="noopener">文章一</a>,<a href="http://blog.csdn.net/wzy_1988/article/details/50034711" target="_blank" rel="noopener">文章二</a><br>说的非常详细了.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/20151225112950832.png" alt="20151225112950832"></p>
+<p>我说下我自己的理解. 签名就是 自己拿着一个密钥生成一个公钥,然后把公钥放进APK里面.然后把这个APK传到应用市场里面,比如GooglePlay.</p>
+<p>此时如果别人反编译了APK,改了一些代码.因为没有密钥.所以他在不重新签名的情况无法编译出一个可运行的APK,而重新签名后的APK,又因为签名不同 无法回传到Goolgplay上去. 从而保证了市场里面的APK一定是你(密钥的所有者)传上去的.</p>
+<h2 id="如何生成"><a href="#如何生成" class="headerlink" title="如何生成"></a>如何生成</h2><p>Intellij中选择<br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171207-175933.jpg" alt="QQ20171207-175933"><br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171207-180955.jpg" alt="QQ20171207-180955"></p>
+<p>可以把KeyStore理解为支付宝,上面的那行就是支付宝的密码,而底下的Key0那行就是银行卡的密码. 一个支付宝可以绑定多张银行卡. 也就是能有多个key(key0,key1,key2等).</p>
+<h2 id="如何签名"><a href="#如何签名" class="headerlink" title="如何签名"></a>如何签名</h2><h3 id="Gradle"><a href="#Gradle" class="headerlink" title="Gradle"></a>Gradle</h3><p>Gradle中是通过指定<code>signingConfigs</code></p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.application'</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">26</span></span><br><span class="line">    buildToolsVersion <span class="string">"26.0.1"</span></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        applicationId <span class="string">"net.sourceforge.simcpux"</span></span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">26</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        debug &#123;</span><br><span class="line">            signingConfig signingConfigs.release</span><br><span class="line">        &#125;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">            signingConfig signingConfigs.release</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    signingConfigs &#123;</span><br><span class="line">        debug &#123;</span><br><span class="line">            storeFile <span class="keyword">file</span>(<span class="string">"../debug.keystore"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        release &#123;</span><br><span class="line">            storeFile <span class="keyword">file</span>(<span class="string">"xxxxxxxxStore"</span>)</span><br><span class="line">            storePassword <span class="string">"xxxxxxxx"</span></span><br><span class="line">            keyAlias <span class="string">"key0"</span></span><br><span class="line">            keyPassword <span class="string">"xxxxxxxx"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">    androidTestCompile(<span class="string">'com.android.support.test.espresso:espresso-core:2.2.2'</span>, &#123;</span><br><span class="line">        <span class="keyword">exclude</span> <span class="keyword">group</span>: <span class="string">'com.android.support'</span>, module: <span class="string">'support-annotations'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:26.+'</span></span><br><span class="line">    testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Unity"><a href="#Unity" class="headerlink" title="Unity"></a>Unity</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171207-181834.jpg" alt="QQ20171207-181834"></p>
+<p>在PlayerSetting中直接指定即可.</p>
+<h2 id="如何查看"><a href="#如何查看" class="headerlink" title="如何查看"></a>如何查看</h2><h3 id="Gen-Signature-Android2-apk"><a href="#Gen-Signature-Android2-apk" class="headerlink" title="Gen_Signature_Android2.apk"></a>Gen_Signature_Android2.apk</h3><p>微信SDK中自带了一个<a href="https://res.wx.qq.com/open/zh_CN/htmledition/res/dev/download/sdk/Gen_Signature_Android2.apk" target="_blank" rel="noopener">查看工具Gen Signature Android2</a></p>
+<p>安装好后,直接输入需要查看的包名.比如其测试项目包名就是<code>net.sourceforge.simcpux</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/57403754.png" alt="57403754"></p>
+<p>上面这张图就是使用Demo中提供的debug.keystore产生的签名</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/57294445.png" alt="57294445"></p>
+<p>这个图的签名是我Unity直接打包生成的APK所产生的签名(Unity默认的debug.keystore). 这也是我之前尝试调试.总出现无法唤起微信,一点发消息直接Crash的原因. 因为签名一直不对…</p>
+<h3 id="反编译"><a href="#反编译" class="headerlink" title="反编译"></a>反编译</h3><p>使用<a href="https://ibotpeaches.github.io/Apktool/" target="_blank" rel="noopener">ApkTool</a>反编译项目</p>
+<p>在APK所在的目录执行如下命令:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">apktool</span> <span class="selector-tag">d</span> <span class="selector-tag">xxx</span><span class="selector-class">.apk</span></span><br></pre></td></tr></table></figure>
+<p>使用<code>keytool</code>查看<code>original/META-INF/CERT.RSA</code></p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="keyword">file</span> 解压后的目录/original/META-<span class="literal">INF</span>/CERT.RSA</span><br></pre></td></tr></table></figure>
+<p>得到结果</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/59787968.png" alt="59787968"></p>
+<p>可以看到<code>MD5</code>这行的信息和使用微信提供的工具查看到的信息相同.</p>
+<p><strong>这行值也是最后需要在微信后台填入的值,否则只能使用Demo项目改(包名和签名都要用他的)要不就会闪退.无法唤起微信</strong></p>
+<h2 id="wxapi-WXEntryActivity"><a href="#wxapi-WXEntryActivity" class="headerlink" title="wxapi.WXEntryActivity"></a>wxapi.WXEntryActivity</h2><p>接入微信SDK,必须在包名下含有<code>wxapi.WXEntryActivity</code>类.但是这个Activity不需要是整个App的入口,只要含有这个Activity并且实现了<code>IWXAPIEventHandler</code>接口即可</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WXEntryActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">IWXAPIEventHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        <span class="comment">//注意：</span></span><br><span class="line">        <span class="comment">//第三方开发者如果使用透明界面来实现WXEntryActivity，需要判断handleIntent的返回值，如果返回值为false，则说明入参不合法未被SDK处理，应finish当前透明界面，避免外部通过传递非法参数的Intent导致停留在透明界面，引起用户的疑惑</span></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Log.i(<span class="string">"Eran"</span>, <span class="string">"Eran-&gt;onCreate"</span>);</span><br><span class="line">            CESDK.instance.GetWeChatAPI().handleIntent(getIntent(), <span class="keyword">this</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onNewIntent</span><span class="params">(Intent intent)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onNewIntent(intent);</span><br><span class="line">        Log.i(<span class="string">"Eran"</span>, <span class="string">"Eran-&gt;onNewIntent"</span>);</span><br><span class="line">        setIntent(intent);</span><br><span class="line">        CESDK.instance.GetWeChatAPI().handleIntent(intent, <span class="keyword">this</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 微信发送请求到第三方应用时，会回调到该方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReq</span><span class="params">(BaseReq req)</span> </span>&#123;</span><br><span class="line">        Log.i(<span class="string">"Eran"</span>, <span class="string">"Eran-&gt;onReq"</span>);</span><br><span class="line">        CESDK.instance.GetBridge().Log(<span class="string">"On receive request"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 第三方应用发送到微信的请求处理后的响应结果，会回调到该方法</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResp</span><span class="params">(BaseResp resp)</span> </span>&#123;</span><br><span class="line">        Log.i(<span class="string">"Eran"</span>, <span class="string">"Eran-&gt;onResp"</span>);</span><br><span class="line">        CESDK.instance.GetBridge().Log(<span class="string">"On receive onResp : "</span> + resp.toString());</span><br><span class="line">        finish();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>收到请求后直接调用<code>finish()</code>结束当前Activity就会返回UnityActivity</p>
+<p><strong>注意:</strong> 在<code>AndroidManifest.xml</code>中需要引用这个Activity并且设置<code>exported=true</code>属性</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">".wxapi.WXEntryActivity"</span> <span class="attr">android:exported</span>=<span class="string">"true"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="使用Fragment进行Activity扩展-未测试"><a href="#使用Fragment进行Activity扩展-未测试" class="headerlink" title="使用Fragment进行Activity扩展(未测试)"></a>使用Fragment进行Activity扩展(未测试)</h2><p>对于需要Override UnityActivity的扩展,可以考虑使用<code>Fragment</code>. 可以参考<a href="http://eppz.eu/blog/unity-android-plugin-tutorial-1/" target="_blank" rel="noopener">这篇教程</a></p>
+<p>普通Override UnityActivity方法<br><img src="http://p09vx6soj.bkt.clouddn.com/Unity_Android_Plugin_Tutorial_Subclassing.png" alt="Unity_Android_Plugin_Tutorial_Subclassing"></p>
+<p>使用Fragment方法进行扩展</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/Unity_Android_Plugin_Tutorial_Compositing.png" alt="Unity_Android_Plugin_Tutorial_Compositing"></p>
+<p>代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WeChatFragment</span> <span class="keyword">extends</span> <span class="title">Fragment</span> <span class="keyword">implements</span> <span class="title">IWXAPIEventHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line"></span><br><span class="line">        Log.i(<span class="string">"Eran"</span>, <span class="string">"WeChatFragment on create"</span>);</span><br><span class="line"></span><br><span class="line">        CESDK.instance.GetBridge().Log(<span class="string">"WeChatFragment on create"</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// send oauth request</span></span><br><span class="line">        <span class="keyword">final</span> SendAuth.Req req = <span class="keyword">new</span> SendAuth.Req();</span><br><span class="line">        req.scope = <span class="string">"snsapi_userinfo"</span>;</span><br><span class="line">        req.state = <span class="string">"none"</span>;</span><br><span class="line">        CESDK.instance.GetWeChatAPI().sendReq(req);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onReq</span><span class="params">(BaseReq baseReq)</span> </span>&#123;</span><br><span class="line">        Log.i(<span class="string">"Eran"</span>, <span class="string">"Eran-&gt;onReq"</span>);</span><br><span class="line">        CESDK.instance.GetBridge().Log(<span class="string">"Eran-&gt;onReq"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResp</span><span class="params">(BaseResp baseResp)</span> </span>&#123;</span><br><span class="line">        Log.i(<span class="string">"Eran"</span>, <span class="string">"Eran-&gt;onResp"</span>);</span><br><span class="line">        CESDK.instance.GetBridge().Log(<span class="string">"Eran-&gt;onResp"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在任意函数调用,将Fragment添加到当前的主Activity中来即可</p>
+<figure class="highlight pony"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">WeChatFragment</span> fragment = <span class="function"><span class="keyword">new</span> <span class="title">WeChatFragment</span>();</span></span><br><span class="line"><span class="function"><span class="title">mBridge</span>.<span class="title">GetUnityMainActivity</span>().<span class="title">getFragmentManager</span>().<span class="title">beginTransaction</span>().<span class="title">add</span>(fragment, "<span class="type">TAG_ABD</span>").<span class="title">commit</span>();</span></span><br></pre></td></tr></table></figure>
+<p>但是由于后来了解到<code>WXEntryActivity</code>不用为入口Activity,所以也没有深入研究.</p>
+<h2 id="获取wechat-sdk-android-without-mta-5-1-0-jar"><a href="#获取wechat-sdk-android-without-mta-5-1-0-jar" class="headerlink" title="获取wechat-sdk-android-without-mta-5.1.0.jar"></a>获取wechat-sdk-android-without-mta-5.1.0.jar</h2><p>因为不用重载UnityActivity,所以可以将接入部分直接作为lib库,以导入<code>jar</code>包的方式引用<code>Unity</code>.这样每次发版本时候,就不用导入Intellij 然后再发布APK了.</p>
+<p>但是现在的项目都采用<code>Gradle</code>构建了,在工程目录下是找不到jar包的. 微信的SDK还好,其官网提供<code>Eclipse</code>工程,目录下有对应的jar包.不过上面也写了.从<code>4.0.2</code>版本以后都改为<code>Gradle</code>构建了. </p>
+<p>那<code>Gradle</code>的jar包在哪里呢?</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171207-225650.jpg" alt="QQ20171207-225650"></p>
+<p>可以参照<a href="http://www.xiuzhen.me/2017/0b131150-d98b-11e7-b3ad-5130597fcc90/" target="_blank" rel="noopener">Android环境搭建</a>里面的步骤,构建相应的SDK.</p>
+<p>因为这种方法仍旧是使用的<code>Gradle</code>进行打包,所以最终生成的jar包不会包含依赖库. 也就是<code>wechat-sdk-android-without-mta-5.1.0.jar</code>. </p>
+<p>所以需要把生成好的jar包和微信的这个SDK一起拷贝的Unity<strong>任意目录</strong>即可. </p>
+<p>注意<strong>不能</strong>在<code>/Plugins/Android/任意文件夹/libs</code>目录. 因为这样会导致jar包被重复打包,导入jar文件冲突(DEX xxx 什么的错误).</p>
+<h2 id="Unity合并AndroidManifest-xml"><a href="#Unity合并AndroidManifest-xml" class="headerlink" title="Unity合并AndroidManifest.xml"></a>Unity合并AndroidManifest.xml</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>因为<code>wxapi.WXEntryActivity</code>的问题,在<code>AndroidManifest.xml</code>中必须导出这个Activity,而使用Unity直接打包,就需要给最终的<code>AndroidManifest.xml</code>加入这部分信息.</p>
+<p>Unity规定</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Plugins/</span>Android<span class="regexp">/任意文件夹/</span>AndroidManifest.xml</span><br></pre></td></tr></table></figure>
+<p>在Android子文件夹下的<code>AndroidManifest.xml</code>文件会Merge到最终的<code>AndroidManifest.xml</code>中来. </p>
+<p>如果存在<code>/Plugins/Android/AndroidManifest.xml</code>则使用该<code>AndroidManifest.xml</code>作为初始的模板,如果不存在则使用默认的.</p>
+<h3 id="project-properties"><a href="#project-properties" class="headerlink" title="project.properties"></a>project.properties</h3><p>之前试了好几次都不行,困扰了我半天. 后来发现是因为子目录中没有包含<code>project.properties</code>文件.</p>
+<p>每个子目录中必须包含一个<code>project.properties</code>文件,然后里面有一行</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">android.<span class="keyword">library</span>=<span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+<p>用以指定这个子目录是库目录,这样其下的<code>AndroidManifest.xml</code>文件才会被merge进来.</p>
+<h3 id="查看方法"><a href="#查看方法" class="headerlink" title="查看方法"></a>查看方法</h3><p>如果使用<code>Gradle</code>导出项目,不能直接查看到Merge情况.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171207-231253.jpg" alt="QQ20171207-231253"></p>
+<p>生成的工程回导出两个项目来,所以此时<code>AndroidManifest.xml</code>会有两个,还没有Merge</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171207-231334.jpg" alt="QQ20171207-231334"></p>
+<p>并且从主的<code>build.gradle</code>可以看出来. 主项目是依赖于<code>CESDK</code>这个项目的.</p>
+<p>其实这个只要知道其内部肯定会Merge的就ok了,反正最终也不会真的导出<code>Gradle</code>项目再编译.</p>
+<p>不过如果还是不放心,或有异常错误. 可以直接<code>ApkTool</code>反编译生成好的APK,其内部的<code>AndroidManifest.xml</code>就是最终的了.</p>
+<h2 id="放弃转而使用聚合SDK的原因"><a href="#放弃转而使用聚合SDK的原因" class="headerlink" title="放弃转而使用聚合SDK的原因"></a>放弃转而使用聚合SDK的原因</h2><p>其实研究了上面的种种问题,Android SDK这边应该已经弄的七七八八了. 理论是可以直接接入微信SDK的了,不够后续还是打算直接使用聚合SDK. 主要是考虑到最终上某些安卓市场时候会存在 二次签名的情况. 一旦二次签名了. 那肯定和微信后台配的签名不同了 这样肯定是没法微信登录的.</p>
+<p>后来又看了<a href="http://www.wjdiankong.cn/android%E4%B8%AD%E8%A7%A3%E5%86%B3%E7%A0%B4%E8%A7%A3%E7%AD%BE%E5%90%8D%E9%AA%8C%E8%AF%81%E4%B9%8B%E5%90%8E%E5%AF%BC%E8%87%B4%E7%9A%84%E7%99%BB%E5%BD%95%E6%8E%88%E6%9D%83%E5%A4%B1%E6%95%88%E9%97%AE/" target="_blank" rel="noopener">这篇文章</a>,感觉应该是这些聚合SDK采用了其他的方式,绕开了二次签名的问题.<br>所以目前还是先采用聚合SDK. 后续再看是否需要自己去写.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/0b131150-d98b-11e7-b3ad-5130597fcc90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/0b131150-d98b-11e7-b3ad-5130597fcc90/" itemprop="url">CESDK Android环境搭建及相互通讯</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-05T15:08:06+08:00">
+                2017-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>欲善其事先利其器,开发Android的Plugin之前要先把基础的环境搭建好.</p>
+<h2 id="Intellij-IDEA"><a href="#Intellij-IDEA" class="headerlink" title="Intellij IDEA"></a>Intellij IDEA</h2><p>从Flash开始使用的IDE.当让用他来写Android部分代码了. (PS: Unity开发可以使用旗下的Rider,很好用).</p>
+<p>新建一个Android工程,类型选择<code>Add No Activity</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171205-151549.jpg" alt="QQ20171205-151549"></p>
+<p>新建成功后选择<code>New-&gt;Module</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171205-151801.jpg" alt="QQ20171205-151801"></p>
+<p>选择<code>Android Library</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171205-151729.jpg" alt="QQ20171205-151729"></p>
+<p>修改新建的Library的<code>build.gradle</code>,再最下方加入</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">task</span> deleteOldJar(type: <span class="keyword">Delete</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> <span class="string">'release/CESDK.jar'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// task to export contents as jar</span></span><br><span class="line"><span class="keyword">task</span> exportJar(type: <span class="keyword">Copy</span>) &#123;</span><br><span class="line">    <span class="keyword">from</span>(<span class="string">'build/intermediates/bundles/debug/'</span>)</span><br><span class="line">    <span class="keyword">into</span>(<span class="string">'release/'</span>)</span><br><span class="line">    <span class="keyword">include</span>(<span class="string">'classes.jar'</span>)</span><br><span class="line">    rename(<span class="string">'classes.jar'</span>, <span class="string">'CESDK.jar'</span>)</span><br><span class="line">&#125;</span><br><span class="line">exportJar.dependsOn(deleteOldJar, build)</span><br></pre></td></tr></table></figure>
+<p>最终效果大概如下(根据每人的环境会有不同)</p>
+<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">apply plugin: <span class="string">'com.android.library'</span></span><br><span class="line"></span><br><span class="line">android &#123;</span><br><span class="line">    compileSdkVersion <span class="number">26</span></span><br><span class="line">    buildToolsVersion <span class="string">"26.0.1"</span></span><br><span class="line"></span><br><span class="line">    defaultConfig &#123;</span><br><span class="line">        minSdkVersion <span class="number">15</span></span><br><span class="line">        targetSdkVersion <span class="number">26</span></span><br><span class="line">        versionCode <span class="number">1</span></span><br><span class="line">        versionName <span class="string">"1.0"</span></span><br><span class="line"></span><br><span class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    buildTypes &#123;</span><br><span class="line">        release &#123;</span><br><span class="line">            minifyEnabled <span class="keyword">false</span></span><br><span class="line">            proguardFiles getDefaultProguardFile(<span class="string">'proguard-android.txt'</span>), <span class="string">'proguard-rules.pro'</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">dependencies</span> &#123;</span><br><span class="line">    <span class="keyword">compile</span> <span class="keyword">fileTree</span>(dir: <span class="string">'libs'</span>, <span class="keyword">include</span>: [<span class="string">'*.jar'</span>])</span><br><span class="line">    androidTestCompile(<span class="string">'com.android.support.test.espresso:espresso-core:2.2.2'</span>, &#123;</span><br><span class="line">        <span class="keyword">exclude</span> <span class="keyword">group</span>: <span class="string">'com.android.support'</span>, module: <span class="string">'support-annotations'</span></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">compile</span> <span class="string">'com.android.support:appcompat-v7:26.+'</span></span><br><span class="line">    testCompile <span class="string">'junit:junit:4.12'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">task</span> deleteOldJar(type: <span class="keyword">Delete</span>) &#123;</span><br><span class="line">    <span class="keyword">delete</span> <span class="string">'release/CESDK.jar'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// task to export contents as jar</span></span><br><span class="line"><span class="keyword">task</span> exportJar(type: <span class="keyword">Copy</span>) &#123;</span><br><span class="line">    <span class="keyword">from</span>(<span class="string">'build/intermediates/bundles/debug/'</span>)</span><br><span class="line">    <span class="keyword">into</span>(<span class="string">'release/'</span>)</span><br><span class="line">    <span class="keyword">include</span>(<span class="string">'classes.jar'</span>)</span><br><span class="line">    rename(<span class="string">'classes.jar'</span>, <span class="string">'CESDK.jar'</span>)</span><br><span class="line">&#125;</span><br><span class="line">exportJar.dependsOn(deleteOldJar, build)</span><br></pre></td></tr></table></figure>
+<p>随便在<code>src/main/java/你的包名</code>下面写一个Class.然后在该<code>build.gradle</code>的<code>exportJar</code>task上右键,选择Run当前的Task</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171205-152459.jpg" alt="QQ20171205-152459"></p>
+<p>一切正常的情况下,会在会在当前Module的Release目录下找到<code>CESDK.jar</code></p>
+<p>将此文件复制到Unity工程下的任意目录即可</p>
 <blockquote>
-<p>Clamps the texture to the last pixel at the edge.</p>
-<p>This is useful for preventing wrapping artifacts when mapping an image onto an object and you don’t want the texture to tile. UV coordinates will be clamped to the range 0…1. When UVs are larger than 1 or smaller than 0, the last pixel at the border will be used.</p>
-<p>This mode is called “clamp to edge” in graphics APIs like Vulkan, Metal and OpenGL.</p>
+<p><strong>Unity5.0以后可以使用任意目录,之前版本需要放置在Assets\Plugins\Android目录下</strong></p>
 </blockquote>
+<p>此时就完成了Jar包构建部分的搭建.</p>
+<h2 id="相互通讯"><a href="#相互通讯" class="headerlink" title="相互通讯"></a>相互通讯</h2><h3 id="Java部分代码"><a href="#Java部分代码" class="headerlink" title="Java部分代码"></a>Java部分代码</h3><p>Test.class</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> eran.cesdk;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">GetStringMessage</span><span class="params">(<span class="keyword">int</span> _num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Message from CESDK -&gt; num is : "</span> + _num;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> CEPluginCallback mCallBack;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Initialize</span><span class="params">(CEPluginCallback _callback)</span> </span>&#123;</span><br><span class="line">        mCallBack = _callback;</span><br><span class="line">        mCallBack.ShowMsg(<span class="string">"CESDK init complete v1"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">GetStringMessage2</span><span class="params">(<span class="keyword">int</span> _num)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Message2 from CESDK -&gt; num is : "</span> + _num;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>CEPluginCallback.class</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">package eran.cesdk;</span><br><span class="line"></span><br><span class="line">public<span class="built_in"> interface </span>CEPluginCallback &#123;</span><br><span class="line">    void ShowMsg(String _msg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Unity部分代码"><a href="#Unity部分代码" class="headerlink" title="Unity部分代码"></a>Unity部分代码</h3><p>CEPluginCallback.cs</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEPluginCallback</span> : <span class="title">AndroidJavaProxy</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CEPluginCallback</span>(<span class="params"></span>) : <span class="title">base</span>(<span class="params"><span class="string">"eran.cesdk.CEPluginCallback"</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ShowMsg</span>(<span class="params"><span class="keyword">string</span> _msg</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        CELog.Log(_msg);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TestButton.cs</p>
+<figure class="highlight lasso"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="literal">void</span> OnClickBtn1()</span><br><span class="line">   &#123;</span><br><span class="line">       CELog.<span class="keyword">Log</span>(<span class="string">"Android function is to be called -&gt; v5"</span>);</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//调用Static函数</span></span><br><span class="line">       <span class="built_in">var</span> ajc = <span class="literal">new</span> AndroidJavaClass(<span class="string">"eran.cesdk.Test"</span>); <span class="comment">//(1)</span></span><br><span class="line">       <span class="built_in">var</span> msg = ajc.CallStatic&lt;<span class="built_in">string</span>&gt;(<span class="string">"GetStringMessage"</span>, <span class="number">66</span>); <span class="comment">//(2)</span></span><br><span class="line"></span><br><span class="line">       CELog.<span class="keyword">Log</span>(msg);</span><br><span class="line"></span><br><span class="line">       <span class="comment">//New Object方式调用</span></span><br><span class="line">       <span class="built_in">var</span> jo = <span class="literal">new</span> AndroidJavaObject(<span class="string">"eran.cesdk.Test"</span>);</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//Unity-&gt;Android Function</span></span><br><span class="line">       <span class="comment">//Android Function-&gt;Android Proxy-&gt;Unity</span></span><br><span class="line">       jo.Call(<span class="string">"Initialize"</span>, <span class="literal">new</span> CEPluginCallback());</span><br><span class="line">       </span><br><span class="line">       <span class="comment">//普通调用</span></span><br><span class="line">       msg = jo.Call&lt;<span class="built_in">string</span>&gt;(<span class="string">"GetStringMessage2"</span>, <span class="number">77</span>);</span><br><span class="line"></span><br><span class="line">       CELog.<span class="keyword">Log</span>(msg);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>直接打包APK,在模拟器或真机运行. 效果如下:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171205-153927.jpg" alt="QQ20171205-153927"></p>
+<blockquote>
+<p>PS: <a href="http://www.xiuzhen.me/2017/bd1616d0-d8d3-11e7-9689-e5893dd48eee/" target="_blank" rel="noopener">CELog部分代码</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/bd1616d0-d8d3-11e7-9689-e5893dd48eee/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/bd1616d0-d8d3-11e7-9689-e5893dd48eee/" itemprop="url">ScrollView自适应大小及屏幕DebugLogPanel</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T17:15:57+08:00">
+                2017-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>游戏开始接入各种平台,所以需要一个可以在屏幕上能看到的Debug面板. 制作方法如下</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-170729.jpg" alt="QQ20171204-170729"></p>
+<p>创建<code>ScrollView</code>组件,其中<code>Content</code>上面需要绑定<code>Content Size Fitter</code>和<code>Vertical Layout Group</code></p>
+<p>然后再最外层挂载<code>CELog</code>代码</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CELog</span> :</span> MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> CELog mInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Warring</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Log(_msg, <span class="string">"yellow"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Error</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        Log(_msg, <span class="string">"red"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Log</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance.SetLog(_msg);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Log</span><span class="params">(<span class="built_in">string</span> _msg, <span class="built_in">string</span> _color)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance.SetLog(<span class="string">"&lt;color="</span> + _color + <span class="string">"&gt;"</span> + _msg + <span class="string">"&lt;/color&gt;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Text logPanel;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> maxLogNum = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">string</span> mLogMsg;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> mCurrentLogNum;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mInstance = <span class="keyword">this</span>;</span><br><span class="line">        mLogMsg = <span class="string">""</span>;</span><br><span class="line">        logPanel.text = <span class="string">""</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SetLog</span><span class="params">(<span class="built_in">string</span> _msg)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mCurrentLogNum++;</span><br><span class="line">        <span class="keyword">if</span> (mCurrentLogNum &gt;= maxLogNum)</span><br><span class="line">        &#123;</span><br><span class="line">            mLogMsg = <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        mLogMsg += _msg + <span class="string">"\n"</span>;</span><br><span class="line">        logPanel.text = mLogMsg;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>外部调用方法:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnClickBtn1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    CELog.Log(<span class="string">"This is normal message"</span>);</span><br><span class="line">    CELog.Warring(<span class="string">"This is warring message"</span>);</span><br><span class="line">    CELog.Error(<span class="string">"This is error message"</span>);</span><br><span class="line">    CELog.Log(<span class="string">"This is cyan color message"</span>, <span class="string">"cyan"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-172816.jpg" alt="QQ20171204-172816"></p>
+<p><code>ScrollView</code>可以根据内部内容多少自适应大小 </p>
+<p><a href="https://docs.unity3d.com/Manual/HOWTO-UIFitContentSize.html" target="_blank" rel="noopener">官方文档</a>有相应的<code>HowTo</code>教程</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/e0a73f70-d806-11e7-b61e-df7a8a0a8d31/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/e0a73f70-d806-11e7-b61e-df7a8a0a8d31/" itemprop="url">如何在Mac下安装Adobe Flash</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T16:49:30+08:00">
+                2017-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>由于Adobe已经将Flash改为Animate了, 但是还是旧版的Flash好用. 在Mac新的OS上安装 会出现如下问题</p>
+<p><strong>问题1</strong></p>
+<p>提示: 安装程序未能初始化. 这可能是丢失文件所致. 请下载Adobe Support Advisor 检测问题</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/57501508.png" alt="57501508"></p>
+<p><strong>解决方法</strong></p>
+<p>直接打开dmg内部的Install ,显示包内容. 执行 Contents/MacOS/Install 进行安装</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/57594683.png" alt="57594683"></p>
+<p><strong>问题2</strong></p>
+<p>打开时候提示 需要旧版本的Java SE 6 进行支持</p>
+<p><strong>解决方法</strong></p>
+<p>参考 <a href="http://blog.fat-nerds.com/dot-nerd/java-runtime-el-capitan-yositeme-illustrator/" target="_blank" rel="noopener">这篇文章</a></p>
+<p>在 <code>/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/</code> 中找出<code>Info.plist</code></p>
+<p>把原來<code>JVMCapabilities</code>中</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>JVMCapabilities<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">string</span>&gt;</span>CommandLine<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>多加兩個string：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">key</span>&gt;</span>JVMCapabilities<span class="tag">&lt;/<span class="name">key</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">array</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>CommandLine<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>JNI<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">string</span>&gt;</span>BundledApp<span class="tag">&lt;/<span class="name">string</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">array</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>重啟Mac，即成。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/85eaf220-d806-11e7-8ea6-639de8f06c5d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/85eaf220-d806-11e7-8ea6-639de8f06c5d/" itemprop="url">手动创建Mesh及相关理论知识</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T16:46:58+08:00">
+                2017-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="创建Mesh"><a href="#创建Mesh" class="headerlink" title="创建Mesh"></a>创建Mesh</h2><p>这篇<a href="http://catlikecoding.com/unity/tutorials/procedural-grid/" target="_blank" rel="noopener">教程</a>说的非常清楚.</p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[RequireComponent(<span class="keyword">typeof</span>(MeshFilter), <span class="keyword">typeof</span>(MeshRenderer))]</span><br><span class="line">  <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CodeMeshTriangle</span> : <span class="title">MonoBehaviour</span></span></span><br><span class="line"><span class="class">  </span>&#123;</span><br><span class="line">      <span class="keyword">public</span> Transform p0;</span><br><span class="line">      <span class="keyword">public</span> Transform p1;</span><br><span class="line">      <span class="keyword">public</span> Transform p2;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">private</span> <span class="keyword">void</span> Generate()</span><br><span class="line">      &#123;</span><br><span class="line">          GetComponent&lt;MeshFilter&gt;().mesh = mMesh = <span class="keyword">new</span> Mesh();</span><br><span class="line"></span><br><span class="line">          <span class="keyword">var</span> vertices = <span class="keyword">new</span>[] &#123;p0.localPosition, p1.localPosition, p2.localPosition&#125;;</span><br><span class="line">          <span class="keyword">var</span> triangles = <span class="keyword">new</span>[] &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;;</span><br><span class="line">         </span><br><span class="line">          mMesh.vertices = vertices;</span><br><span class="line">          mMesh.triangles = triangles;            </span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>构建一个Mesh只需要两部分,一个是顶点坐标(vertices),一个是由顶点坐标构成的三角形(triangles)</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/15123415221848.png" alt=""></p>
+<p>需要注意就是其正反面,顺时针(clockwise)正面,逆时针(Counter-clockwise)反面</p>
+<h2 id="UV映射及Normal映射"><a href="#UV映射及Normal映射" class="headerlink" title="UV映射及Normal映射"></a>UV映射及Normal映射</h2><p>教程前半部分很好理解,比较让我困惑的是后半部分关于NormalMap中TBN(Tangent,Bitangent,Normal)的阐述.</p>
+<h3 id="NormalMap的含义"><a href="#NormalMap的含义" class="headerlink" title="NormalMap的含义"></a>NormalMap的含义</h3><p>首先要说的是什么是NormalMap,<a href="https://docs.unity3d.com/Manual/StandardShaderMaterialParameterNormalMap.html" target="_blank" rel="noopener">官网</a>解说的非常清楚了.</p>
+<p>普通Mesh<br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-065816.jpg" alt="QQ20171204-065816"></p>
+<p>加入NormalMap<br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-065917.jpg" alt="QQ20171204-065917"></p>
+<blockquote>
+<p>each pixel in the texture of the normal map (called a texel) represents a deviation in surface normal direction away from the “true” surface normal of the flat (or smooth interpolated) polygon.</p>
+</blockquote>
+<h3 id="Normal映射及TBN"><a href="#Normal映射及TBN" class="headerlink" title="Normal映射及TBN"></a>Normal映射及TBN</h3><p>最让我不理解的是教程中关于切线(tangents)的解释. 他直接说到</p>
+<blockquote>
+<p>As we have a flat surface, all tangents simply point in the same direction,which is to the right.</p>
+</blockquote>
+<p>然后直接给出代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vector4 tangent = <span class="built_in">new</span> Vector4(<span class="number">1f</span>, <span class="number">0f</span>, <span class="number">0f</span>, <span class="number">-1f</span>);</span><br></pre></td></tr></table></figure>
+<p>让人不明所以,不知道他这个为啥直接就point了right.</p>
+<p>不过搞清楚这点要有几个预备知识.</p>
+<p>首先是UV映射. 可以看Y2B上的<a href="https://www.youtube.com/watch?v=YPX33hoXGa8" target="_blank" rel="noopener">这个视频</a>,</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171204-071033.jpg" alt="QQ20171204-071033"></p>
+<p>没有涉及到太底层的数学推导,感性的认知UVMaping就是</p>
+<blockquote>
+<p><strong>给定UV中的一个三角形U(三个点分别为U1,U2,U3) =&gt; 通过某种方法映射到 =&gt; 模型中的三角形P(P1,P2,P3)</strong></p>
+</blockquote>
+<p>这个<a href="https://www.youtube.com/watch?v=KQYxxndNNlA" target="_blank" rel="noopener">视频</a>有开了一个头,但是也没具体讲. 不过具体的映射方法,应该是和线性插值有关,没有细研究</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-190005.jpg" alt="QQ20171203-190005"></p>
+<p>可以用<code>线性插值</code>,<code>双线性插值</code>,<code>Trilinear</code>,<code>Bilinear</code> 作为Key搜搜看.</p>
+<p>不过重点是下面这张图</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-182318.jpg" alt="QQ20171203-182318"></p>
+<p>个人理解,不一定对. 无论UV映射也好,Normal映射也好. 都需要将贴图首先旋转到与需要映射的三角形相同的一个角度. 也就是对UV图,Normal图的坐标系有旋转</p>
+<p>如图,左边的P’三角形 和右边的P三角形 就不在一个平面. 相应的做UV时候,其坐标轴也发生的旋转. </p>
+<p>而这个旋转的角度 从某种角度来说就是TBN</p>
+<p>原因可以看<a href="http://www.opengl-tutorial.org/cn/intermediate-tutorials/tutorial-13-normal-mapping/" target="_blank" rel="noopener">OpenGL的教程</a></p>
+<p>选定Normal后<br><img src="http://p09vx6soj.bkt.clouddn.com/15123440805547.png" alt=""></p>
+<p>垂直与该Normal的向量有很多</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/15123441065379.png" alt=""></p>
+<p>为了方便计算,所以选择和和纹理空间对齐方向<br><img src="http://p09vx6soj.bkt.clouddn.com/15123441425223.png" alt=""></p>
+<p>结合我自己画的那个图,也就是说 纹理空间的方向就是P’三角形所在的那个坐标系. 这个坐标系也就是UV的坐标系,也是NormalMap的切线(Tangent)和副切线(Bitangent)方向.</p>
+<p>至于这个坐标系的求出</p>
+<blockquote>
+<p>给定UV中的一个三角形U(三个点分别为U1,U2,U3) =&gt; 通过某种方法映射到 =&gt; 模型中的三角形P(P1,P2,P3)</p>
+</blockquote>
+<p>我是理解为,给出了UV上的三个点,然后给出模型上的三个点,Unity已经就帮我们算出来了.(通过数学推导肯定是可以算出来的,我没有细研究).</p>
+<p>所以我理解的设置NormalMap流程应该是,设定好UV,然后给定Normal方向,最后通过<a href="https://docs.unity3d.com/ScriptReference/Mesh.html" target="_blank" rel="noopener"><code>Mesh.RecalculateTangents</code></a>重新计算出TB两个方向,而不是反过来直接给定了<code>Vector4 tangent = new Vector4(1f, 0f, 0f, -1f);</code></p>
+<p>不过直接给定Tangent角度现在想想似乎也可以理解. 教程中的Mesh角度和我自己画的图中右侧的正方形一样,此时UV图面没有任何旋转,(1,0,0)也就是其x轴方向.</p>
+<p>完整代码:</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]</span><br><span class="line">   <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CodeMeshTriangle</span> : <span class="title">MonoBehaviour</span></span></span><br><span class="line"><span class="class">   </span>&#123;</span><br><span class="line">       <span class="keyword">public</span> Transform p0;</span><br><span class="line">       <span class="keyword">public</span> Transform p1;</span><br><span class="line">       <span class="keyword">public</span> Transform p2;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">private</span> Mesh mMesh;</span><br><span class="line">       <span class="keyword">private</span> Vector3[] mVertices;</span><br><span class="line">       <span class="keyword">private</span> Vector3[] mNormals;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">private</span> void Update()</span><br><span class="line">       &#123;</span><br><span class="line">           Generate();</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">private</span> void Generate()</span><br><span class="line">       &#123;</span><br><span class="line">           GetComponent&lt;MeshFilter&gt;().mesh = mMesh = <span class="keyword">new</span> <span class="type">Mesh</span>();</span><br><span class="line"></span><br><span class="line">           <span class="keyword">var</span> normal = <span class="keyword">new</span> <span class="type">Vector3</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">-1</span>);</span><br><span class="line">           mVertices = <span class="keyword">new</span><span class="type"></span>[] &#123;p0.localPosition, p1.localPosition, p2.localPosition&#125;;</span><br><span class="line">           mNormals = <span class="keyword">new</span><span class="type"></span>[] &#123;normal, normal, normal&#125;;</span><br><span class="line">           <span class="keyword">var</span> triangles = <span class="keyword">new</span><span class="type"></span>[] &#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>&#125;;</span><br><span class="line"></span><br><span class="line">           Vector2[] uv = <span class="keyword">new</span> <span class="type">Vector2</span>[<span class="number">3</span>];</span><br><span class="line">           uv[<span class="number">0</span>] = <span class="keyword">new</span> <span class="type">Vector2</span>(<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">           uv[<span class="number">1</span>] = <span class="keyword">new</span> <span class="type">Vector2</span>(<span class="number">0</span>, <span class="number">1</span>);</span><br><span class="line">           uv[<span class="number">2</span>] = <span class="keyword">new</span> <span class="type">Vector2</span>(<span class="number">1</span>, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">           mMesh.vertices = mVertices;</span><br><span class="line">           mMesh.triangles = triangles;</span><br><span class="line">           mMesh.uv = uv;</span><br><span class="line">           mMesh.normals = mNormals;</span><br><span class="line"></span><br><span class="line">           mMesh.RecalculateTangents();</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea/" itemprop="url">Hexo配置流程</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-03T09:40:16+08:00">
+                2017-12-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="UUID"><a href="#UUID" class="headerlink" title="UUID"></a>UUID</h2><p>给文章加入<code>UUID</code>且用其做<code>Link</code>方便<code>SEO</code></p>
+<p>根目录下安装UUID插件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-<span class="keyword">uuid</span> <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<p>每次创建文章使用</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="built_in">new</span> <span class="keyword">a</span></span><br></pre></td></tr></table></figure>
+<p>a 为文章名, 我都是叫a,会在<code>_post</code>下面创建一个<code>a.md</code>.然后手动改名即可</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">uuid:</span> <span class="string">e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea</span></span><br><span class="line"><span class="string">底下是其他信息</span></span><br><span class="line"><span class="meta">---</span></span><br></pre></td></tr></table></figure>
+<p><code>a.md</code>内部会创建如上格式的内容</p>
+<p>接着修改<code>_config.yml</code>(Hexo的,不是主题文件的)<code>permalink</code></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#permalink</span>: <span class="selector-pseudo">:year</span>/<span class="selector-pseudo">:month</span>/<span class="selector-pseudo">:day</span>/<span class="selector-pseudo">:title</span>/</span><br><span class="line"><span class="selector-tag">permalink</span>: <span class="selector-pseudo">:year</span>/<span class="selector-pseudo">:uuid</span>/</span><br></pre></td></tr></table></figure>
+<h2 id="顶部加入新类别-NexT"><a href="#顶部加入新类别-NexT" class="headerlink" title="顶部加入新类别(NexT)"></a>顶部加入新类别(NexT)</h2><p><a href="http://theme-next.iissnan.com/theme-settings.html" target="_blank" rel="noopener">官方文档</a>中有说明.只是之前一直没看懂.现在弄明白了.</p>
+<p>首先执行</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new<span class="built_in"> page </span>categories</span><br></pre></td></tr></table></figure>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-101159.jpg" alt="QQ20171203-101159"></p>
+<p>这样会在source目录下生成一个叫<code>categories</code>的目录,里面会有一个<code>index.md</code> . 编辑该文件,在其中加入<code>type: &quot;categories&quot;</code></p>
+<p>编辑NexT的<code>_config.yml</code> Menu部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">menu:</span><br><span class="line">  home: / || home</span><br><span class="line">  Unity: /categories/Unity || diamond</span><br><span class="line">  C#: /categories/C# || graduation-cap</span><br><span class="line">  其他: /categories/C# || beer</span><br><span class="line">  tags: /tags/ || tags</span><br></pre></td></tr></table></figure>
+<p>其中<code>||</code>后面的值可以在<a href="http://fontawesome.io/icons/" target="_blank" rel="noopener">Font Awesome</a>中找到</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-101808.jpg" alt="QQ20171203-101808"></p>
+<p>直接选择自己想要的Icon,填写对应的key在<code>||</code>后面即可</p>
+<p><code>其他: /categories/C# || beer</code></p>
+<ul>
+<li><code>其他</code>: 顶部显示的名字</li>
+<li><code>/categories/C#</code> : 对应的分类<code>C#</code></li>
+<li><code>beer</code> : 图标</li>
+</ul>
+<p>在每篇文章的Title部分</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">---</span><br><span class="line">uuid: e9af60c0-d7ca-11e7-8536-ad23d5aeb9ea</span><br><span class="line">title: Hexo配置流程</span><br><span class="line">date: 2017-12-03 09:40:16</span><br><span class="line">categories: 其他</span><br><span class="line">tags:</span><br><span class="line">    - Hexo</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>加入<code>categories</code>字段.指定当前文章的分类</p>
+<h2 id="Tag"><a href="#Tag" class="headerlink" title="Tag"></a>Tag</h2><p>设置同<code>categories</code></p>
+<h2 id="MWeb"><a href="#MWeb" class="headerlink" title="MWeb"></a>MWeb</h2><p>使用<a href="http://zh.mweb.im/" target="_blank" rel="noopener">MWeb</a>进行Markdown写作相当爽.图片直接拖入直接传到七牛存储.</p>
+<p>首先在偏好设置中选择七牛.然后进入七牛后台</p>
+<p>进入个人控制面板-&gt;密钥管理<br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-093652.jpg" alt="QQ20171203-093652"></p>
+<p>复制<code>AK</code>和<code>SK</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-093720.jpg" alt="QQ20171203-093720"></p>
+<p>复制<code>空间名称</code> <code>图片URL前缀</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-093854.jpg" alt="QQ20171203-093854"></p>
+<p>最终如图</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-094852.jpg" alt="QQ20171203-094852"></p>
+<p>在<code>MWeb</code>中按<code>Command+E</code> 选择文件夹到<code>Blog\source\_posts</code>目录下 图片选择直接传图床</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-094001.jpg" alt="QQ20171203-094001"></p>
+<p>后面直接把图片拽进来即可.很方便</p>
+<h2 id="Seo"><a href="#Seo" class="headerlink" title="Seo"></a>Seo</h2><h3 id="Google篇"><a href="#Google篇" class="headerlink" title="Google篇"></a>Google篇</h3><p>下载Sitemap生成插件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-generator-sitemap <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<p>Hexo的<code>_config.yml</code>中加入</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"># sitemap</span></span><br><span class="line"><span class="symbol">sitemap:</span></span><br><span class="line"><span class="symbol">  path:</span> sitemap.xml</span><br></pre></td></tr></table></figure>
+<p>本地<code>source</code>目录下加入<code>rebots.txt</code><br><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-113212.jpg" alt="QQ20171203-113212"></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">User-<span class="string">agent:</span> *</span><br><span class="line"><span class="string">Allow:</span> /</span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/archives/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/categories/</span></span><br><span class="line"><span class="string">Allow:</span> <span class="regexp">/tags/</span> </span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/js/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/css/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fonts/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/vendors/</span></span><br><span class="line"><span class="string">Disallow:</span> <span class="regexp">/fancybox/</span></span><br><span class="line"><span class="string">Sitemap:</span> <span class="string">http:</span><span class="comment">//www.xiuzhen.me/sitemap.xml</span></span><br></pre></td></tr></table></figure>
+<p>在Google的<a href="https://www.google.com/webmasters" target="_blank" rel="noopener">站长工具</a>中加入<code>SiteMap</code> (先要发布到服务器上一次)</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-113413.jpg" alt="QQ20171203-113413"></p>
+<p>加入Robots信息</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-113538.jpg" alt="QQ20171203-113538"></p>
+<h3 id="百度篇"><a href="#百度篇" class="headerlink" title="百度篇"></a>百度篇</h3><p>下载百度连接自动提交工具</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-baidu-<span class="keyword">url</span>-submit <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<p>进入百度的<a href="http://ziyuan.baidu.com/" target="_blank" rel="noopener">站长工具</a></p>
+<p>选择<code>数据引入-&gt;链接提交</code></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-112743.jpg" alt="QQ20171203-112743"></p>
+<p>复制密钥,编辑Hexo下面的<code>_config.yml</code>加入</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">baidu_url_submit:</span></span><br><span class="line"><span class="symbol">  count:</span> <span class="number">3</span> <span class="meta">## 比如3，代表提交最新的三个链接</span></span><br><span class="line"><span class="symbol">  host:</span> xiuzhen.me <span class="meta">## 在百度站长平台中注册的域名</span></span><br><span class="line"><span class="symbol">  token:</span> ???????? <span class="meta">## 请注意这是您的秘钥， 请不要发布在公众仓库里!</span></span><br><span class="line"><span class="symbol">  path:</span> baidu_urls.txt <span class="meta">## 文本文档的地址， 新链接会保存在此文本文档里</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>: </span><br><span class="line">  - <span class="attribute">type</span>: git</span><br><span class="line">    <span class="attribute">repo</span>: <span class="attribute">ssh</span>:<span class="comment">//git@???:???/home/git/hexo.git</span></span><br><span class="line">    <span class="attribute">branch</span>: master</span><br><span class="line">  - <span class="attribute">type</span>: baidu_url_submitter</span><br></pre></td></tr></table></figure>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-114031.jpg" alt="QQ20171203-114031"></p>
+<p>在百度的站长工具中提交SiteMap</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-114126.jpg" alt="QQ20171203-114126"></p>
+<p>运行</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171203-114224.jpg" alt="QQ20171203-114224"></p>
+<p>可以看到完成了自动提交</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/c47be9f0-d7bf-11e7-8f2b-ebafc3e5b387/" itemprop="url">Unity中的屏幕适配及PixelPerfect</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T16:00:31+08:00">
+                2017-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="PixelPerfect"><a href="#PixelPerfect" class="headerlink" title="PixelPerfect"></a>PixelPerfect</h2><p><strong>什么叫PixelPerfect?</strong></p>
+<p>假设 1unit = 1 pixel </p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/a.png" alt="a"></p>
+<p>像素只可以等倍数的放大,比如1倍,2倍,3倍…</p>
+<p>假设相机的Size是5 则在Editor屏幕中,一列(Heigh方向)显示10个像素.  Game屏(目标设备)的分辨率的高必须为10的整数被<br>n x 10 (10,20,30,40 这样)</p>
+<p>此时只要把Editor中的像素 1:n的复制到 Game屏 即可, 此时就是 PixelPerfect  (n是整数倍)</p>
+<p>再假设,此时更改Game屏的分辨率到 30x13 ,  </p>
+<p>需要把Editor中的10个像素 基于某种算法 复制到 Game屏的13个像素中 此时就不是PixelPerfect.</p>
+<p>换句话说就是 </p>
+<blockquote>
+<p><strong>目标设备分辨率(Game屏幕) 必须是 开发分辨率 (Editor屏) 的整数倍才行.</strong></p>
+</blockquote>
+<p>注意: 目标分辨率不能小于开发分辨率,比如 开发分辨率是100px高,但是设备分辨率只有50px高. 此时如果期望把100px显示在50px的设备上 必然会缩放,缩放必然会丢像素,所以无法为PixelPerfect</p>
+<p>就着上面说,<code>因为设备分辨率是固定的,所以能调整的仅有开发分辨率,也就是相机的Size.</code></p>
+<p>假设 设备分辨率为1440x900 , 高度为900px. (1unit=1pixel) 则由如下关系</p>
+<table>
+<thead>
+<tr>
+<th>设备分辨率</th>
+<th>开发分辨率</th>
+<th>相机Size</th>
+<th>相机Size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>900px</td>
+<td>900px</td>
+<td>450</td>
+<td>1x</td>
+</tr>
+<tr>
+<td>900px</td>
+<td>450px</td>
+<td>225</td>
+<td>2x</td>
+</tr>
+<tr>
+<td>900px</td>
+<td>300px</td>
+<td>150</td>
+<td>3x</td>
+</tr>
+<tr>
+<td>900px</td>
+<td>225px</td>
+<td>112.5</td>
+<td>4x</td>
+</tr>
+</tbody>
+</table>
+<p>容易混淆: 开发分辨率并不是图片的大小,比如一张背景图可以是1000px x 1000px的 只不过显示的区域是900px 450px (仅仅显示一部分). 反过来说 一个角色 可以是 30px x 50px. 同理 显示的区域仍旧是 900px 450px.  图片画多大和开发分辨率无关.</p>
+<h3 id="PixelPerfect-适合的适配方案"><a href="#PixelPerfect-适合的适配方案" class="headerlink" title="PixelPerfect 适合的适配方案"></a>PixelPerfect 适合的适配方案</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/8985113e-7962-4d5c-840a-a032ab77a46f.jpg" alt="8985113e-7962-4d5c-840a-a032ab77a46f"></p>
+<p>比如横板卷轴,设计关卡高度为300px,上下留出50px冗余 也就是 美术做了一张  1000px x 400px的图片. 其中间300px是所有设备都会显示的,上下个50px是根据设备不同.<br>有的显示有的不显示 且不显示的话也不会影响整体的游戏体验.</p>
+<p>此时在保证PixelPerfect的情况下 设备分辨率必须满足</p>
+<table>
+<thead>
+<tr>
+<th>倍率</th>
+<th>设备分辨率高度范围</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1x</td>
+<td>300px~400px</td>
+</tr>
+<tr>
+<td>2x</td>
+<td>600px~800px</td>
+</tr>
+<tr>
+<td>3x</td>
+<td>900px~1200px</td>
+</tr>
+</tbody>
+</table>
+<p>假设设备分辨率(高度) 是 1000px</p>
+<blockquote>
+<p><strong>开发中的相机Size <em> 2 </em> N = 设备分辨率. </strong></p>
+</blockquote>
+<p>N一定为整数,从上面表中可以知道N此时为3 (因为1000px 在900px~1200px之间)</p>
+<p>从而求出</p>
+<p>开发中的相机Size = 设备分辨率/(2*N) = 1000/6 = 166.666666</p>
+<p>反过来也可以说</p>
+<p>通过把相机Size设置为166.666666, 使得原图以扩大3被的情况下映射到了1000px分辨率的设备上了. 从而达到了PixelPerfect.</p>
+<p>注意:</p>
+<p>Size=166.66666, 也就是一个屏幕内可以显示的像素是333.3333px. 这也是为什么图片要制作为 300px有效像素,然后上下再留出50px冗余像素的原因</p>
+<h3 id="不适合做PixelPerfect的例子"><a href="#不适合做PixelPerfect的例子" class="headerlink" title="不适合做PixelPerfect的例子"></a>不适合做PixelPerfect的例子</h3><p>比如 设备分辨率是 850px</p>
+<p>按照上面的公式 <code>开发中的相机Size * 2 * N = 设备分辨率</code>.  </p>
+<table>
+<thead>
+<tr>
+<th>N的取值</th>
+<th>开发中相机Size*2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1x</td>
+<td>850px</td>
+</tr>
+<tr>
+<td>2x</td>
+<td>425px</td>
+</tr>
+<tr>
+<td>3x</td>
+<td>283.333px</td>
+</tr>
+</tbody>
+</table>
+<p>可以看出</p>
+<p><code>N=2</code> 则 会显示出开发分辨率下425px的内容,但是美术画的图是1000px x 400px的,多出来25px空白,<br><code>N=1</code> 则 显示283.333px的内容 小于300px的有效内容. 会显示不全. 比如上图例子中那样 可能头上的陷阱就看不到了.</p>
+<p>此时  并没有办法使得在PixelPerfect的情况下使得开发分辨率锁定在300px~400px之间.  2x的情况会导致穿帮,3x会导致显示内容过小</p>
+<p>如若要做PixelPerfect 则需要做不锁高的游戏,也就是游戏世界中的高度大于1个视口高度,比如泰拉瑞亚这种,世界很大,能看到的只是其中一个区域. 此时相机高度发生一定变化 并不会导致穿帮.<br>或者上下直接留黑边,然后采取N=2的情况去做处理.</p>
+<h2 id="普通的屏幕适配方案"><a href="#普通的屏幕适配方案" class="headerlink" title="普通的屏幕适配方案"></a>普通的屏幕适配方案</h2><p>对于普通游戏(非像素游戏),其实没有必要非达到PixelPerfect的. 那此时一般采取的适配方案是锁高,或者锁宽.或者两种之间的变种.</p>
+<h3 id="锁高"><a href="#锁高" class="headerlink" title="锁高"></a>锁高</h3><p>锁高也是最简单的一种. 比如开发分辨率设定是 任意宽度 x 1000px . 然后在给定 任意设备分辨率的情况下. 希望可以把这1000px都显示出来.无论能显示多宽的内容.</p>
+<p>比如设备高度是 500px , 那就是把现有内容缩小一倍显示在屏幕上. 如果设备是800px 则是缩小0.8 (800/1000)显示在屏幕上.</p>
+<p>注意: 容易和PixelPerfect混淆的是. PixelPerfect是通过调整CameraSize从而保证缩放比例一定是整数,而普通锁高适配是恒定CameraSize</p>
+<p>啰嗦一句. 上面的公式   开发中的相机Size <em> 2 </em> N = 设备分辨率 同样也适用这里. 只不过开发相机Size恒定 . 而N就是真正缩放的倍数.比如上面例子中0.5(500/1000), 0.8(800/1000)</p>
+<p>只不过这个N 在Unity的面板里面是看不到的.</p>
+<p>比如开发分辨率定位720px x 1280px . 在Unity中讲CameraSize设置为6.4  (6.4x2=12.8 默认 1unit=100px)</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/97f07975-dba4-478c-ae39-f8e3d020e700.jpg" alt="97f07975-dba4-478c-ae39-f8e3d020e700"></p>
+<p>开发分辨率 720x1280 :</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/a58f291c-e110-404f-bada-28842cdc6c83.jpg" alt="a58f291c-e110-404f-bada-28842cdc6c83"></p>
+<p>设备分辨率 300x500:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/c2cd50a9-8bc8-4023-90de-891ca8df826a.jpg" alt="c2cd50a9-8bc8-4023-90de-891ca8df826a"></p>
+<p>设备分辨率 30x300:</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/92b988e9-a161-41dd-8979-9d07efa78223.jpg" alt="92b988e9-a161-41dd-8979-9d07efa78223"></p>
+<p><strong>在锁高的情况下,上下两个五角星一直会显示,无论设备分辨率是多少.</strong></p>
+<p>此时并不用做任何的操作</p>
+<h3 id="锁宽"><a href="#锁宽" class="headerlink" title="锁宽"></a>锁宽</h3><p>锁宽稍微要复杂一些.  首先要明确的是.适配的方式就是在<code>保证宽高比</code>的情况下 放大缩小.使得锁定的一方完全显示在屏幕内.</p>
+<p>还是上面的例子. 开发分辨率是 720x1280 . 设备分辨率是 30x300  锁高的情况下就是把 1280px 缩放到 300px的设备上</p>
+<p>缩放倍数 = 300/1280 = 0.234375<br>因为宽高比不便. 所以宽度被缩放到了0.234375 * 720px = 168.75px. 设备只有30px的宽. 所以只能看到上下两颗星星. 左右的看不到.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/b1f0bbc9-5a2c-4d4f-9165-63e189e41659.jpg" alt="b1f0bbc9-5a2c-4d4f-9165-63e189e41659"></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/f75f68ad-bd44-4776-b542-ac43712b090e.png" alt="f75f68ad-bd44-4776-b542-ac43712b090e"></p>
+<p><strong>锁宽的情况下需要更改CameraSize从而使得在不同设备的情况下,在设备上看到的宽度和开发中的一样.</strong></p>
+<p>根据缩放宽高比不变这条可以推导公式<br>设定:<br>开发分辨率宽 = 开W<br>开发分辨率高 = 开H<br>设备分辨率宽 = 设W<br>设备分辨率高 = 设H</p>
+<p>其中 开H 也就是最后需要求得的值.从而推导,再给定的设备上 需要把CameraSize调整到何值</p>
+<p>推导得到</p>
+<blockquote>
+<p><strong>CameraSize =  开W <em> 设H / (设W </em> 2)</strong></p>
+</blockquote>
+<h2 id="实际应用场景"><a href="#实际应用场景" class="headerlink" title="实际应用场景"></a>实际应用场景</h2><p>实际项目中, UI层一般都采取的是Canvas的全屏适配.也就不存在锁宽锁高. 主要是Scene场景. 能想到的比较典型的例子是</p>
+<p><strong>涂鸦跳跃 (锁宽)</strong></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/5fd1a19e-d57e-4be1-9057-c879817a638b.jpeg" alt="5fd1a19e-d57e-4be1-9057-c879817a638b"></p>
+<p><strong>Flappy bird (锁高)</strong></p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/673be8de-23af-49f4-951e-d1684c59d226.jpeg" alt="673be8de-23af-49f4-951e-d1684c59d226"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/c1546b30-d7bf-11e7-bef0-61b3622d6ca4/" itemprop="url">在自己服务器(搬瓦工)上部署Hexo且用git同步</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-02T00:00:00+08:00">
+                2017-12-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/其他/" itemprop="url" rel="index">
+                    <span itemprop="name">其他</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><p>之前有尝试过<code>WordPress</code>,也在使用<code>为知笔记</code>.不过直接同步到<code>WordPress</code>上格式一直很烂.后来放弃了.还是Hexo配合Markdown适合我.</p>
+<h2 id="搭建流程"><a href="#搭建流程" class="headerlink" title="搭建流程"></a>搭建流程</h2><h3 id="本地搭建Hexo"><a href="#本地搭建Hexo" class="headerlink" title="本地搭建Hexo"></a>本地搭建Hexo</h3><p>Mac上还是比较轻松的.</p>
+<p>首先安装<a href="https://brew.sh/" target="_blank" rel="noopener">Brew</a></p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)"</span></span><br></pre></td></tr></table></figure>
+<p>再安装<code>NodeJS</code>和<code>Hexo</code></p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install <span class="keyword">node</span><span class="title"></span></span><br></pre></td></tr></table></figure>
+<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-<span class="keyword">cli</span> -g</span><br></pre></td></tr></table></figure>
+<p>此时本地基础环境就已经搭建好.随便找个目录执行</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">hexo</span> init <span class="keyword">blog</span></span><br><span class="line"><span class="keyword">cd </span><span class="keyword">blog</span></span><br><span class="line"><span class="keyword">npm </span>install</span><br></pre></td></tr></table></figure>
+<p>本地浏览器打开<code>http://localhost:4000/</code>应该就可以看到一个初始网页了</p>
+<h3 id="服务器端配置"><a href="#服务器端配置" class="headerlink" title="服务器端配置"></a>服务器端配置</h3><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><p>Hexo的原理应该是本地使用<code>NodeJS</code>将<code>Markdown</code>渲染成静态网页. 所以服务器端只需要</p>
+<ul>
+<li>构建一个<code>Http</code>服务器</li>
+<li>通过<code>Git</code>同步部署到服务器的仓库</li>
+<li>写Git的<code>Hook</code>,将Pulish文件夹下面的内容同步到<code>Http</code>文件夹下</li>
+</ul>
+<h4 id="搭建Http服务器"><a href="#搭建Http服务器" class="headerlink" title="搭建Http服务器"></a>搭建Http服务器</h4><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y <span class="keyword">install</span> httpd</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.server-world.info/en/note?os=CentOS_6&amp;p=httpd" target="_blank" rel="noopener">参考教程</a><br>如果不用httpd,也可以选择<code>nginx</code></p>
+<h4 id="安装和配置Git"><a href="#安装和配置Git" class="headerlink" title="安装和配置Git"></a>安装和配置Git</h4><p>参考 <a href="http://blog.csdn.net/lyhdream/article/details/49561645" target="_blank" rel="noopener">教程一</a> <a href="http://blog.csdn.net/lyhdream/article/details/49587657" target="_blank" rel="noopener">教程二</a>, 不过我自己的方法略有不同</p>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">yum install -y git</span><br><span class="line">adduser git</span><br><span class="line"><span class="keyword">cd</span> <span class="string">/home/git/</span></span><br><span class="line">sudo git init <span class="params">--bare</span> hexo.git</span><br></pre></td></tr></table></figure>
+<p>执行完这几步以后,就在</p>
+<ul>
+<li>服务器上安装了Git</li>
+<li>创建了一个名字为git的用户</li>
+<li>在<code>/home/git/</code>目录下创建了名字为<code>hexo.git</code>的仓库</li>
+</ul>
+<p>后面的步骤相比网上其他的教程来说,相对要tricky一些.</p>
+<p>首先找一个SFTP软件,我用的是<code>FileZilla</code>. 然后使用root账户登录进去<br><img src="http://p09vx6soj.bkt.clouddn.com/1.jpg" alt="1"></p>
+<ul>
+<li>创建<code>.ssh</code>文件夹</li>
+<li>创建<code>authorized_keys</code>文件(空文件无后缀名)</li>
+</ul>
+<p>接着在Mac本地创建 <code>.shh</code>文件夹<code>/Users/**你的用户名**/.ssh/</code><br>命令行进入该文件夹后执行</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssh-keygen</span></span><br></pre></td></tr></table></figure>
+<p>文件叫<code>id_rsa</code><br><img src="http://p09vx6soj.bkt.clouddn.com/2.jpg" alt="2"></p>
+<p>将本地<code>id_rsa.pub</code>文件传到服务器的<code>/home/git/.ssh</code>目录下,然后执行命令</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat id_rsa<span class="selector-class">.pub</span> &gt; authorized_keys</span><br></pre></td></tr></table></figure>
+<p>在本地创建<code>post-receive</code>文件(没有后缀名)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">GIT_REPO=/home/git/hexo.git <span class="comment">#git 仓库</span></span><br><span class="line">TMP_GIT_CLONE=/tmp/hexo</span><br><span class="line">PUBLIC_WWW=/var/www/html <span class="comment">#网站目录</span></span><br><span class="line">rm -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span></span><br><span class="line">git <span class="built_in">clone</span> <span class="variable">$GIT_REPO</span> <span class="variable">$TMP_GIT_CLONE</span></span><br><span class="line">rm -rf <span class="variable">$&#123;PUBLIC_WWW&#125;</span>/*</span><br><span class="line">cp -rf <span class="variable">$&#123;TMP_GIT_CLONE&#125;</span>/* <span class="variable">$&#123;PUBLIC_WWW&#125;</span></span><br></pre></td></tr></table></figure>
+<p>将文件上传到<code>/home/git/hexo.git/hooks</code>目录下</p>
+<p>此时已经完成了</p>
+<ul>
+<li>Git的自动授权(也就是部署时候直接key授权,不需要再使用用户名密码了)</li>
+<li>Git上挂<code>Hook</code>自动同步到网站目录</li>
+</ul>
+<p>但是由于是使用<code>FileZilla</code>创建的文件和文件夹. 文件的权限和所有者不对(所有者是root帐号,不是git帐号).</p>
+<p>权限可以使用<code>FileZilla</code>直接改,再需要改的文件夹下右键,选择文件属性</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/3.jpg" alt="3"></p>
+<p>文件的所有权可以使用<code>chown</code>和<code>chgrp</code>命令更改.</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/home/</span>git<span class="regexp">/hexo.git/</span> chgrp -R git *</span><br><span class="line">chown <span class="string">git:</span>git -R <span class="regexp">/var/</span>www<span class="regexp">/html/</span></span><br><span class="line">chown <span class="string">git:</span>git -R <span class="regexp">/home/</span>git<span class="regexp">/hexo.git/</span></span><br></pre></td></tr></table></figure>
+<p>因为具体操作的流程已经忘记了,不过如果git操作时候出现<br><code>insufficient permission</code><br><code>Permission denied</code><br>类似这种情况,应该就是文件的权限不够,或者文件的所有者不是git账户. 在服务器可以使用<code>ll</code>命令进行查看</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/4.jpg" alt="4"></p>
+<p>需要保证 <code>/home/git/</code>目录下的所有文件 及 <code>/var/www/html/</code>目录的样子像上图一样. 两列都是<code>git</code>,而不是<code>root</code></p>
+<h4 id="配置Hexo-使用Git同步"><a href="#配置Hexo-使用Git同步" class="headerlink" title="配置Hexo,使用Git同步"></a>配置Hexo,使用Git同步</h4><p>在本地的Blog文件夹根目录下执行,安装Git部署插件</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> hexo-developer-git <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
+<p>修改<code>_config.yml</code>(注意是Hexo的Config,不是安装主题的Config)</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/5.jpg" alt="5"></p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>: </span><br><span class="line">  <span class="attribute">type</span>: git</span><br><span class="line">  <span class="attribute">repo</span>: <span class="attribute">ssh</span>:<span class="comment">//git@服务器IP:SSH端口/home/git/hexo.git</span></span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure>
+<p>然后执行</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo g</span></span><br><span class="line"><span class="attribute">hexo d</span></span><br></pre></td></tr></table></figure>
+<p>大功告成</p>
+<p>End</p>
 
           
         
@@ -432,7 +2213,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/30/">30</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -468,7 +2249,7 @@
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
               <p class="site-author-name" itemprop="name">隔壁老王</p>
-              <p class="site-description motion-element" itemprop="description">独立游戏开发者</p>
+              <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
           <nav class="site-state motion-element">
@@ -478,7 +2259,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -500,7 +2281,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -678,14 +2459,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://oldking.disqus.com/count.js" async></script>
-    
-
-    
-
-  
-
 
 
 
@@ -701,8 +2474,27 @@
 
 
 
+  
 
 
+
+
+
+
+  
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine@1.1.4/dist/Valine.min.js"></script>
+  <script type="text/javascript">
+    new Valine({
+        av: AV,
+        el: '#vcomments' ,
+        verify: false,
+        notify: false,
+        app_id: 'VgjGdP2hIi00FTVlhhkQYpOx-gzGzoHsz',
+        app_key: 'f6jqD57DmTmu5lR3DdobF3py',
+        placeholder: '说点啥?'
+    });
+  </script>
 
 
 
