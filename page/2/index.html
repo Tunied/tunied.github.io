@@ -209,12 +209,12 @@
         </li>
       
         
-        <li class="menu-item menu-item-c#">
-          <a href="/categories/C#" rel="section">
+        <li class="menu-item menu-item-编程">
+          <a href="/categories/编程" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-graduation-cap"></i> <br />
             
-            C#
+            编程
           </a>
         </li>
       
@@ -257,6 +257,1004 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/7e6e8520-9327-11e8-8570-f1a9668fbbb1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/7e6e8520-9327-11e8-8570-f1a9668fbbb1/" itemprop="url">Unity使用UGUI的Image在Canvas中画直线</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-29T20:04:06+08:00">
+                2018-07-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://media.giphy.com/media/2uI8VGFdAOys8WQlXR/giphy.gif" alt=""></p>
+<h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"><span class="keyword">using</span> UnityEngine.UI;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestDrawLine</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Image arrow; <span class="comment">//Image 素材</span></span><br><span class="line">    <span class="keyword">public</span> RectTransform pa; <span class="comment">//A点</span></span><br><span class="line">    <span class="keyword">public</span> RectTransform pb; <span class="comment">//B点</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> rP = pa.rectTransform().anchoredPosition;</span><br><span class="line">        <span class="keyword">var</span> tp = pa.position;</span><br><span class="line">        Debug.Log(<span class="string">$"A点  Transform P:(<span class="subst">&#123;tp.x&#125;</span>,<span class="subst">&#123;tp.y&#125;</span>) RectTransform P :(<span class="subst">&#123;rP.x&#125;</span>,<span class="subst">&#123;rP.y&#125;</span>)"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update is called once per frame</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        arrow.transform.position = pa.position;</span><br><span class="line">        arrow.transform.localRotation = Quaternion.AngleAxis(-GetAngle(), Vector3.forward);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> distance = Vector2.Distance(pb.anchoredPosition, pa.anchoredPosition);</span><br><span class="line">        arrow.rectTransform.sizeDelta = <span class="keyword">new</span> Vector2(<span class="number">10</span>, Math.Max(<span class="number">1</span>, distance - <span class="number">30</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">float</span> <span class="title">GetAngle</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> dir = pb.position - pa.position;</span><br><span class="line">        <span class="keyword">var</span> dirV2 = <span class="keyword">new</span> Vector2(dir.x, dir.y);</span><br><span class="line">        <span class="keyword">var</span> angle = Vector2.SignedAngle(dirV2, Vector2.down);</span><br><span class="line">        <span class="keyword">return</span> angle;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="相关知识点"><a href="#相关知识点" class="headerlink" title="相关知识点"></a>相关知识点</h2><p>恩,代码没几行 但是涉及到的知识点还挺多. 感觉可以当 <code>Unity面试题</code> 来用啊 哈哈.</p>
+<h3 id="取得两个坐标点之间的夹角"><a href="#取得两个坐标点之间的夹角" class="headerlink" title="取得两个坐标点之间的夹角"></a>取得两个坐标点之间的夹角</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Vector2</span><span class="selector-class">.SignedAngle</span>(<span class="selector-tag">dirV2</span>, <span class="selector-tag">Vector2</span><span class="selector-class">.down</span>)</span><br></pre></td></tr></table></figure>
+<p>这个我之前有写过,详情参见 <a href="http://oldking.wang/479077a0-7bb4-11e8-a311-29f834f4679d/" target="_blank" rel="noopener">求两向量在0~360度之间的角度值及实际应用</a></p>
+<h3 id="取得Canvas中元素的x-y坐标"><a href="#取得Canvas中元素的x-y坐标" class="headerlink" title="取得Canvas中元素的x,y坐标"></a>取得Canvas中元素的x,y坐标</h3><p>我在<code>Start</code>函数有输出,元素的<code>Transform.position</code>和<code>RectTransform.position</code>(实际应用时候应该取锚点)是有区别的</p>
+<p>输出Log为:</p>
+<blockquote>
+<p>A点  Transform P:(98.82188,194.5938) RectTransform P :(-391,130)</p>
+</blockquote>
+<h3 id="取得Canvas中两元素的距离"><a href="#取得Canvas中两元素的距离" class="headerlink" title="取得Canvas中两元素的距离"></a>取得Canvas中两元素的距离</h3><p>这个主要是要注意使用<code>anchoredPosition</code>,也就是<code>RectTransform</code>坐标系下的点坐标.使用<code>Transform</code>坐标系下的算出距离是错误的.</p>
+<p>直接<br><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vector2.Distance($A点<span class="number">2</span>D坐标,$B点<span class="number">2</span>D坐标)</span><br></pre></td></tr></table></figure></p>
+<h3 id="设置UGUI中Image的宽高"><a href="#设置UGUI中Image的宽高" class="headerlink" title="设置UGUI中Image的宽高"></a>设置UGUI中Image的宽高</h3><p>使用<a href="https://docs.unity3d.com/ScriptReference/RectTransform-sizeDelta.html" target="_blank" rel="noopener"><code>sizeDelta</code></a>函数</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arrow.rectTransform.sizeDelta = new Vector2(<span class="variable">$宽</span>,<span class="variable">$高</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="元素绕任意轴旋转"><a href="#元素绕任意轴旋转" class="headerlink" title="元素绕任意轴旋转"></a>元素绕任意轴旋转</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arrow<span class="selector-class">.transform</span><span class="selector-class">.localRotation</span> = Quaternion.AngleAxis($旋转角度,$旋转轴)</span><br></pre></td></tr></table></figure>
+<p>恩.. 四元数旋转 好像也没啥好说的 :(</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/b24893f0-8f1b-11e8-8b0f-41ccb1e92c0b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/b24893f0-8f1b-11e8-8b0f-41ccb1e92c0b/" itemprop="url">在Unity中使用工具生成GameObject节点的FullPath</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-24T16:29:35+08:00">
+                2018-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><ul>
+<li>GameObject上面右键生成配置信息</li>
+</ul>
+<p><img src="https://media.giphy.com/media/ADTfkkmN4ClmAUmuK1/giphy.gif" alt="ImgGIF"></p>
+<ul>
+<li>生成CS文件</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Code.AutoGenerate</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GUIPath</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Demo</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> NameTF = <span class="string">"a0"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox = <span class="string">"a1"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> Info01 = <span class="string">"a2"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info01_MsgTF = <span class="string">"a3"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info01_Icon = <span class="string">"a4"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info02 = <span class="string">"a5"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info02_MsgTF = <span class="string">"a6"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info03_MsgTF = <span class="string">"a7"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行时候通过生成的文件查找对应节点的FullPath</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Test01</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> go = transform.Find(GameGUI.FullPath(GUIPath.Demo.InfoBox_Info01_Icon));</span><br><span class="line">        <span class="keyword">var</span> img = go.GetComponent&lt;Image&gt;();</span><br><span class="line">        img.color = Color.green;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>对于在项目中是否使用 public 属性然后在Inspector中进行赋值 的方式进行 GUI界面的制作.一直存在两个声音. 有人支持,有人反对. </p>
+<p>各有各的道理吧,因为各自项目不同 所以也不好一概而论.</p>
+<h3 id="Private-赋值方式的优点"><a href="#Private-赋值方式的优点" class="headerlink" title="Private 赋值方式的优点"></a>Private 赋值方式的优点</h3><p>就我个人而言,目前来说 我还是比较倾向于用 private 声明然后再通过<code>transform.Find()</code>方式赋值的方法.</p>
+<p>我认为这种方法有几个优点</p>
+<ul>
+<li><p>对混淆友好: 以Inspector进行拖拽赋值的方法 肯定是无法混淆的</p>
+</li>
+<li><p>抗灾能力强: 尤其是对于研发周期在半年以上的中大型项目,且是多人同时提交代码. 当出现一两次<code>Missing Reference</code>的事故时候,你会更加深入理解这个问题的:)</p>
+</li>
+<li><p>易于模块化开发: 对于复杂的面板,我一般会拆分多个组件,然后主GUI上挂载Manger类进行其内部组件的协调. 如果采用public赋值方法,所有组件的变量都需要在Manger类内部进行引用切赋值.导致这个类内部很乱.并且所有子组件都需要和Manger进行交叉引用.增大了组件之间的耦合度.</p>
+</li>
+</ul>
+<h3 id="Private-赋值方式的缺点"><a href="#Private-赋值方式的缺点" class="headerlink" title="Private 赋值方式的缺点"></a>Private 赋值方式的缺点</h3><p>缺点就我现在的体会来说 就是觉得<strong>赋值很麻烦</strong>.</p>
+<p><img src="/media/Jietu20180724-170141.jpg" alt="Jietu20180724-170141"></p>
+<p>比如像上面这段,编写期间要不停的Unity和Rider之间切换然后Copy字符串. 并且如果出现结构上的重构时候.也很麻烦.</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>我还是按照之前处理<a href="http://oldking.wang/70851a90-8c25-11e8-9c42-b1751b7abeea/" target="_blank" rel="noopener">在Unity项目中隐藏StringConst</a>方式一样.</p>
+<p>写GUI工具,同时生成一份CS文件和一个二进制文件.</p>
+<p>然后代码中直接通过CS文件中定义的Key去找二进制文件所放置的FullPath即可</p>
+<h2 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h2><h3 id="将工具入口放置在右键菜单中"><a href="#将工具入口放置在右键菜单中" class="headerlink" title="将工具入口放置在右键菜单中"></a>将工具入口放置在右键菜单中</h3><figure class="highlight scheme"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="name">MenuItem</span>(<span class="string">"GameObject/UI/$&#123;你自定义的子目录&#125;"</span>)]</span><br></pre></td></tr></table></figure>
+<p>详情参考<a href="https://unity3d.com/cn/learn/tutorials/topics/interface-essentials/unity-editor-extensions-menu-items" target="_blank" rel="noopener">Unity Editor Extensions – Menu Items</a></p>
+<h3 id="使用内部类模板"><a href="#使用内部类模板" class="headerlink" title="使用内部类模板"></a>使用内部类模板</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Code.AutoGenerate</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GUIPath</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Demo</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> NameTF = <span class="string">"a0"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox = <span class="string">"a1"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> Info01 = <span class="string">"a2"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info01_MsgTF = <span class="string">"a3"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info01_Icon = <span class="string">"a4"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info02 = <span class="string">"a5"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info02_MsgTF = <span class="string">"a6"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info03_MsgTF = <span class="string">"a7"</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Demo_2</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> NameTF = <span class="string">"a8"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox = <span class="string">"a9"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> Info01 = <span class="string">"a10"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info01_MsgTF = <span class="string">"a11"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info01_Icon = <span class="string">"a12"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info02 = <span class="string">"a13"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info02_MsgTF = <span class="string">"a14"</span>;</span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">const</span> <span class="keyword">string</span> InfoBox_Info03_MsgTF = <span class="string">"a15"</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以需要构建的GameObject的Name作为内部类的类名去构建自动生成的CS文件. 这样在代码中会更加清晰.</p>
+<p><img src="/media/Jietu20180724-185801.jpg" alt="Jietu20180724-185801"></p>
+<h3 id="使用名称约束"><a href="#使用名称约束" class="headerlink" title="使用名称约束"></a>使用名称约束</h3><p><img src="/media/Jietu20180724-190052.jpg" alt="Jietu20180724-190052"></p>
+<ul>
+<li><p>以<code>S_</code>开头的节点会生成短名称,比如上图的<code>InfoBox</code></p>
+</li>
+<li><p>以<code>F_</code>开头的节点会生成长名称(用以区分同名节点).比如上图的<code>InfoBox_Info01_MsgTF</code></p>
+</li>
+<li><p>不以<code>S_</code>和<code>F_</code>开头的节点则不导出.(代码中不会直接操作该节点)</p>
+</li>
+</ul>
+<h3 id="遍历一个GameObject取得其FullPath"><a href="#遍历一个GameObject取得其FullPath" class="headerlink" title="遍历一个GameObject取得其FullPath"></a>遍历一个GameObject取得其FullPath</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> GUIFullPathNode <span class="title">GetNewNode</span>(<span class="params">GameObject _go</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rootNode = <span class="keyword">new</span> GUIFullPathNode();</span><br><span class="line">    rootNode.nodeList = <span class="keyword">new</span> List&lt;GUIFullPathGameObjectWrap&gt;();</span><br><span class="line">    LoopCreateFullPath(_go.transform, _go.transform, rootNode);</span><br><span class="line">    <span class="keyword">return</span> rootNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">LoopCreateFullPath</span>(<span class="params">Transform _currentTrans, Transform _rootTrans, GUIFullPathNode _rootNode</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> nodeName = _currentTrans.name;</span><br><span class="line">    <span class="keyword">if</span> (nodeName.StartsWith(SHORT_NAME_PR) || nodeName.StartsWith(FULL_NAME_PR))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> path = AnimationUtility.CalculateTransformPath(_currentTrans, _rootTrans);</span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">string</span>.IsNullOrEmpty(path))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> goWarp = <span class="keyword">new</span> GUIFullPathGameObjectWrap();</span><br><span class="line">            goWarp.fullPath = path;</span><br><span class="line">            goWarp.realKey = GetFullPathNodeRealName(path, _currentTrans.name);</span><br><span class="line">            _rootNode.nodeList.Add(goWarp);</span><br><span class="line">            Debug.Log(<span class="string">$"Go <span class="subst">&#123;_currentTrans.name&#125;</span>  ==&gt;&gt;  RealName: <span class="subst">&#123;goWarp.realKey&#125;</span> Path: <span class="subst">&#123;goWarp.fullPath&#125;</span>  "</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> childNum = _currentTrans.childCount;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; childNum; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        LoopCreateFullPath(_currentTrans.GetChild(i), _rootTrans, _rootNode);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">string</span> <span class="title">GetFullPathNodeRealName</span>(<span class="params"><span class="keyword">string</span> _path, <span class="keyword">string</span> _nodeName</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> splitStringList = _path.Split(<span class="string">'/'</span>);</span><br><span class="line">    <span class="keyword">if</span> (_nodeName.StartsWith(SHORT_NAME_PR))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> DoGetRealName(splitStringList[splitStringList.Length - <span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> realName = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; splitStringList.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        realName += DoGetRealName(splitStringList[i]) + <span class="string">"_"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//去掉尾部的"_"</span></span><br><span class="line">    <span class="keyword">return</span> realName.Substring(<span class="number">0</span>, realName.Length - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">string</span> <span class="title">DoGetRealName</span>(<span class="params"><span class="keyword">string</span> _name</span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (_name.StartsWith(SHORT_NAME_PR) || _name.StartsWith(FULL_NAME_PR))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _name.Substring(<span class="number">2</span>, _name.Length - <span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> _name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这部分代码同时也包括了对<code>S_</code>和<code>F_</code>开头节点的解析. 其核心的遍历逻辑是调用</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AnimationUtility.CalculateTransformPath(<span class="variable">_currentTrans</span>, <span class="variable">_rootTrans</span>);</span><br></pre></td></tr></table></figure>
+<p>注意该函数仅可以在编辑器模式下调用.</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/70851a90-8c25-11e8-9c42-b1751b7abeea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/70851a90-8c25-11e8-9c42-b1751b7abeea/" itemprop="url">在Unity项目中隐藏StringConst</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T22:01:46+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="最终效果"><a href="#最终效果" class="headerlink" title="最终效果"></a>最终效果</h2><ul>
+<li><p>在GUI界面中编辑StringConst<br><img src="https://media.giphy.com/media/5kFcdKkc2Q58nMrzDa/giphy.gif" alt="ImgGIF"></p>
+</li>
+<li><p>自动生成<code>StringConst.cs</code>文件</p>
+</li>
+</ul>
+<p><img src="/media/Jietu20180720-220109.jpg" alt="Jietu20180720-220109"></p>
+<ul>
+<li>封装<code>GlobalConst</code>上层逻辑直接当做普通String字符串处理</li>
+</ul>
+<p><img src="/media/Jietu20180720-231320.jpg" alt="Jietu20180720-231320"></p>
+<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>目前, 就我所知的Unity反编译. 如果采用静态破解IL2CPP项目 切入点一般都从关键字入手.</p>
+<p>比如搜索 <code>money</code>,<code>exp</code>,<code>attack</code>等等.</p>
+<p>我主要是采用混淆代码的方式应对这种Hack. 但是混淆代码并不能对 <code>const string</code>进行混淆.</p>
+<p>比如</p>
+<p><img src="/media/Jietu20180720-220922.jpg" alt="Jietu20180720-220922"></p>
+<p>这是我之前的老项目. 可以看到虽然 变量名全部混淆了. 但是其引用的字符串仍旧是明文的. 并且暴露出许多敏感信息.</p>
+<p>所以 目前想出来这种方案.就是为了解决这个问题的.</p>
+<h2 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h2><h3 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h3><ul>
+<li><p>(编辑阶段)通过GUI进行编辑相关的常量信息</p>
+</li>
+<li><p>(编辑阶段)生成一个cs文件,和一个加密后的二进制文件.</p>
+</li>
+<li><p>(运行阶段)将二进制文件解析为Key-Value字典.其中Key为混淆后的Key,Value为真实Value</p>
+</li>
+<li><p>(运行阶段)用生成的cs文件.对Key-Value字典进行访问.从而得到真实的常量值</p>
+</li>
+</ul>
+<h3 id="核心代码"><a href="#核心代码" class="headerlink" title="核心代码"></a>核心代码</h3><p>具体实现,每个人会有自己的不同.这里全贴出来没有什么意义. 只列一些我认为比较核心的代码</p>
+<h4 id="GUI部分"><a href="#GUI部分" class="headerlink" title="GUI部分"></a>GUI部分</h4><p>GUI用的是<code>OdinInspector</code>插件(推荐)</p>
+<p><strong>发起弹窗</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[MenuItem(<span class="string">"常量表"</span>)]</span><br><span class="line">private<span class="keyword"> static</span> void OpenStringConstWinodw()</span><br><span class="line">&#123;</span><br><span class="line">    var<span class="built_in"> instance </span>=<span class="built_in"> new </span>GlobalStringEditWindow();</span><br><span class="line">    var window = OdinEditorWindow.InspectObject(instance);</span><br><span class="line">    window.position = GUIHelper.GetEditorWindowRect().AlignCenter(500, 700);</span><br><span class="line">    instance.OnShow(window);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>弹出部分</strong></p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">GlobalStringEditWindow</span></span><br><span class="line">&#123;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">private</span> OdinEditorWindow mSelfWindow;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> List&lt;StringConstWrap&gt; stringConstList;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">OnShow</span>(<span class="params">OdinEditorWindow _window</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        mSelfWindow = _window;</span><br><span class="line">        </span><br><span class="line">        ...</span><br><span class="line">        ** 此处省略从二进制文件解密出来,然后复写到stringConstList部分代码</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    [<span class="meta">Button(<span class="meta-string">"保存并退出"</span>, ButtonSizes.Medium), GUIColor(0, 1, 0)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SaveAndClose</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> CSharpFileCreater = <span class="keyword">new</span> ObfuscatorIDMappingHelper();</span><br><span class="line"></span><br><span class="line">        stringConstList.ForEach(warp =&gt;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> meta = <span class="keyword">new</span> ObfusKeyValueMeta();</span><br><span class="line">            meta.comment = warp.comment;</span><br><span class="line">            meta.realKey = warp.key;</span><br><span class="line">            meta.<span class="keyword">value</span> = warp.<span class="keyword">value</span>;</span><br><span class="line">            meta.classPropertyName = meta.realKey;</span><br><span class="line">            CSharpFileCreater.AddObfuscatorRes(meta);</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//生成CS文件和*.byte文件</span></span><br><span class="line">        CSharpFileCreater.GenerateFile(<span class="string">"StringConst"</span>);</span><br><span class="line"></span><br><span class="line">        Debug.Log(<span class="string">"StringConst 保存成功"</span>);</span><br><span class="line"></span><br><span class="line">        mSelfWindow.Close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    [<span class="meta">Serializable</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">struct</span> StringConstWrap</span><br><span class="line">    &#123;</span><br><span class="line">        [<span class="meta">FoldoutGroup(<span class="meta-string">"$Name"</span>, false)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> comment;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">FoldoutGroup(<span class="meta-string">"$Name"</span>, false)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> key;</span><br><span class="line"></span><br><span class="line">        [<span class="meta">FoldoutGroup(<span class="meta-string">"$Name"</span>, false)</span>]</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">string</span> <span class="keyword">value</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">string</span> Name =&gt; comment ?? <span class="string">"Empty"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="代码生成"><a href="#代码生成" class="headerlink" title="代码生成"></a>代码生成</h4><p>代码生成部分,就是对应的我<code>CSharpFileCreater</code>部分的内容.</p>
+<p>如果想使用模板类生成CS代码,可以参考以下几个Link</p>
+<p><a href="http://www.li0rtal.com/code-generation-fun-with-unity/" target="_blank" rel="noopener">http://www.li0rtal.com/code-generation-fun-with-unity/</a></p>
+<p><a href="https://github.com/Mtihc/Generate-Code-For-Unity" target="_blank" rel="noopener">https://github.com/Mtihc/Generate-Code-For-Unity</a></p>
+<p><a href="https://www.gamasutra.com/blogs/ByronMayne/20160121/258356/Code_Generation_in_Unity.php" target="_blank" rel="noopener">https://www.gamasutra.com/blogs/ByronMayne/20160121/258356/Code_Generation_in_Unity.php</a></p>
+<p><a href="https://forum.unity.com/threads/code-generation-with-unity.233661/" target="_blank" rel="noopener">https://forum.unity.com/threads/code-generation-with-unity.233661/</a></p>
+<p>不过我需要生成的代码部分很简单,所以反而直接生写会简单一些.</p>
+<p>代码如下:</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">private <span class="type">string</span> GetFileString(<span class="type">string</span> _className)</span><br><span class="line">&#123;</span><br><span class="line">    var fileString = <span class="string">""</span>;</span><br><span class="line">    fileString += <span class="string">"namespace Code.AutoGenerate<span class="subst">\n</span>"</span>;</span><br><span class="line">    fileString += <span class="string">"&#123;<span class="subst">\n</span>"</span>;</span><br><span class="line">    fileString += <span class="string">"    public class "</span> + _className + <span class="string">"<span class="subst">\n</span>"</span>;</span><br><span class="line">    fileString += <span class="string">"    &#123;<span class="subst">\n</span>"</span>;</span><br><span class="line"></span><br><span class="line">    mObfuscatorResList.ForEach(meta =&gt; &#123; fileString += $<span class="string">"        public const string &#123;meta.classPropertyName&#125; = <span class="subst">\"</span>&#123;meta.obfusKey&#125;<span class="subst">\"</span>;<span class="subst">\n</span>"</span>; &#125;);</span><br><span class="line"></span><br><span class="line">    fileString += <span class="string">"    &#125;<span class="subst">\n</span>"</span>;</span><br><span class="line">    fileString += <span class="string">"&#125;<span class="subst">\n</span>"</span>;</span><br><span class="line"></span><br><span class="line">    return fileString;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后将文本直接写入文件,直接用封装好的<code>File.WriteAllText(path, fileString);</code>方法即可.</p>
+<h4 id="二进制加密"><a href="#二进制加密" class="headerlink" title="二进制加密"></a>二进制加密</h4><p>这部分我是将相应类首先序列化为Json,然后对Json文件进行ASE加密.再以二进制的方式存入本地</p>
+<p><strong>注意</strong></p>
+<blockquote>
+<p>不要采用Unity内置的Json,或者说 所有需要使用到<code>[Serializable]</code>标签的序列化方案. 因为设置了这个标签就意味着 变量名 是无法改变的,(应该是反序列化时候都需要反射找到对应的属性?).</p>
+</blockquote>
+<p>变量名无法改变 也就是 无法混淆. 那之前做的一切就相当于白费了 :)</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/479077a0-7bb4-11e8-a311-29f834f4679d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/479077a0-7bb4-11e8-a311-29f834f4679d/" itemprop="url">求两向量在0~360度之间的角度值及实际应用</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-29T23:51:25+08:00">
+                2018-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h2><p><img src="https://media.giphy.com/media/5PhYFv3LPBB9fkvaic/giphy.gif" alt="QQ20180629-235018-HD"></p>
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>先从实际问题出发,这样可以更好的理解问题.</p>
+<p>项目需要控制角色在地图中随意移动,角色素材是8方向的. 那问题就是</p>
+<blockquote>
+<p>如何根据点击的鼠标位置来决定使用哪个方向的图集?</p>
+</blockquote>
+<h3 id="分解问题"><a href="#分解问题" class="headerlink" title="分解问题"></a>分解问题</h3><ul>
+<li><p>首先8方向图集 <code>360/8 = 45</code> 也就是每45度一个图集. 然要注意起始角度并不是0度.</p>
+<blockquote>
+<p>不是0~45度 是图集A, 而应该是 -22.5~22.5 是图集A ,22.5 ~ 67.5(22.5+45) 是图集B  以此类推</p>
+</blockquote>
+</li>
+<li><p>根据当前Touch(PosB),和上次Touch(PosA) 做一个向量AB , 只要求的该向量AB和Up向量(Vector2.up)之间的夹角即可</p>
+</li>
+</ul>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>方法一:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.Angle(toVector2,Vector2.up);</span><br><span class="line"><span class="keyword">var</span> cross = Vector3.Cross(toVector2,Vector2.up);</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (cross.z &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">   angle = <span class="number">360</span> - angle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法二:</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.SignedAngle(toVector2, Vector2.up);</span><br><span class="line"><span class="keyword">if</span> (angle &lt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    angle = <span class="number">360</span> + angle;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h3><p>方法一是之前一直使用的,方法二是后来发现API中有的.也许是新加入的?(2017.1). </p>
+<p>先从方法一说起.</p>
+<p>首先是</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> angle = Vector2.Angle(Vector2.up, toVector2);</span><br></pre></td></tr></table></figure>
+<p>取得角度这个方法,这个是无符号的.<a href="https://docs.unity3d.com/ScriptReference/Vector2.Angle.html" target="_blank" rel="noopener">官网的API文档</a>说的很清楚了</p>
+<blockquote>
+<p>The angle returned is the unsigned acute angle between the two vectors. This means the smaller of the two possible angles between the two vectors is used. The result is never greater than 180 degrees.</p>
+</blockquote>
+<p>也就是能取到的是最小夹角,比如返回一个30度. 你无法知道是30度还是330度(360-30).</p>
+<p>这个就需要使用到 <code>叉乘</code>来判断了.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/向量叉乘公式.png" alt="向量叉乘公式"></p>
+<p>首先 <code>叉乘</code> 只能用于3D向量,但是确实又允许<code>Vector3.Cross(Vector2.up, toVector2)</code>这么写.</p>
+<p>这个就可以把 <code>Vector2.up</code>和<code>toVector2</code>看成<code>x-y</code>平面的向量,其z=0.</p>
+<p>那么他的<code>叉积</code>就是和<code>z</code>轴共线的向量</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/叉乘公式.png" alt="叉乘公式"></p>
+<p>因为,<code>Vector2.up</code>和<code>toVector2</code>的z均为零,所以</p>
+<p>两向量叉乘得到向量为(0,0,z)</p>
+<p>同时又根据上面的公式 c的模=a的模 x b的模 x sin@. </p>
+<p>c的模 也就是 z</p>
+<p>然后再根据正弦函数</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/Sin取值范围.png" alt="Sin取值范围"></p>
+<p>可以知道. 当sin@&lt;0 时候 也就是此时得到角度是大于180的.</p>
+<p>比如上面angle给出来的是30度, 那么就需要用 360-30 得到 330度.</p>
+<h3 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h3><p><img src="http://p09vx6soj.bkt.clouddn.com/WX20180630-011249.png" alt="WX20180630-011249"></p>
+<p>直接进到其API的实现就可以看到了</p>
+<ul>
+<li>红框部分就是 <code>var angle = Vector2.Angle(Vector2.up, toVector2);</code></li>
+<li>篮框部分就是 <code>z</code>值 </li>
+</ul>
+<p>叉积向量</p>
+<p>x = y1z2 - z1y2<br>y = z1x2 - x1z2<br>z = x1y2 - y1x2</p>
+<p>因为z1和z2都是0,所以叉积就是向量(0,0,x1y2 - y1x2)</p>
+<p>换句话说就是 方法二 其实就是封装后的 方法一</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/a2479e30-5e4f-11e8-8089-63130c1b42ee/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/a2479e30-5e4f-11e8-8089-63130c1b42ee/" itemprop="url">Egret Wing自定义快捷键Mac</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-23T14:07:55+08:00">
+                2018-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>修改<code>keybindings.json</code><br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line">// 将键绑定放入此文件中以覆盖默认值</span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"格式化"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"shift+cmd+f"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.formatDocument"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorHasDocumentFormattingProvider &amp;&amp; editorTextFocus &amp;&amp; !editorReadonly"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"搜索引用"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"shift+cmd+g"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.referenceSearch.trigger"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorHasReferenceProvider &amp;&amp; editorTextFocus &amp;&amp; !inReferenceSearchEditor"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"跳转到定义"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"f3"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.goToDeclaration"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorHasDefinitionProvider &amp;&amp; editorTextFocus"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"返回上一个"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"alt+left"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"workbench.action.navigateBack"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"前进下一个"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"alt+right"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"workbench.action.navigateForward"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"删除一行"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"cmd+d"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.deleteLines"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus &amp;&amp; !editorReadonly"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"代码提示"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"alt+/"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.triggerSuggest"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorHasCompletionItemProvider &amp;&amp; editorTextFocus &amp;&amp; !editorReadonly"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"快速打开"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"shift+cmd+t"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"workbench.action.quickOpen"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"编译"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"cmd+b"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"workbench.action.tasks.build"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"Debug:单步跳过"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"f6"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"workbench.action.debug.stepOver"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"inDebugMode"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"Debug:单步进入"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"f5"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"workbench.action.debug.stepInto"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"inDebugMode"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"Debug:继续"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"f8"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"workbench.action.debug.continue"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"inDebugMode"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"Run调试模式"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"f4"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"workbench.action.debug.run"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"!inDebugMode"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"重命名"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"f2"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.rename"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorHasRenameProvider &amp;&amp; editorTextFocus &amp;&amp; !editorReadonly"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"注释"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"ctrl+/"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.commentLine"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus &amp;&amp; !editorReadonly"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"当前行向下移"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"alt+down"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.moveLinesDownAction"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus &amp;&amp; !editorReadonly"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attr">"comment"</span>: <span class="string">"当前行向上移"</span>,</span><br><span class="line">        <span class="attr">"key"</span>: <span class="string">"alt+up"</span>,</span><br><span class="line">        <span class="attr">"command"</span>: <span class="string">"editor.action.moveLinesUpAction"</span>,</span><br><span class="line">        <span class="attr">"when"</span>: <span class="string">"editorTextFocus &amp;&amp; !editorReadonly"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/30ae8bd0-55e4-11e8-aeef-7d501aa687e4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="隔壁老王">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="隔壁老王">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/30ae8bd0-55e4-11e8-aeef-7d501aa687e4/" itemprop="url">Odin - Inspector and Serializer 使用手札</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T20:58:39+08:00">
+                2018-05-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Unity/" itemprop="url" rel="index">
+                    <span itemprop="name">Unity</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Odin-Inspector-and-Serializer"><a href="#Odin-Inspector-and-Serializer" class="headerlink" title="Odin - Inspector and Serializer"></a>Odin - Inspector and Serializer</h2><p><a href="https://assetstore.unity.com/packages/tools/utilities/odin-inspector-and-serializer-89041" target="_blank" rel="noopener">Odin - Inspector and Serializer</a> 是Unity一个超级好用的编辑器扩展插件.</p>
+<p><img src="http://p09vx6soj.bkt.clouddn.com/0a15170a-a8f1-4343-a0d1-99718c9bee52.jpg" alt="0a15170a-a8f1-4343-a0d1-99718c9bee52"></p>
+<p>如果还没有用过,建议去尝试一下. </p>
+<h2 id="手札"><a href="#手札" class="headerlink" title="手札"></a>手札</h2><h3 id="修改在Inspector中显示的名字"><a href="#修改在Inspector中显示的名字" class="headerlink" title="修改在Inspector中显示的名字"></a>修改在Inspector中显示的名字</h3><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">LabelText(<span class="meta-string">"血量"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> blood;</span><br></pre></td></tr></table></figure>
+<h3 id="如果条件达成则显示"><a href="#如果条件达成则显示" class="headerlink" title="如果条件达成则显示"></a>如果条件达成则显示</h3><p>标签包含 <code>ShowIf,HideIf,EnableIf,DisableIf</code>, 同时支持枚举类型</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">bool</span> isShowBlood;</span><br><span class="line"></span><br><span class="line">[<span class="meta">ShowIf(<span class="meta-string">"isShowBlood"</span>),[LabelText(<span class="meta-string">"血量"</span>)</span>]]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">int</span> blood;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">enum</span> InfoMessageType</span><br><span class="line">&#123;</span><br><span class="line">    None,</span><br><span class="line">    Info,</span><br><span class="line">    Warning,</span><br><span class="line">    Error,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ShowAndHideIfExamples</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">EnumToggleButtons</span>]</span><br><span class="line">    <span class="keyword">public</span> InfoMessageType SomeEnum;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">bool</span> IsToggled;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ShowIf(<span class="meta-string">"SomeEnum"</span>, InfoMessageType.Info)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector3 Info;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ShowIf(<span class="meta-string">"SomeEnum"</span>, InfoMessageType.Warning)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector2 Warning;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ShowIf(<span class="meta-string">"SomeEnum"</span>, InfoMessageType.Error)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector3 Error;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">ShowIf(<span class="meta-string">"IsToggled"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector2 VisibleWhenToggled;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">HideIf(<span class="meta-string">"IsToggled"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> Vector3 HiddenWhenToggled;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -905,940 +1903,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/4242f7f0-1714-11e8-9242-bf2f9719042a/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/4242f7f0-1714-11e8-9242-bf2f9719042a/" itemprop="url">创建 Isometric Tile Mesh用于Unity原生Navigation寻路</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-21T22:34:01+08:00">
-                2018-02-21
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><p>Unity 无论自身的TileMap(2018版本),还是Asset Store中的插件,对于Isometric(斜45度)的地图支持的都不好.几乎都处于不可用的状态中.</p>
-<p>唯一一个不错的且免费的插件是<a href="http://www.seanba.com/tiled2unity" target="_blank" rel="noopener">Tiled2Unity</a></p>
-<p>插件的原理是使用<a href="http://www.mapeditor.org/" target="_blank" rel="noopener">Tiled</a>对地图进行编辑,然后通过该插件导入到Unity中使用. </p>
-<p>其地图导入部分做的很好,Isometric的地图完全没有问题. 但是其引入的是<code>PolygonCollider2D</code>作为物理碰撞.</p>
-<p>对于纯2D的横版游戏完全没有问题.但是如果是俯视的大地图 比如 金庸群侠传,英雄无敌 等等 这种视角的游戏, 如果需要使用原生的寻路系统(NavMeshAgent). 就必须要自己想办法</p>
-<p>其实工具内部可以自己写<code>ICustomTiledImporter</code>实现,然后在Tiled中使用AutoTile,编辑相应的规则.</p>
-<p>最终实现的流程是就是</p>
-<ul>
-<li>编辑AutoTile,使得放置地表时候自动创建Tile Object(粉色的那个,在ObjectLayer).</li>
-<li>自己写<code>ICustomTiledImporter</code>读取相应的Property.然后生成相应的Unity中的GameObject</li>
-</ul>
-<h2 id="我的方案"><a href="#我的方案" class="headerlink" title="我的方案"></a>我的方案</h2><p>使用AutoTile我觉得太麻烦,所以直接写个工具,将Map导出一份Json,读入Json中的Property信息即可以.<br>所以就剩下第二部分逻辑. 在相应的Tile部分生成GameObject用于NavMesh 的 Bake.</p>
-<p>就是在Tiled中创建两个色块Tile(红色,绿色). 红色的色块是不能走的地方,绿色色块是可以走的地方</p>
-<p>在Unity中读取对应的信息,找到红色和绿色色块.在对应的位置放置上红色的Prefab和绿色的Prefab.</p>
-<p>这种两个Prefab就是一个空的3D物品,然后设置成<code>Navigation Static</code>,一个设置为<code>Walkable</code>,一个设置为<code>NotWalkable</code></p>
-<p>然后直接Bake NavMesh即可.</p>
-<p>所以最终的问题 就是如何产生这个 红色或者绿色的Prefab.</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>生成相应的Mesh代码如下.</p>
-<p>我使用了<code>OdinInspector</code>制作界面.如果不是用则自定义CustomEditor放置两个按钮对应<code>MakeTile</code>和<code>SaveTile</code>即可</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Sirenix.OdinInspector;</span><br><span class="line"><span class="keyword">using</span> UnityEditor;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line">[<span class="meta">RequireComponent(typeof(MeshFilter))</span>]</span><br><span class="line">[<span class="meta">RequireComponent(typeof(MeshRenderer))</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MeshTileMaker</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> A = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> B = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> C = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> D = <span class="number">3</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> AP = <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> BP = <span class="number">5</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> CP = <span class="number">6</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">const</span> <span class="keyword">int</span> DP = <span class="number">7</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">float</span> TILE_HEIGH;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">LabelText(<span class="meta-string">"Tile的宽度:"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> TILE_WIDTH = <span class="number">0.64</span>f;</span><br><span class="line">    [<span class="meta">LabelText(<span class="meta-string">"3D模型的高度:"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> CUBE_HEIGH = <span class="number">0.2</span>f;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    [<span class="meta">Button(ButtonSizes.Large)</span>]</span><br><span class="line">    [<span class="meta">ButtonGroup(<span class="meta-string">"Function"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">MakeTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        DoMakeTile();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="meta">GUIColor(0, 1, 0)</span>]</span><br><span class="line">    [<span class="meta">ButtonGroup(<span class="meta-string">"Function"</span>)</span>]</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">SaveTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">string</span> path = EditorUtility.SaveFilePanel(<span class="string">"Save Mesh"</span>, <span class="string">"Assets/"</span>, name, <span class="string">"asset"</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">string</span>.IsNullOrEmpty(path)) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">        path = FileUtil.GetProjectRelativePath(path);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> filter = GetComponent&lt;MeshFilter&gt;();</span><br><span class="line">        <span class="keyword">var</span> meshToSave = filter.mesh;</span><br><span class="line"></span><br><span class="line">        MeshUtility.Optimize(meshToSave);</span><br><span class="line"></span><br><span class="line">        AssetDatabase.CreateAsset(meshToSave, path);</span><br><span class="line">        AssetDatabase.SaveAssets();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">DoMakeTile</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        TILE_HEIGH = TILE_WIDTH / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> HALF_WIDHT = TILE_WIDTH / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">var</span> HALF_HEIGH = TILE_HEIGH / <span class="number">2</span>;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">        <span class="keyword">var</span> vertices = <span class="keyword">new</span> Vector3[<span class="number">8</span>];</span><br><span class="line">        vertices[A] = <span class="keyword">new</span> Vector3(-HALF_WIDHT, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        vertices[B] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, HALF_HEIGH);</span><br><span class="line">        vertices[C] = <span class="keyword">new</span> Vector3(HALF_WIDHT, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">        vertices[D] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, <span class="number">0</span>, -HALF_HEIGH);</span><br><span class="line"></span><br><span class="line">        vertices[AP] = <span class="keyword">new</span> Vector3(-HALF_WIDHT, CUBE_HEIGH, <span class="number">0</span>);</span><br><span class="line">        vertices[BP] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, CUBE_HEIGH, HALF_HEIGH);</span><br><span class="line">        vertices[CP] = <span class="keyword">new</span> Vector3(HALF_WIDHT, CUBE_HEIGH, <span class="number">0</span>);</span><br><span class="line">        vertices[DP] = <span class="keyword">new</span> Vector3(<span class="number">0</span>, CUBE_HEIGH, -HALF_HEIGH);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> triangles = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">12</span> * <span class="number">3</span>];</span><br><span class="line">        <span class="keyword">var</span> startIndex = <span class="number">0</span>;</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, B, A);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, B, D);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, AP, BP, DP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, BP, CP, DP);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, AP, DP, A);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, A, DP, D);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, DP, CP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, D, CP, C);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, B, BP, AP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, B, AP, A);</span><br><span class="line"></span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, CP, BP);</span><br><span class="line">        DoPushTriangles(<span class="keyword">ref</span> triangles, <span class="keyword">ref</span> startIndex, C, BP, B);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> mesh = <span class="keyword">new</span> Mesh &#123;name = <span class="string">"TileMesh"</span>&#125;;</span><br><span class="line">        mesh.vertices = vertices;</span><br><span class="line">        mesh.triangles = triangles;</span><br><span class="line">        GetComponent&lt;MeshFilter&gt;().mesh = mesh;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DoPushTriangles</span>(<span class="params"><span class="keyword">ref</span> <span class="keyword">int</span>[] _triangles, <span class="keyword">ref</span> <span class="keyword">int</span> _startIndex, <span class="keyword">int</span> _A, <span class="keyword">int</span> _B, <span class="keyword">int</span> _C</span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        _triangles[_startIndex] = _A;</span><br><span class="line">        _triangles[_startIndex + <span class="number">1</span>] = _B;</span><br><span class="line">        _triangles[_startIndex + <span class="number">2</span>] = _C;</span><br><span class="line">        _startIndex += <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230512.jpg" alt="QQ20180221-230512"></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230021.jpg" alt="QQ20180221-230021"></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180221-230057.jpg" alt="QQ20180221-230057"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/98516910-f9d2-11e7-9821-d3ed16e6835d/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/98516910-f9d2-11e7-9821-d3ed16e6835d/" itemprop="url">Unity在编辑模式中使用代码更新Prefab并保持引用</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T17:00:55+08:00">
-                2018-01-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>一键将EditMap导出为ReleaseMap. 在编辑场景构建游戏地图,地图数据中绑定了许多只有编辑场景才会用到的数据.比如用于生成NavMesh的Cube,用于场景排序的代码等等.</p>
-<p>希望构建点击一个按钮,对应的导出一份Release版本的地图Prefab数据. 用于游戏场景中使用. 同时再次运行脚本时候,游戏场景中对于该Prefab的引用不会消失</p>
-<p>相当于点击了 Inspector中Prefab的 Apply按钮</p>
-<h2 id="核心代码示例"><a href="#核心代码示例" class="headerlink" title="核心代码示例"></a>核心代码示例</h2><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> void OnClickBtn()</span><br><span class="line"> &#123;</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> <span class="keyword">new</span><span class="type">Go</span> = <span class="keyword">new</span> <span class="type">GameObject</span>();</span><br><span class="line">     <span class="keyword">new</span><span class="type">Go</span>.name = <span class="string">"OutPrefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> sp = <span class="keyword">new</span><span class="type">Go</span>.AddComponent&lt;PrefabOutCode&gt;();</span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> cubeAPath = <span class="string">"Assets/TestGround/NeedLinkPrefab/CubeA.prefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> cubeA = (GameObject) AssetDatabase.LoadAssetAtPath(cubeAPath, typeof(GameObject));</span><br><span class="line"></span><br><span class="line">     sp.linkPrefab = cubeA;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     <span class="keyword">var</span> outPrefabPath = <span class="string">"Assets/TestGround/OutPrefab/OutPrefab.prefab"</span>;</span><br><span class="line">     <span class="keyword">var</span> outPreafb = (GameObject) AssetDatabase.LoadAssetAtPath(outPrefabPath, typeof(GameObject));</span><br><span class="line"></span><br><span class="line">     PrefabUtility.ReplacePrefab(<span class="keyword">new</span><span class="type">Go</span>, outPreafb, ReplacePrefabOptions.ReplaceNameBased);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">     DestroyImmediate(<span class="keyword">new</span><span class="type">Go</span>);</span><br><span class="line"></span><br><span class="line">     Debug.Log(<span class="string">"DONE"</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>目录结构:</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180115-171117.jpg" alt="QQ20180115-171117"></p>
-<p><code>AssetDatabase.LoadAssetAtPath</code> 可以加载到目录中的Prefab</p>
-<p><code>sp.linkPrefab = cubeA</code> 将Preafb Link到GameObject中来. 比如新生成的GameObject有个public 变量<br>需要Link 一个AudioClip. (就是替代原来的 用鼠标将Prefab拖拽到Inspector中的操作)</p>
-<p><code>PrefabUtility.ReplacePrefab(newGo, outPreafb, ReplacePrefabOptions.ReplaceNameBased)</code></p>
-<p>使用<code>ReplacePrefabOptions.ReplaceNameBased</code>这种方式,可以在保证原有Preafb引用不丢失的情况下替换.</p>
-<p>默认的<code>Default</code>模式会全部替换,但是引用丢失.</p>
-<p>使用<code>ConnectToPrefab</code>会在原有的基础上增加东西,引用不会丢失</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/d8549fe0-f91a-11e7-8661-1f20a751e9e4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/d8549fe0-f91a-11e7-8661-1f20a751e9e4/" itemprop="url">Unity动态加载NavMesh</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-14T19:05:35+08:00">
-                2018-01-14
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://media.giphy.com/media/3h3z1dXjhq1RyDUvDq/giphy.gif" alt="QQ20180114-190238-HD"></p>
-<p>新版本的Unity可以将NavMeshData存成一个Prefab,在任意场景(即使不是同一个项目).动态的加载进来.或者在编辑模式加载均可.</p>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><p>手先从Github上面Check下来适合自己IDE的插件: <a href="https://github.com/Unity-Technologies/NavMeshComponents" target="_blank" rel="noopener">地址</a></p>
-<p>使用其内置的<code>NavMeshSurface</code>配合其他的Component生成对应的NavMeshData.</p>
-<p>注意:不要使用<code>Navigation</code>标签下的Bake按钮生成NavMesh. 该标签下生成的NavMesh是旧版本,只能用于生成的场景.</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180114-191550.jpg" alt="QQ20180114-191550"></p>
-<p>生成的NavMesh会在场景所在的层级下面同名文件夹内</p>
-<p>名字为<code>NavMesh-</code> + GameObject的名字</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20180114-191649.jpg" alt="QQ20180114-191649"></p>
-<h2 id="加载代码"><a href="#加载代码" class="headerlink" title="加载代码"></a>加载代码</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AddNavMeshOnStart</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NavMeshData navMeshData;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> NavMeshDataInstance mInstance;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Start</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (navMeshData != <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            mInstance = NavMesh.AddNavMeshData(navMeshData, transform.position, transform.rotation);</span><br><span class="line">            Debug.Log(<span class="string">"Add nav mesh data"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>核心代码就是<code>NavMesh.AddNavMeshData(xxxx)</code>. 如果是想Runtime加载,就放在Start里面.如果是想编辑模式就加载则可以加入<code>[ExecuteInEditMode]</code>标签.然后onEnable时候调用.</p>
-<p>注意: 在编辑模式下加载则使用<code>Navigation</code>标签下的Clean是无法清除已经加载的NavMesh的<br>需要自己写代码使用<code>NavMesh.RemoveNavMeshData(xxxx);</code>手动清楚掉</p>
-<h2 id="用处"><a href="#用处" class="headerlink" title="用处"></a>用处</h2><p>对我个人而言,新版的NavMesh 主要用于 编辑场景和游戏场景分开. 在编辑场景中制作地图,地图中会绑定许多为了做NavMesh而加入的Object. </p>
-<p>基于原来的NavMesh系统</p>
-<p>一种方案是 编辑结束后,复制整个场景删除无用的GameObject,把当前场景作为游戏场景.<br>另一种方案就是 在场景上绑定清理代码. 在Play的第一帧清除掉无用的GameObject.</p>
-<p>第一种方案麻烦的地方在于场景的反复编辑,每次都要执行复制删除.第二种方案在于刚开始Play时候要删GameObject,使得初始化时候会卡.</p>
-<p>新的NavMesh可以完美解决这个问题.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/6c4bc820-eb7b-11e7-8403-29e39698c0c1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/6c4bc820-eb7b-11e7-8403-29e39698c0c1/" itemprop="url">Math 向量基于某一坐标轴旋转固定角度</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-28T11:01:38+08:00">
-                2017-12-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h2><p><img src="https://media.giphy.com/media/fCTqTWJSMvwVJllgBY/giphy.gif" alt="QQ20171228-105907-HD"></p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">TestCode</span> : <span class="title">MonoBehaviour</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Transform target;</span><br><span class="line">    <span class="keyword">public</span> Transform chaser;</span><br><span class="line">    <span class="keyword">public</span> GameObject destination;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">Update</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> dir = (target.position - chaser.position).normalized;</span><br><span class="line">        <span class="keyword">var</span> fleeDir = Quaternion.AngleAxis(<span class="number">10</span>f, Vector3.up) * dir;</span><br><span class="line">        <span class="keyword">var</span> desPosLocal = fleeDir * <span class="number">3</span>f;</span><br><span class="line">        destination.transform.position = target.transform.TransformPoint(desPosLocal);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//画Flee方向</span></span><br><span class="line">        Debug.DrawRay(target.position, dir * <span class="number">3</span>f, Color.green);</span><br><span class="line"></span><br><span class="line">        Debug.DrawRay(target.position, fleeDir * <span class="number">3</span>f, Color.red);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>dir首先取得的是逃离的方向(目标的局部坐标系)</p>
-<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">旋转后向量 </span>=<span class="string"> Quaternion.AngleAxis(旋转角度, 坐标轴) * 原向量</span></span><br></pre></td></tr></table></figure>
-<p>该公式可以把某一个向量基于某一个坐标轴旋转指定的角度(欧拉角)</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">target</span><span class="selector-class">.transform</span><span class="selector-class">.TransformPoint</span>(<span class="selector-tag">desPosLocal</span>);</span><br></pre></td></tr></table></figure>
-<p>将局部坐标转换为世界坐标</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/dce56270-e88e-11e7-9d4a-778b0cc8b129/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/dce56270-e88e-11e7-9d4a-778b0cc8b129/" itemprop="url">BehaviorDesigner LowerPriority Bug及解决方案</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T17:43:14+08:00">
-                2017-12-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>这个问题到底是不是一个Bug还不好说,因为是非正规渠道获取的插件,所以没法去论坛提问.我给Support去了一封邮件,不过目前还没有得到答案.</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171224-173639.jpg" alt="QQ20171224-173639"></p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RunAfterTwoSecond</span> : <span class="type">Conditional</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> TaskStatus OnUpdate()</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (!(Time.time &gt; <span class="number">2</span>f)) <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">        Debug.Log(<span class="string">"RunAfterTwoSecond check is TRUE, should run next task"</span>);</span><br><span class="line">        <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如图所示. 逻辑首先会执行<code>TreeB</code>,然后2秒以后.<code>TreeA</code>的判断逻辑会触发成功(因为设置了LowerPriority)</p>
-<p>此时会执行一遍<code>TreeA</code>,因为最终结果有<code>Return Failure</code>的装饰.所以又会执行<code>TreeB</code></p>
-<p>此时<code>TreeA</code>的条件会一直触发返回<code>TRUE</code>,但是<code>TreeA</code>不会再次运行.</p>
-<p>这个Bug触发的条件有两个,一个是<code>RunAfterTwoSecond</code>在2秒以后恒定返回<code>TRUE</code>,且后续逻辑执行导致整个<code>Tree</code>返回了<code>Failure</code>.</p>
-<p>第二个条件是,后续的条件逻辑返回的是<code>TaskRunning</code>. 所以导致整个<code>Selector</code>逻辑卡死在同一个loop中.</p>
-<p>暂时绕开的解决方案如图:</p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171224-173552.jpg" alt="QQ20171224-173552"></p>
-<p>每个有<code>LowerPriority</code>判断的子树,除了需要不停做判断的<code>Conditional</code>以外全部都设置到一个永远返回<code>Success</code>的Deco下面</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.oldking.wang/19753c20-e23f-11e7-869e-21b0f4c1ad88/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="隔壁老王">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="隔壁老王">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/19753c20-e23f-11e7-869e-21b0f4c1ad88/" itemprop="url">Unity外置ExternalBehavior</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-16T16:57:09+08:00">
-                2017-12-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Unity/" itemprop="url" rel="index">
-                    <span itemprop="name">Unity</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="为何要外置"><a href="#为何要外置" class="headerlink" title="为何要外置"></a>为何要外置</h2><p><code>Behavior Designer</code>是Unity的一个插件,我用与处理AI逻辑.当AI逻辑很复杂的情况下会使用到<code>ExternalBehavior</code>.</p>
-<p><code>ExternalBehavior</code>相当于是<code>BehaviorTree</code>的嵌套. 但是对于多重嵌套情况 他自带的Task支持的并不好.</p>
-<p>比如:</p>
-<p>一个角色AI,最外层的逻辑可能为<code>发呆</code>,<code>觅食</code>,<code>巡逻</code>等等.</p>
-<p><code>觅食</code>和<code>巡逻</code>是两个<code>ExternalBehavior</code>,里面的实现又会用到另外的两个<code>ExternalBehavior</code>,比如<code>移动</code>,<code>攻击</code></p>
-<p>这时候我们有两个角色,<code>角色A</code>,<code>角色B</code>. AB两个角色其<code>移动</code>,<code>攻击</code>使用不同的<code>ExternalBehavior</code></p>
-<p><code>A-Move</code>,<code>A-Attack</code>,<code>B-Move</code>,<code>B-Attack</code></p>
-<p>由于嵌套最里层的<code>ExternalBehavior</code>不同,所以导致上层的<code>觅食</code>,<code>巡逻</code> 也需要有两个. </p>
-<p><code>角色A-觅食</code>,<code>角色A-巡逻</code><br><code>角色B-觅食</code>,<code>角色B-巡逻</code></p>
-<p>这样如果当AI非常复杂,嵌套层级又多.维护起来非常麻烦.</p>
-<h2 id="改进方法"><a href="#改进方法" class="headerlink" title="改进方法"></a>改进方法</h2><p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-171241.jpg" alt="QQ20171216-171241"></p>
-<p>将对应的<code>ExternalBehavior</code>提到外层的<code>Variables</code>变量中来,利用<code>ExternalBehavior</code>和主的<code>Behavior</code>如果变量名相同则自动Override的特性.将所有的<code>ExternalBehavior</code>放出来.只要保证编写每个<code>ExternalBehavior</code>时候,使用相同的变量名,则自动替换所有的.</p>
-<p>还是上面的例子. 建立<code>Variables</code></p>
-<ul>
-<li>LowLevelAI_Move</li>
-<li>LowLevelAI_Attack</li>
-<li>HightLevelAI_Eat</li>
-<li>HightLevelAI_Patrol</li>
-</ul>
-<p>这样对于角色A和角色B,Eat和Patrol可以使用同一个<code>ExternalBehavior</code>,只是<code>Move</code>和<code>Attack</code>分别使用不同的.</p>
-<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><p>CEExternalBehaviorTree.cs</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 自定义ExternalBehavior</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 使用SharedExternalTree做参数,该参数可以在BD Root处进行设置.这样就可以在外部配置相应的需要Override的BD</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">[<span class="meta">TaskIcon(<span class="meta-string">"BehaviorTreeReferenceIcon.png"</span>)</span>]</span><br><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEExternalBehaviorTree</span> : <span class="title">BehaviorReference</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> CESharedExternalTree externalTree;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> BehaviorDesigner.Runtime.<span class="function">ExternalBehavior[] <span class="title">GetExternalBehaviors</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (externalTree.Value != <span class="literal">null</span>) <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;externalTree.Value&#125;;</span><br><span class="line">        <span class="keyword">var</span> dummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span>[] &#123;dummy&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>CESharedExternalTree.cs</p>
-<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> CESharedExternalTree : SharedVariable&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> static <span class="keyword">implicit</span> operator CESharedExternalTree(BehaviorDesigner.Runtime.ExternalBehavior <span class="keyword">value</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> new CESharedExternalTree &#123;<span class="keyword">Value</span> = <span class="keyword">value</span>&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>CEIsExternalTreeNotNull.cs</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">[<span class="meta">TaskCategory(<span class="meta-string">"CopyEngine"</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CEIsExternalTreeNotNull</span> : <span class="title">Conditional</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> CESharedExternalTree tree;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">private</span> BehaviorDesigner.Runtime.ExternalBehavior mDummy;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnAwake</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            mDummy = CopyEngineFacade.RES.GetRes&lt;BehaviorDesigner.Runtime.ExternalBehavior&gt;(<span class="string">"BD/Dummy"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> TaskStatus <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">        </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (tree.Value == <span class="literal">null</span> || tree.Value == mDummy)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> TaskStatus.Failure;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> TaskStatus.Success;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>同时需要在<code>Resources/BD</code>目录下放置一个<code>Dummy</code>的<code>ExternalBehavior</code></p>
-<p><img src="http://p09vx6soj.bkt.clouddn.com/QQ20171216-172214.jpg" alt="QQ20171216-172214"></p>
-<p>这么做的操作是为了做判空,因为如果<code>ExternalBehavior</code>默认为空则运行时候就会报错. 而做判空是为了更方便做扩展.</p>
-<p>还是刚才的例子,如果角色A和角色B的<code>Move</code>,<code>Attack</code>不同点 一个在于是走,一个是跑,一个是近战攻击,一个是远程攻击.</p>
-<p>那就是可以建立一个CommonAI,其变量为:</p>
-<ul>
-<li>LowLevelAI_Walk</li>
-<li>LowLevelAI_Run</li>
-<li>LowLevelAI_CloseAttack</li>
-<li>LowLevelAI_RangeAttack</li>
-<li>HightLevelAI_Eat</li>
-<li>HightLevelAI_Patrol</li>
-</ul>
-<p>这样角色A和角色B可以用同一个<code>BehaviorTree</code>,只是实现不同的行为,没有的默认留空. 内部逻辑通过<code>CEIsExternalTreeNotNull</code>进行判断,从而选择不同的实现方式.</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1889,7 +1953,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1911,7 +1975,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
