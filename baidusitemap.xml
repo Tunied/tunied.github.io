@@ -4,6 +4,27 @@
 
     
   <url>
+    <loc>http://www.oldking.wang/61588e30-e1d4-11e8-9630-f374d19f8749/</loc>
+    <lastmod>2018-11-06T15:53:05.000Z</lastmod>
+    <data>
+        <display>
+        <title>Unity Shader Bitwise Float</title>
+        <pubTime>2018-11-06T14:58:11.000Z</pubTime>
+        
+        <tag>Shader</tag>
+         
+        <tag>Texture</tag>
+         
+        <tag>Terrain</tag>
+         
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://www.oldking.wang/c0f2bc60-dfdd-11e8-8fdc-4de39fa72006/</loc>
     <lastmod>2018-11-05T07:29:52.000Z</lastmod>
     <data>
@@ -1008,14 +1029,14 @@
 
     
   <url>
-    <loc>http://www.oldking.wang/00e482d0-3558-11e8-bda2-bf71a18d2be3/</loc>
+    <loc>http://www.oldking.wang/7fe419b0-3657-11e8-b4e4-cb31989e149f/</loc>
     <lastmod>2018-04-09T16:21:19.000Z</lastmod>
     <data>
         <display>
-        <title>Unity新版AssetBundles使用手札</title>
-        <pubTime>2018-04-01T02:54:32.000Z</pubTime>
+        <title>Unity中使用JsonObject插件动态序列与反序列化对象</title>
+        <pubTime>2018-04-02T09:23:27.000Z</pubTime>
         
-        <tag>AssetBundles</tag>
+        <tag>Json</tag>
          
          
            
@@ -1028,14 +1049,14 @@
 
     
   <url>
-    <loc>http://www.oldking.wang/7fe419b0-3657-11e8-b4e4-cb31989e149f/</loc>
+    <loc>http://www.oldking.wang/00e482d0-3558-11e8-bda2-bf71a18d2be3/</loc>
     <lastmod>2018-04-09T16:21:19.000Z</lastmod>
     <data>
         <display>
-        <title>Unity中使用JsonObject插件动态序列与反序列化对象</title>
-        <pubTime>2018-04-02T09:23:27.000Z</pubTime>
+        <title>Unity新版AssetBundles使用手札</title>
+        <pubTime>2018-04-01T02:54:32.000Z</pubTime>
         
-        <tag>Json</tag>
+        <tag>AssetBundles</tag>
          
          
            
