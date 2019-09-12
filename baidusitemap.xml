@@ -4,12 +4,27 @@
 
     
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
-    <lastmod>2019-08-16T22:06:02.398Z</lastmod>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
+    <lastmod>2019-09-12T10:22:11.153Z</lastmod>
     <data>
         <display>
-        <title>游戏下载 & 更新日志</title>
-        <pubTime>2019-05-04T16:00:02.000Z</pubTime>
+        <title>购买 畅玩版</title>
+        <pubTime>2019-05-04T16:00:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
+    <lastmod>2019-09-12T10:05:12.894Z</lastmod>
+    <data>
+        <display>
+        <title>联系我们</title>
+        <pubTime>2019-05-04T16:00:03.000Z</pubTime>
         
          
            
@@ -20,11 +35,11 @@
     
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/not_support_cpu/</loc>
-    <lastmod>2019-07-20T19:05:51.176Z</lastmod>
+    <lastmod>2019-09-12T07:00:30.791Z</lastmod>
     <data>
         <display>
         <title>暂不支持CPU和设备列表</title>
-        <pubTime>2019-07-20T18:42:14.000Z</pubTime>
+        <pubTime>2019-05-04T16:00:04.000Z</pubTime>
         
          
            
@@ -35,11 +50,26 @@
     
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/defense_introduce/</loc>
-    <lastmod>2019-06-25T23:14:16.000Z</lastmod>
+    <lastmod>2019-09-12T07:00:20.538Z</lastmod>
     <data>
         <display>
         <title>边境军团 防守玩法说明</title>
-        <pubTime>2019-05-05T13:12:01.000Z</pubTime>
+        <pubTime>2019-05-04T16:00:01.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
+    <lastmod>2019-08-16T22:06:02.398Z</lastmod>
+    <data>
+        <display>
+        <title>游戏下载 & 更新日志</title>
+        <pubTime>2019-05-04T16:00:02.000Z</pubTime>
         
          
            
