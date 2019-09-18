@@ -5,11 +5,26 @@
     
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
-    <lastmod>2019-09-18T17:36:38.052Z</lastmod>
+    <lastmod>2019-09-18T21:33:38.106Z</lastmod>
     <data>
         <display>
         <title>购买 畅玩版</title>
         <pubTime>2019-05-04T16:00:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
+    <lastmod>2019-09-18T21:32:39.419Z</lastmod>
+    <data>
+        <display>
+        <title>游戏下载 & 更新日志</title>
+        <pubTime>2019-05-04T16:00:02.000Z</pubTime>
         
          
            
@@ -70,21 +85,6 @@
         <display>
         <title>边境军团 防守玩法说明</title>
         <pubTime>2019-05-04T16:00:01.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
-    <lastmod>2019-08-16T22:06:02.398Z</lastmod>
-    <data>
-        <display>
-        <title>游戏下载 & 更新日志</title>
-        <pubTime>2019-05-04T16:00:02.000Z</pubTime>
         
          
            
