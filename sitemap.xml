@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
+    
+    <lastmod>2019-09-20T03:36:47.336Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
     
-    <lastmod>2019-09-19T08:46:41.186Z</lastmod>
+    <lastmod>2019-09-20T03:36:42.173Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
     
-    <lastmod>2019-09-19T05:57:06.719Z</lastmod>
+    <lastmod>2019-09-20T03:36:06.135Z</lastmod>
     
   </url>
   
@@ -19,13 +26,6 @@
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/thanks/</loc>
     
     <lastmod>2019-09-17T10:39:12.156Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
-    
-    <lastmod>2019-09-12T21:35:16.858Z</lastmod>
     
   </url>
   
