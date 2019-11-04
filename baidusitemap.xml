@@ -4,6 +4,36 @@
 
     
   <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
+    <lastmod>2019-11-04T02:52:06.143Z</lastmod>
+    <data>
+        <display>
+        <title>游戏下载 & 更新日志</title>
+        <pubTime>2019-05-04T16:00:02.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
+    <lastmod>2019-11-04T02:50:55.858Z</lastmod>
+    <data>
+        <display>
+        <title>购买 畅玩版</title>
+        <pubTime>2019-05-04T16:00:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/up/</loc>
     <lastmod>2019-11-03T05:00:52.836Z</lastmod>
     <data>
@@ -18,36 +48,6 @@
     </url>
 
     
-    
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
-    <lastmod>2019-10-30T02:12:06.602Z</lastmod>
-    <data>
-        <display>
-        <title>购买 畅玩版</title>
-        <pubTime>2019-05-04T16:00:03.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
-    <lastmod>2019-10-30T02:11:19.747Z</lastmod>
-    <data>
-        <display>
-        <title>游戏下载 & 更新日志</title>
-        <pubTime>2019-05-04T16:00:02.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
     
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/thanks/</loc>
