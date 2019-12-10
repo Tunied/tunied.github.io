@@ -5,11 +5,26 @@
     
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
-    <lastmod>2019-12-10T08:42:11.762Z</lastmod>
+    <lastmod>2019-12-10T10:42:30.134Z</lastmod>
     <data>
         <display>
         <title>游戏下载 & 更新日志</title>
         <pubTime>2019-05-04T16:00:02.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
+    <lastmod>2019-12-10T10:40:32.020Z</lastmod>
+    <data>
+        <display>
+        <title>购买 畅玩版</title>
+        <pubTime>2019-05-04T16:00:03.000Z</pubTime>
         
          
            
@@ -25,21 +40,6 @@
         <display>
         <title>随机地图暂时不完善的地方</title>
         <pubTime>2019-05-04T16:00:04.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
-    <lastmod>2019-12-07T10:17:06.642Z</lastmod>
-    <data>
-        <display>
-        <title>购买 畅玩版</title>
-        <pubTime>2019-05-04T16:00:03.000Z</pubTime>
         
          
            
