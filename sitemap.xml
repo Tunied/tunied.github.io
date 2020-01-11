@@ -2,37 +2,72 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/ios/</loc>
     
-    <lastmod>2020-01-09T11:35:48.588Z</lastmod>
+    <lastmod>2020-01-11T10:14:26.145Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
     
-    <lastmod>2020-01-09T11:33:56.612Z</lastmod>
+    <lastmod>2020-01-11T09:31:20.877Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/bug_random/</loc>
     
-    <lastmod>2019-12-10T08:40:54.401Z</lastmod>
+    <lastmod>2020-01-11T09:20:50.208Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/not_support_cpu/</loc>
+    
+    <lastmod>2020-01-11T09:20:44.625Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/buyfail/</loc>
     
-    <lastmod>2019-11-08T08:55:24.612Z</lastmod>
+    <lastmod>2020-01-11T09:20:39.587Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
+    
+    <lastmod>2020-01-11T09:20:33.929Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
+    
+    <lastmod>2020-01-11T09:20:28.915Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/thanks/</loc>
+    
+    <lastmod>2020-01-11T09:20:24.067Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/up/</loc>
     
-    <lastmod>2019-11-03T05:00:52.836Z</lastmod>
+    <lastmod>2020-01-11T09:20:20.355Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/defense_introduce/</loc>
+    
+    <lastmod>2020-01-11T09:20:16.644Z</lastmod>
     
   </url>
   
@@ -40,34 +75,6 @@
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/video.json</loc>
     
     <lastmod>2019-11-02T10:34:05.647Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/thanks/</loc>
-    
-    <lastmod>2019-10-17T18:47:11.029Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
-    
-    <lastmod>2019-10-17T18:46:34.852Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/not_support_cpu/</loc>
-    
-    <lastmod>2019-09-12T07:00:30.791Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/defense_introduce/</loc>
-    
-    <lastmod>2019-09-12T07:00:20.538Z</lastmod>
     
   </url>
   
