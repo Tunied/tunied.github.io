@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/bug_random/</loc>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
     
-    <lastmod>2020-01-28T15:32:03.286Z</lastmod>
+    <lastmod>2020-01-29T06:25:26.878Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
     
-    <lastmod>2020-01-28T15:24:03.309Z</lastmod>
+    <lastmod>2020-01-29T06:24:14.741Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/bug_random/</loc>
+    
+    <lastmod>2020-01-28T15:32:03.286Z</lastmod>
     
   </url>
   
@@ -40,13 +47,6 @@
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/buyfail/</loc>
     
     <lastmod>2020-01-11T09:20:39.587Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
-    
-    <lastmod>2020-01-11T09:20:28.915Z</lastmod>
     
   </url>
   
