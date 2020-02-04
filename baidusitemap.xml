@@ -4,8 +4,68 @@
 
     
   <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
+    <lastmod>2020-02-04T09:28:57.780Z</lastmod>
+    <data>
+        <display>
+        <title>购买 畅玩版</title>
+        <pubTime>2019-05-08T16:00:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
+    <lastmod>2020-02-04T09:26:03.759Z</lastmod>
+    <data>
+        <display>
+        <title>联系我们</title>
+        <pubTime>2019-04-30T16:00:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
+    <lastmod>2020-02-04T09:25:05.722Z</lastmod>
+    <data>
+        <display>
+        <title>游戏下载 & 更新日志</title>
+        <pubTime>2019-05-09T16:00:02.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/faq/</loc>
+    <lastmod>2020-02-04T09:24:20.717Z</lastmod>
+    <data>
+        <display>
+        <title>FAQ</title>
+        <pubTime>2019-04-30T16:00:04.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/dev/</loc>
-    <lastmod>2020-02-01T10:05:47.417Z</lastmod>
+    <lastmod>2020-02-04T09:20:40.079Z</lastmod>
     <data>
         <display>
         <title>开发版更新日志</title>
@@ -19,12 +79,12 @@
 
     
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
-    <lastmod>2020-01-30T07:49:37.162Z</lastmod>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/thanks/</loc>
+    <lastmod>2020-02-04T09:20:40.074Z</lastmod>
     <data>
         <display>
-        <title>购买 畅玩版</title>
-        <pubTime>2019-05-08T16:00:03.000Z</pubTime>
+        <title>特别鸣谢</title>
+        <pubTime>2019-04-30T16:00:03.000Z</pubTime>
         
          
            
@@ -49,42 +109,12 @@
 
     
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
-    <lastmod>2020-01-29T06:24:14.741Z</lastmod>
-    <data>
-        <display>
-        <title>联系我们</title>
-        <pubTime>2019-04-30T16:00:03.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/bug_random/</loc>
     <lastmod>2020-01-28T15:32:03.286Z</lastmod>
     <data>
         <display>
         <title>随机地图暂时不完善的地方</title>
         <pubTime>2019-04-30T16:00:04.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
-    <lastmod>2020-01-28T15:23:34.848Z</lastmod>
-    <data>
-        <display>
-        <title>游戏下载 & 更新日志</title>
-        <pubTime>2019-05-09T16:00:02.000Z</pubTime>
         
          
            
@@ -115,21 +145,6 @@
         <display>
         <title>暂不支持CPU和设备列表</title>
         <pubTime>2019-04-30T16:00:04.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/thanks/</loc>
-    <lastmod>2020-01-11T09:20:24.067Z</lastmod>
-    <data>
-        <display>
-        <title>特别鸣谢</title>
-        <pubTime>2019-04-30T16:00:03.000Z</pubTime>
         
          
            
