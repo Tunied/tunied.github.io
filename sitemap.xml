@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
-    
-    <lastmod>2020-02-13T16:11:21.239Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
     
-    <lastmod>2020-02-13T16:11:04.847Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
-    
-    <lastmod>2020-02-04T09:26:03.759Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/faq/</loc>
-    
-    <lastmod>2020-02-04T09:24:20.717Z</lastmod>
+    <lastmod>2020-02-19T07:28:13.708Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/dev/</loc>
     
-    <lastmod>2020-02-04T09:20:40.079Z</lastmod>
+    <lastmod>2020-02-19T07:27:50.314Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/contact/</loc>
+    
+    <lastmod>2020-02-19T07:27:22.666Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
+    
+    <lastmod>2020-02-19T07:27:06.146Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/faq/</loc>
+    
+    <lastmod>2020-02-19T07:26:35.201Z</lastmod>
     
   </url>
   
