@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/update/</loc>
-    <lastmod>2020-04-07T07:50:14.037Z</lastmod>
+    <lastmod>2020-07-04T09:46:13.639Z</lastmod>
     <data>
         <display>
         <title>游戏下载 & 更新日志</title>
@@ -20,11 +20,56 @@
     
   <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/cdkey/</loc>
-    <lastmod>2020-04-07T07:47:20.929Z</lastmod>
+    <lastmod>2020-07-04T09:44:39.544Z</lastmod>
     <data>
         <display>
         <title>购买 畅玩版</title>
         <pubTime>2019-05-08T16:00:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/dev/</loc>
+    <lastmod>2020-07-03T09:14:09.314Z</lastmod>
+    <data>
+        <display>
+        <title>开发版更新日志</title>
+        <pubTime>2019-04-30T16:00:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/buyfail/</loc>
+    <lastmod>2020-06-30T10:09:14.174Z</lastmod>
+    <data>
+        <display>
+        <title>激活码付款后没收到怎么办</title>
+        <pubTime>2019-05-07T16:00:03.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/vs_guid/</loc>
+    <lastmod>2020-06-10T05:58:51.218Z</lastmod>
+    <data>
+        <display>
+        <title>可视化脚本入门</title>
+        <pubTime>2019-04-30T16:00:03.000Z</pubTime>
         
          
            
@@ -79,42 +124,12 @@
 
     
   <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/dev/</loc>
-    <lastmod>2020-02-21T15:08:24.000Z</lastmod>
-    <data>
-        <display>
-        <title>开发版更新日志</title>
-        <pubTime>2019-04-30T16:00:03.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/thanks/</loc>
     <lastmod>2020-02-04T09:20:40.000Z</lastmod>
     <data>
         <display>
         <title>特别鸣谢</title>
         <pubTime>2019-04-30T16:00:03.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://%E9%B8%B5%E9%B8%9F%E5%B7%A5%E4%BD%9C%E5%AE%A4.fun/buyfail/</loc>
-    <lastmod>2020-01-30T07:46:02.000Z</lastmod>
-    <data>
-        <display>
-        <title>激活码付款后没收到怎么办</title>
-        <pubTime>2019-05-07T16:00:03.000Z</pubTime>
         
          
            
